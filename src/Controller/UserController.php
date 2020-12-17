@@ -68,7 +68,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/users/modify-user/{id}", name="modify_user", methods={"PUT"})
+     * @Route("/users/modify/{id}", name="modify_user", methods={"PUT"})
      */
     public function modifyUser($id, UserRepository $repo, Request $request)
     {
@@ -83,7 +83,20 @@ class UserController extends AbstractController
         $em->persist($user);
         $em->flush();
 
-        //dd($user);
+        return new Response('', Response::HTTP_CREATED);
+    }
+
+    /**
+     * @Route("/users/delete/{id}", name="delete_user", methods={"DELETE"})
+     */
+    public function deleteUser($id, UserRepository $repo)
+    {
+        $user = $repo->find($id);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($user);
+        $em->flush();
+
         return new Response('', Response::HTTP_CREATED);
     }
 }
