@@ -2,32 +2,32 @@
 
 namespace App\Controller;
 
-use App\Repository\UserRepository;
+use App\Repository\ClientRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class UserController extends AbstractController
+class ClientController extends AbstractController
 {
     /**
-     * @Route("/user", name="user")
+     * @Route("/client", name="client")
      */
     public function index(): Response
     {
         return $this->json([
             'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/UserController.php',
+            'path' => 'src/Controller/ClientController.php',
         ]);
     }
 
-     /**
-     * @Route("/all-users", name="see_all_users")
+    /**
+     * @Route("/all-clients", name="see_all_clients")
      */
-    public function seeUsers(UserRepository $repo)
+    public function seeClients(ClientRepository $repo)
     {
-        $users = $repo->findAll();
+        $clients = $repo->findAll();
 
-        $data = $this->get('serializer')->serialize($users, 'json');
+        $data = $this->get('serializer')->serialize($clients, 'json');
 
         $response = new Response($data);
         $response->headers->set('Content-Type', 'application/json');
@@ -36,13 +36,13 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/users/{id}", name="see_one_user")
+     * @Route("/clients/{id}", name="see_one_client")
      */
-    public function seeUser($id, UserRepository $repo)
+    public function seeClient($id, ClientRepository $repo)
     {
-        $user = $repo->find($id);
+        $client = $repo->find($id);
 
-        $data = $this->get('serializer')->serialize($user, 'json');
+        $data = $this->get('serializer')->serialize($client, 'json');
 
         $response = new Response($data);
         $response->headers->set('Content-Type', 'application/json');
