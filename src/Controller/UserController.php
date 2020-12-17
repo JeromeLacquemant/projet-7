@@ -52,7 +52,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/users", name="add_user", methods={"POST"})
+     * @Route("/users/add-new-user", name="add_user", methods={"POST"})
      */
     public function addUser(Request $request)
     {
@@ -64,6 +64,26 @@ class UserController extends AbstractController
         $em->persist($user);
         $em->flush();
 
+        return new Response('', Response::HTTP_CREATED);
+    }
+
+    /**
+     * @Route("/users/modify-user/{id}", name="modify_user", methods={"PUT"})
+     */
+    public function modifyUser($id, UserRepository $repo, Request $request)
+    {
+        $user = $repo->find($id);
+
+        $user
+            ->setUsername("Francis")
+            ->setPassword("passwordtest")
+            ->setEmail("fake@email.com");
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+
+        //dd($user);
         return new Response('', Response::HTTP_CREATED);
     }
 }
