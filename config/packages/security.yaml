@@ -1,12 +1,13 @@
 security:
     encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
+        App\Entity\Client:
+            algorithm: bcrypt
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        our_provider:
-            memory:
-                users:
-                    user: { password: 'test', roles: [ 'ROLE_USER' ] }
+        client_provider:
+            entity:
+                class: App\Entity\Client
+                property: username
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
