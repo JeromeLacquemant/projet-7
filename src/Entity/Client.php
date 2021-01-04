@@ -4,11 +4,12 @@ namespace App\Entity;
 
 use App\Repository\ClientRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=ClientRepository::class)
  */
-class Client
+class Client implements UserInterface
 {
     /**
      * @ORM\Id
@@ -71,5 +72,19 @@ class Client
         $this->email = $email;
 
         return $this;
+    }
+
+    public function getRoles()
+    {
+        return ['ROLE_CLIENT'];
+    }
+
+    public function getSalt()
+    {
+        return;
+    }
+
+    public function eraseCredentials()
+    {
     }
 }
