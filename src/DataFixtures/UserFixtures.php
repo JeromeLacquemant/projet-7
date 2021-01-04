@@ -19,21 +19,21 @@ class UserFixtures extends Fixture
         $user = new User();
         $user
             ->setUsername("Username n°1")
-            ->setPassword(password_hash('12345', PASSWORD_BCRYPT))
+            ->setPassword('12345')
             ->setEmail("username1@gmail.com");
         $manager->persist($user);
 
         $user = new User();
         $user
             ->setUsername("Username n°2")
-            ->setPassword(password_hash('34521', PASSWORD_BCRYPT))
+            ->setPassword('34521')
             ->setEmail("username2@gmail.com");
         $manager->persist($user);
 
         $user = new User();
         $user
             ->setUsername("Username n°3")
-            ->setPassword(password_hash('54321', PASSWORD_BCRYPT))
+            ->setPassword('54321')
             ->setEmail("username3@gmail.com");
         $manager->persist($user);
 
