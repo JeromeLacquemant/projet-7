@@ -32,6 +32,7 @@ class User
      */
     private $email;
 
+
     public function getId(): ?int
     {
         return $this->id;
@@ -39,7 +40,7 @@ class User
 
     public function getUsername(): ?string
     {
-        return $this->username;
+        return $this->email;
     }
 
     public function setUsername(string $username): self
