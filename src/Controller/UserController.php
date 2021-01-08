@@ -2,38 +2,46 @@
 
 namespace App\Controller;
 
+use App\Services\LoaderInterface;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\SerializerInterface;
 
-class UserController extends AbstractController
+class UserController
 {
+    private $loader;
+    private $serializer;
+    private $userRepository;
+
+    public function __construct(UserRepository $userRepository, LoaderInterface $loader, SerializerInterface $serializer) {
+        $this->loader = $loader;
+        $this->serializer = $serializer;
+        $this->userRepository = $userRepository;
+    }
+
     /**
      * @Route("/user", name="user")
+     * @param LoaderInterface $loader
+     * 
+     * @return Response
      */
-    public function index(): Response
+    public function index()
     {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/UserController.php',
-        ]);
+        return new JsonResponse($this->loader->log());
     }
 
      /**
      * @Route("/all-users", name="see_all_users")
      */
-    public function seeUsers(UserRepository $repo)
+    public function seeUsers()
     {
-        $users = $repo->findAll();
-
-        $data = $this->get('serializer')->serialize($users, 'json');
-
-        $response = new Response($data);
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
+        return new Response(
+            $this->serializer->serialize($this->userRepository->findAll(), 'json'),
+            JsonResponse::HTTP_OK
+        );
     }
 
     /**
