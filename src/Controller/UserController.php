@@ -35,8 +35,8 @@ class UserController
      */
     public function index()
     {
-        $data = $this->loader->log();
-        
+        $data = $this->loader->load();
+
         return new Response($data);
     }
 

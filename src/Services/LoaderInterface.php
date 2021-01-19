@@ -8,5 +8,5 @@ use App\Repository\UserRepository;
 
 interface LoaderInterface
 {
-    public function log();
+    public function load();
 }

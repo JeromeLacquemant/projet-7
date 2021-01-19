@@ -21,7 +21,7 @@ class Loader implements LoaderInterface
         $this->serializer = $serializer;
     }
 
-    public function log(){
+    public function load(){
         $data = $this->userRepository->findAll();
  
         return $this->serializer->serialize($data, "json");
