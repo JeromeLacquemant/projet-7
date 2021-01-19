@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Services\LoaderInterface;
 use App\Repository\UserRepository;
+use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,7 +17,11 @@ class UserController
     private $serializer;
     private $userRepository;
 
-    public function __construct(UserRepository $userRepository, LoaderInterface $loader, SerializerInterface $serializer) {
+    public function __construct(
+        UserRepository $userRepository, 
+        LoaderInterface $loader,
+        SerializerInterface $serializer
+        ) {
         $this->loader = $loader;
         $this->serializer = $serializer;
         $this->userRepository = $userRepository;
@@ -30,7 +35,9 @@ class UserController
      */
     public function index()
     {
-        return new JsonResponse($this->loader->log());
+        $data = $this->loader->log();
+        
+        return new Response($data);
     }
 
      /**
