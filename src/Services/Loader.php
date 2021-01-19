@@ -16,12 +16,14 @@ class Loader implements LoaderInterface
     public function __construct(
         UserRepository $userRepository,
         SerializerInterface $serializer) 
-        {
+    {
         $this->userRepository = $userRepository;
         $this->serializer = $serializer;
     }
 
-    public function load(){
+    public function load(){}
+
+    public function loadAll(){
         $data = $this->userRepository->findAll();
  
         return $this->serializer->serialize($data, "json");

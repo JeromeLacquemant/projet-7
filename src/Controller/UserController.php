@@ -14,30 +14,10 @@ use Symfony\Component\Serializer\SerializerInterface;
 class UserController
 {
     private $loader;
-    private $serializer;
-    private $userRepository;
 
-    public function __construct(
-        UserRepository $userRepository, 
-        LoaderInterface $loader,
-        SerializerInterface $serializer
-        ) {
-        $this->loader = $loader;
-        $this->serializer = $serializer;
-        $this->userRepository = $userRepository;
-    }
-
-    /**
-     * @Route("/user", name="user")
-     * @param LoaderInterface $loader
-     * 
-     * @return Response
-     */
-    public function index()
+    public function __construct(LoaderInterface $loader) 
     {
-        $data = $this->loader->load();
-
-        return new Response($data);
+        $this->loader = $loader;
     }
 
      /**
@@ -45,10 +25,10 @@ class UserController
      */
     public function seeUsers()
     {
-        return new Response(
-            $this->serializer->serialize($this->userRepository->findAll(), 'json'),
-            JsonResponse::HTTP_OK
-        );
+        $response = new Response($this->loader->loadAll());
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
 
     /**
