@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use App\Services\LoaderInterface;
-use App\Repository\UserRepository;
-use Symfony\Component\HttpFoundation\Request;
+use App\Interfaces\UserAllLoaderInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -12,7 +10,7 @@ class UserAllController
 {
     private $loader;
 
-    public function __construct(LoaderInterface $loader) 
+    public function __construct(UserAllLoaderInterface $loader) 
     {
         $this->loader = $loader;
     }

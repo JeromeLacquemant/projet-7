@@ -2,13 +2,11 @@
 
 namespace App\Services;
 
-use App\Services\LoaderInterface;
+use App\Interfaces\UserAllLoaderInterface;
 use App\Repository\UserRepository;
-use App\Repository\ProductRepository;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class Loader implements LoaderInterface
+class UserAllLoader implements UserAllLoaderInterface
 {
     private $userRepository;
     private $serializer;

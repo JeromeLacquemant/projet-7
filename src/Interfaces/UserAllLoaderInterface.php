@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Services;
+namespace App\Interfaces;
 
-interface LoaderInterface
+interface UserAllLoaderInterface
 {
     public function load();
 }
