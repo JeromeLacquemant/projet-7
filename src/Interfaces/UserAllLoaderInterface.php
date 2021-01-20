@@ -6,5 +6,5 @@ namespace App\Interfaces;
 
 interface UserAllLoaderInterface
 {
-    public function load();
+    public function loadAllUsers();
 }

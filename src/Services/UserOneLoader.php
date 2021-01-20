@@ -2,11 +2,11 @@
 
 namespace App\Services;
 
-use App\Interfaces\UserAllLoaderInterface;
+use App\Interfaces\UserOneLoaderInterface;
 use App\Repository\UserRepository;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class UserAllLoader implements UserAllLoaderInterface
+class UserOneLoader implements UserOneLoaderInterface
 {
     private $userRepository;
     private $serializer;
@@ -19,9 +19,10 @@ class UserAllLoader implements UserAllLoaderInterface
         $this->serializer = $serializer;
     }
 
-    public function loadAllUsers(){
-        $data = $this->userRepository->findAll();
- 
-        return $this->serializer->serialize($data, "json");
+    public function loadOneUser($id){
+
+        $user = $this->userRepository->find($id);
+    
+        return $this->serializer->serialize($user, "json");
     }
 }
