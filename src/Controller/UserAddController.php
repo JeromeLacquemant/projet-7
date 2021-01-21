@@ -22,7 +22,7 @@ class UserAddController
      */
     public function seeUsers(Request $request)
     {
-        $response = new Response($this->userAddInterface->addUser($request));
+        $response = new Response($this->userAddInterface->addUser($request), 201);
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
