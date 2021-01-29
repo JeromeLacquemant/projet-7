@@ -32,6 +32,7 @@ class User
      */
     private $email;
 
+
     public function getId(): ?int
     {
         return $this->id;
