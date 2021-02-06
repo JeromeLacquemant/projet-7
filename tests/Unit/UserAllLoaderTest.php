@@ -6,29 +6,23 @@ namespace App\Tests\Unit;
 
 use App\Services\UserAllLoader;
 use PHPUnit\Framework\TestCase;
+use App\Repository\UserRepository;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class UserAllLoaderTest extends TestCase
 {
-    private $serializer;
-    private $userRepository;
-
     public function testUserAllLoader()
     {
-        $serializer = $this
-        ->getMockBuilder('Symfony\Component\Serializer\SerializerInterface')
-        ->disableOriginalConstructor()
-        ->getMock();
+        $serializer = $this->createMock(SerializerInterface::class);
+        $serializer
+            ->expects($this->once())
+            ->method('serialize')
+            ->willReturn('{test}');
 
-        $userRepository = $this
-        ->getMockBuilder('App\Repository\UserRepository')
-        ->disableOriginalConstructor()
-        ->getMock();
+        $userRepository = $this->createMock(UserRepository::class);
 
-
-        // $userData = 
-        
         $classToTest = new UserAllLoader($userRepository, $serializer);
 
-        $this->assertEquals($userData, $classToTest->loadAllUsers());
+        $this->assertIsString($classToTest->loadAllUsers());
     }
 }
