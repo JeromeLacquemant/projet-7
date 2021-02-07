@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserDeleteControllerTest extends TestCase
 {
-    public function testUserAddController() 
+    public function testUserDeleteController() 
     {
         $loader = $this->createMock(UserDeleteInterface::class);
         $loader
