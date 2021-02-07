@@ -20,7 +20,7 @@ class UserAddController
      /**
      * @Route("/users/add-new-user", name="add_user", methods={"POST"})
      */
-    public function seeUsers(Request $request)
+    public function addOneUser(Request $request)
     {
         $response = new Response($this->userAddInterface->addUser($request), 201);
         $response->headers->set('Content-Type', 'application/json');
