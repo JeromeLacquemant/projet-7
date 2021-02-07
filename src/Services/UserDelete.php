@@ -24,6 +24,8 @@ class UserDelete implements UserDeleteInterface
         $user = $this->userRepository->find($id);
 
         $this->entityManagerInterface->remove($user);
-        return $this->entityManagerInterface->flush();
+        $this->entityManagerInterface->flush();
+
+        return true;
     }
 }
