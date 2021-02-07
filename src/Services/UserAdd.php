@@ -26,6 +26,8 @@ class UserAdd implements UserAddInterface
         $user = $this->serializer->deserialize($data, 'App\Entity\User', 'json');
 
         $this->entityManager->persist($user);
-        return $this->entityManager->flush();
+        $this->entityManager->flush();
+        
+        return true;
     }
 }
