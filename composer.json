@@ -68,12 +68,14 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false,
+            "allow-contrib": true,
             "require": "5.2.*"
         }
     },
     "require-dev": {
+        "behat/behat": "^3.8",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "friends-of-behat/symfony-extension": "^2.1",
         "symfony/maker-bundle": "^1.25"
     }
 }
