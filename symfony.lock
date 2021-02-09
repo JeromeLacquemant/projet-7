@@ -8,6 +8,9 @@
     "behat/transliterator": {
         "version": "v1.3.0"
     },
+    "behatch/contexts": {
+        "version": "3.3.0"
+    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99.1"
     },
@@ -114,6 +117,9 @@
     "friends-of-behat/mink-browserkit-driver": {
         "version": "v1.5.0"
     },
+    "friends-of-behat/mink-extension": {
+        "version": "v2.5.0"
+    },
     "friends-of-behat/symfony-extension": {
         "version": "2.0",
         "recipe": {
@@ -143,6 +149,9 @@
     },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.3"
+    },
+    "justinrainbow/json-schema": {
+        "version": "5.2.10"
     },
     "laminas/laminas-code": {
         "version": "4.0.0"
