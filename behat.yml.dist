@@ -8,6 +8,7 @@ default:
 
     extensions:
         FriendsOfBehat\SymfonyExtension:
+            bootstrap: features/bootstrap.php
             kernel:
                 environment: test
         Behatch\Extension: ~

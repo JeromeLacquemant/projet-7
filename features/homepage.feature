@@ -6,5 +6,5 @@ Feature:
     Homepage
 
     Scenario: All users are displayed
-        Given I am on "/all-products"
+        Given I am on "/all-users"
         Then the response status code should be 200
