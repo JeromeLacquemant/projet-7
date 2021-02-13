@@ -1,10 +1,9 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use App\Interfaces\UserDeleteInterface;
 use App\Controller\User\UserDeleteController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Services\User\Interfaces\UserDeleteInterface;
 
 class UserDeleteControllerTest extends TestCase
 {

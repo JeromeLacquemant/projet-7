@@ -1,9 +1,9 @@
 <?php
 
-use App\Controller\User\UserAllController;
 use PHPUnit\Framework\TestCase;
-use App\Interfaces\UserAllLoaderInterface;
+use App\Controller\User\UserAllController;
 use Symfony\Component\HttpFoundation\Response;
+use App\Services\User\Interfaces\UserAllLoaderInterface;
 
 class UserAllControllerTest extends TestCase
 {

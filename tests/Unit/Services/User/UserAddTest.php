@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit;
+namespace App\Tests\Unit\Services\User;
 
-use App\Services\UserAdd;
+use App\Services\User\UserAdd;
 use PHPUnit\Framework\TestCase;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;

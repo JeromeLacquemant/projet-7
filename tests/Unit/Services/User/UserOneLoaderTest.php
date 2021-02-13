@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit;
+namespace App\Tests\Unit\Services\User;
 
-use App\Services\UserAllLoader;
 use PHPUnit\Framework\TestCase;
 use App\Repository\UserRepository;
+use App\Services\User\UserOneLoader;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class UserAllLoaderTest extends TestCase
+class UserOneLoaderTest extends TestCase
 {
-    public function testUserAllLoader()
+    public function testUserOneLoader()
     {
         $serializer = $this->createMock(SerializerInterface::class);
         $serializer
@@ -21,8 +21,10 @@ class UserAllLoaderTest extends TestCase
 
         $userRepository = $this->createMock(UserRepository::class);
 
-        $classToTest = new UserAllLoader($userRepository, $serializer);
+        $classToTest = new UserOneLoader($userRepository, $serializer);
 
-        $this->assertIsString($classToTest->loadAllUsers());
+        $id = 5;
+
+        $this->assertIsString($classToTest->loadOneUser($id));
     }
 }

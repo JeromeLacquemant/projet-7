@@ -1,11 +1,10 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use App\Interfaces\UserAddInterface;
-
-use App\Controller\UserAddController;
+use App\Controller\User\UserAddController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Services\User\Interfaces\UserAddInterface;
 
 class UserAddControllerTest extends TestCase
 {

@@ -1,10 +1,10 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use App\Interfaces\UserModifyInterface;
 use App\Controller\User\UserModifyController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Services\User\Interfaces\UserModifyInterface;
 
 class UserModifyControllerTest extends TestCase
 {

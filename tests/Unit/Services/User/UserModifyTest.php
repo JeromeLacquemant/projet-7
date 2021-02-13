@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit;
+namespace App\Tests\Unit\Services\User;
 
 use App\Entity\User;
-use App\Services\UserModify;
 use PHPUnit\Framework\TestCase;
+use App\Services\User\UserModify;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
