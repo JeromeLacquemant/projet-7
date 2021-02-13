@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Interfaces;
+namespace App\Services\User\Interfaces;
 
 interface UserAllLoaderInterface
 {

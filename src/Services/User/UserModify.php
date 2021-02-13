@@ -1,37 +1,32 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\User;
 
-use App\Entity\User;
 use App\Repository\UserRepository;
-use App\Interfaces\UserModifyInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Serializer\SerializerInterface;
+use App\Services\User\Interfaces\UserModifyInterface;
 
 class UserModify implements UserModifyInterface
 {
     private $userRepository;
     private $entityManagerInterface;
-    private $serializer;
-
 
     public function __construct(
         UserRepository $userRepository,
-        EntityManagerInterface $entityManagerInterface,
-        SerializerInterface $serializer,
+        EntityManagerInterface $entityManagerInterface
         ) 
     {
         $this->userRepository = $userRepository;
         $this->entityManagerInterface = $entityManagerInterface;
-        $this->serializer = $serializer;
     }
 
     public function modifyUser($id, Request $request)
     {
         $registeredUser = $this->userRepository->find($id);
-
+        
         $data = json_decode($request->getContent(), true);
+        //dd($request->getContent());
 
         $registeredUser
             ->setUsername($data["username"])
@@ -39,6 +34,8 @@ class UserModify implements UserModifyInterface
             ->setEmail($data["email"]);
 
         $this->entityManagerInterface->persist($registeredUser);
-        return $this->entityManagerInterface->flush();
+        $this->entityManagerInterface->flush();
+
+        return true;
     }
 }

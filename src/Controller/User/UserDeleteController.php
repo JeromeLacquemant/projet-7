@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\User;
 
-use App\Interfaces\UserDeleteInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Services\User\Interfaces\UserDeleteInterface;
 
 class UserDeleteController
 {

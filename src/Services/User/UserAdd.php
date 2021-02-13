@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\User;
 
-use App\Interfaces\UserAddInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use App\Services\User\Interfaces\UserAddInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class UserAdd implements UserAddInterface
@@ -26,6 +26,8 @@ class UserAdd implements UserAddInterface
         $user = $this->serializer->deserialize($data, 'App\Entity\User', 'json');
 
         $this->entityManager->persist($user);
-        return $this->entityManager->flush();
+        $this->entityManager->flush();
+        
+        return true;
     }
 }

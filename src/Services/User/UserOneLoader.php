@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\User;
 
-use App\Interfaces\UserOneLoaderInterface;
 use App\Repository\UserRepository;
 use Symfony\Component\Serializer\SerializerInterface;
+use App\Services\User\Interfaces\UserOneLoaderInterface;
 
 class UserOneLoader implements UserOneLoaderInterface
 {

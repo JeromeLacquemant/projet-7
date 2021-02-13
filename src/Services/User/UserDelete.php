@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\User;
 
-use App\Interfaces\UserDeleteInterface;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Services\User\Interfaces\UserDeleteInterface;
 
 class UserDelete implements UserDeleteInterface
 {
@@ -24,6 +24,8 @@ class UserDelete implements UserDeleteInterface
         $user = $this->userRepository->find($id);
 
         $this->entityManagerInterface->remove($user);
-        return $this->entityManagerInterface->flush();
+        $this->entityManagerInterface->flush();
+
+        return true;
     }
 }
