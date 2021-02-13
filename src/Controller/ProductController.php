@@ -11,17 +11,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ProductController extends AbstractController
 {
     /**
-     * @Route("/products", name="product")
-     */
-    public function index(): Response
-    {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/ProductController.php',
-        ]);
-    }
-
-    /**
      * @Route("/all-products", name="see_all_products")
      */
     public function seeProducts(ProductRepository $repo)
