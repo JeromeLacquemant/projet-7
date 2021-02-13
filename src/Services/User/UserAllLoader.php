@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\User;
 
-use App\Interfaces\UserAllLoaderInterface;
 use App\Repository\UserRepository;
 use Symfony\Component\Serializer\SerializerInterface;
+use App\Services\User\Interfaces\UserAllLoaderInterface;
 
 class UserAllLoader implements UserAllLoaderInterface
 {

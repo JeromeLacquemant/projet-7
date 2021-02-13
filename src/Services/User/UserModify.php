@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\User;
+
 use App\Repository\UserRepository;
-use App\Interfaces\UserModifyInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use App\Services\User\Interfaces\UserModifyInterface;
 
 class UserModify implements UserModifyInterface
 {

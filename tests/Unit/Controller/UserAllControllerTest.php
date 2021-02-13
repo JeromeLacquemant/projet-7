@@ -1,6 +1,6 @@
 <?php
 
-use App\Controller\UserAllController;
+use App\Controller\User\UserAllController;
 use PHPUnit\Framework\TestCase;
 use App\Interfaces\UserAllLoaderInterface;
 use Symfony\Component\HttpFoundation\Response;

@@ -1,8 +1,8 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use App\Controller\UserOneController;
-use App\Interfaces\UserOneLoaderInterface;
+use App\Controller\User\UserOneController;
+use App\Controller\User\Interfaces\UserOneLoaderInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserOneControllerTest extends TestCase

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\User;
 
-use App\Interfaces\UserOneLoaderInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Services\User\Interfaces\UserOneLoaderInterface;
 
 class UserOneController
 {

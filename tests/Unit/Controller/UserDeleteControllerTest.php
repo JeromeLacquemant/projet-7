@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 use App\Interfaces\UserDeleteInterface;
-use App\Controller\UserDeleteController;
+use App\Controller\User\UserDeleteController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
