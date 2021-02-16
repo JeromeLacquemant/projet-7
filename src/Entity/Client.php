@@ -40,7 +40,7 @@ class Client implements UserInterface
 
     public function getUsername(): ?string
     {
-        return $this->email;
+        return $this->username;
     }
 
     public function setUsername(string $username): self
