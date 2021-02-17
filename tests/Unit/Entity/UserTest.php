@@ -13,7 +13,7 @@ class UserTest extends TestCase
     {
         $classToTest = new User();
 
-        $classToTest->setUsername("Daniel");
+        $classToTest->setUsername('Daniel');
         $this->assertEquals('Daniel', $classToTest->getUsername());
     }
 
@@ -21,7 +21,7 @@ class UserTest extends TestCase
     {
         $classToTest = new User();
 
-        $classToTest->setPassword("password");
+        $classToTest->setPassword('password');
         $this->assertEquals('password', $classToTest->getPassword());
     }
 
@@ -29,7 +29,7 @@ class UserTest extends TestCase
     {
         $classToTest = new User();
 
-        $classToTest->setEmail("john@gmail.com");
+        $classToTest->setEmail('john@gmail.com');
         $this->assertEquals('john@gmail.com', $classToTest->getEmail());
     }
 }

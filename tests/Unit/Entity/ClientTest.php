@@ -7,13 +7,13 @@ namespace App\Tests\Unit;
 use App\Entity\Client;
 use PHPUnit\Framework\TestCase;
 
-class ProductTest extends TestCase
+class ClientTest extends TestCase
 {
     public function testPassword()
     {
         $classToTest = new Client();
 
-        $classToTest->setPassword("password");
+        $classToTest->setPassword('password');
         $this->assertEquals('password', $classToTest->getPassword());
     }
 
@@ -21,7 +21,7 @@ class ProductTest extends TestCase
     {
         $classToTest = new Client();
 
-        $classToTest->setEmail("john@mail.com");
+        $classToTest->setEmail('john@mail.com');
         $this->assertEquals('john@mail.com', $classToTest->getEmail());
     }
 
@@ -29,7 +29,7 @@ class ProductTest extends TestCase
     {
         $classToTest = new Client();
 
-        $classToTest->setUsername("John");
+        $classToTest->setUsername('John');
         $this->assertEquals('John', $classToTest->getUsername());
     }
 }
