@@ -79,6 +79,9 @@
         "friends-of-behat/mink": "^1.9",
         "friends-of-behat/mink-browserkit-driver": "^1.5",
         "friends-of-behat/symfony-extension": "^2.1",
-        "symfony/maker-bundle": "^1.25"
+        "symfony/maker-bundle": "^1.25",
+        "symfony/stopwatch": "^5.2",
+        "symfony/twig-bundle": "^5.2",
+        "symfony/web-profiler-bundle": "^5.2"
     }
 }
