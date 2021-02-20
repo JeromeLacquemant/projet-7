@@ -22,6 +22,9 @@ class ClientAllController
         $response = new Response($this->clientAllLoaderInterface->loadAllClients());
         $response->headers->set('Content-Type', 'application/json');
 
+        //Cache privately for 5 seconds
+        $response->setMaxAge(5);
+
         return $response;
     }
 }
