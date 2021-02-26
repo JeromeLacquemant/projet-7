@@ -27,4 +27,8 @@ services:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
 
+    App\Events\UserSubscriber:
+        tags:
+            - { name: 'doctrine.event_subscriber' }
+
 
