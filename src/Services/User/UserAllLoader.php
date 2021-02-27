@@ -29,11 +29,11 @@ class UserAllLoader implements UserAllLoaderInterface
 
         $data = $this->userRepository->findBy(['client' => $id]);
 
-        $response = $this->serializer->serialize($data, "json", [
-            'circular_reference_handler' => function($object){
-                return $object->getId();
-            }
-        ]);
+        $response = $this->serializer->serialize(
+            $data, 
+            "json", 
+            ['groups' => 'user:read']
+        );
 
         return $response;
     }
