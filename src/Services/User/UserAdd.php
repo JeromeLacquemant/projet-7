@@ -37,15 +37,11 @@ class UserAdd implements UserAddInterface
         $errors = $this->validator->validate($user);
 
         if (count($errors) > 0) {
-            /*
-             * Uses a __toString method on the $errors variable which is a
-             * ConstraintViolationList object. This gives us a nice string
-             * for debugging.
-             */
             $errorsString = (string) $errors;
 
             return new Response($errorsString);
         }
+
         $this->entityManager->persist($user);
         $this->entityManager->flush();
         
