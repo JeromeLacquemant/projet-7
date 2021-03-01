@@ -16,7 +16,7 @@ class UserOneController
     }
 
      /**
-     * @Route("/users/{id}", name="see_one_user")
+     * @Route("api/users/{id}", name="see_one_user")
      */
     public function seeUser($id)
     {
