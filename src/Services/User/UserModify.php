@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\HttpFoundation\Response;
 use App\Services\User\Interfaces\UserModifyInterface;
 
 class UserModify implements UserModifyInterface
@@ -29,18 +30,22 @@ class UserModify implements UserModifyInterface
         $registeredUser = $this->userRepository->find($id);
         $client = $this->security->getUser(); 
 
-        $data = json_decode($request->getContent(), true);
-        //dd($request->getContent());
+        if($registeredUser->getClient() === $client)
+        {
+            $data = json_decode($request->getContent(), true);
 
-        $registeredUser
-            ->setUsername($data["username"])
-            ->setPassword($data["password"])
-            ->setEmail($data["email"])
-            ->setClient($client);
+            $registeredUser
+                ->setUsername($data["username"])
+                ->setPassword($data["password"])
+                ->setEmail($data["email"]);
+    
+            $this->entityManagerInterface->persist($registeredUser);
+            $this->entityManagerInterface->flush();
+    
+            return true;
 
-        $this->entityManagerInterface->persist($registeredUser);
-        $this->entityManagerInterface->flush();
-
-        return true;
+        } else {
+            return new Response("Vous n'êtes pas autorisé !");
+        };
     }
 }
