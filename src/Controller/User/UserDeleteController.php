@@ -16,7 +16,7 @@ class UserDeleteController
     }
 
      /**
-     * @Route("/users/delete/{id}", name="delete_user", methods={"DELETE"})
+     * @Route("api/users/delete/{id}", name="delete_user", methods={"DELETE"})
      */
     public function deleteOneUser($id)
     {

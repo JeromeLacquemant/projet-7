@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Services\User;
 
+use App\Entity\Client;
 use App\Entity\User;
 use PHPUnit\Framework\TestCase;
 use App\Services\User\UserModify;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 
 class UserModifyTest extends TestCase
 {
@@ -39,7 +41,13 @@ class UserModifyTest extends TestCase
             ->method('getContent')
             ->willReturn('{"username":"daniel","password":"password","mail":"mail@mail.com"}');
 
-        $classToTest = new UserModify($userRepository, $entityManager);
+        $security = $this->createMock(Security::class);
+        $security    
+            ->expects($this->once())
+            ->method('getClient')
+            ->willReturn(Client::class);
+
+        $classToTest = new UserModify($userRepository, $entityManager, $security);
         $id = 5;
 
         $this->assertTrue($classToTest->modifyUser($id, $request));

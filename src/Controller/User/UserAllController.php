@@ -16,7 +16,7 @@ class UserAllController
     }
 
      /**
-     * @Route("/all-users", name="see_all_users")
+     * @Route("/api/all-users", name="see_all_users")
      */
     public function seeUsers()
     {

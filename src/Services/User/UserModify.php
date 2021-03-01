@@ -5,6 +5,8 @@ namespace App\Services\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\HttpFoundation\Response;
 use App\Services\User\Interfaces\UserModifyInterface;
 
 class UserModify implements UserModifyInterface
@@ -14,28 +16,36 @@ class UserModify implements UserModifyInterface
 
     public function __construct(
         UserRepository $userRepository,
-        EntityManagerInterface $entityManagerInterface
+        EntityManagerInterface $entityManagerInterface,
+        Security $security
         ) 
     {
         $this->userRepository = $userRepository;
         $this->entityManagerInterface = $entityManagerInterface;
+        $this->security = $security;
     }
 
     public function modifyUser($id, Request $request)
     {
         $registeredUser = $this->userRepository->find($id);
-        
-        $data = json_decode($request->getContent(), true);
-        //dd($request->getContent());
+        $client = $this->security->getUser(); 
 
-        $registeredUser
-            ->setUsername($data["username"])
-            ->setPassword($data["password"])
-            ->setEmail($data["email"]);
+        if($registeredUser->getClient() === $client)
+        {
+            $data = json_decode($request->getContent(), true);
 
-        $this->entityManagerInterface->persist($registeredUser);
-        $this->entityManagerInterface->flush();
+            $registeredUser
+                ->setUsername($data["username"])
+                ->setPassword($data["password"])
+                ->setEmail($data["email"]);
+    
+            $this->entityManagerInterface->persist($registeredUser);
+            $this->entityManagerInterface->flush();
+    
+            return true;
 
-        return true;
+        } else {
+            return new Response("Vous n'êtes pas autorisé !");
+        };
     }
 }
