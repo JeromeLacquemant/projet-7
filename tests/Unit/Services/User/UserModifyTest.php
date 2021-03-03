@@ -25,15 +25,23 @@ class UserModifyTest extends TestCase
             ->expects($this->once())
             ->method('flush');
 
-        //$user = new User();
-        //    $user->setUsername("Daniel");
-        //    $user->setPassword("password");
-        //    $user->setEmail("mail@mail.com");
+        $client = new Client();
+
+        $user = new User();
+            $user->setUsername("Daniel");
+            $user->setPassword("password");
+            $user->setEmail("mail@mail.com");
+            $user->setClient($client);
 
         $userRepository = $this->createMock(UserRepository::class);
         $userRepository
             ->expects($this->once())
-            ->method('find');    
+            ->method('find')
+            ->willReturn($user); 
+        $userRepository
+            ->expects($this->once())
+            ->method('getClient')
+            ->willReturn($client); 
         
         $request = $this->createMock(Request::class);
         $request    
@@ -42,10 +50,6 @@ class UserModifyTest extends TestCase
             ->willReturn('{"username":"daniel","password":"password","mail":"mail@mail.com"}');
 
         $security = $this->createMock(Security::class);
-        $security    
-            ->expects($this->once())
-            ->method('getClient')
-            ->willReturn(Client::class);
 
         $classToTest = new UserModify($userRepository, $entityManager, $security);
         $id = 5;
