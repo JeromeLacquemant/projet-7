@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Tests\Unit\User;
+
 use PHPUnit\Framework\TestCase;
 use App\Controller\User\UserModifyController;
 use Symfony\Component\HttpFoundation\Request;

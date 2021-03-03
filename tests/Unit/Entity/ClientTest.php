@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit;
+namespace App\Tests\Unit\Entity;
 
 use App\Entity\Client;
 use PHPUnit\Framework\TestCase;
 
-class ProductTest extends TestCase
+class ClientTest extends TestCase
 {
     public function testPassword()
     {
