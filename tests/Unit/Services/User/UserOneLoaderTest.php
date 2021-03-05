@@ -16,15 +16,19 @@ class UserOneLoaderTest extends TestCase
 {
     public function testUserOneLoader()
     {
+        $client = new Client();
+
+        $user = new User();
+            $user->setUsername("Daniel");
+            $user->setPassword("password");
+            $user->setEmail("mai@ail.com");
+            $user->setClient($client);
+
         $userRepository = $this->createMock(UserRepository::class);
             $userRepository
                 ->expects($this->once())
                 ->method('find')
-                ->willReturn(User::class);   
-        $userRepository
-                ->expects($this->once())
-                ->method('getClient')
-                ->willReturn(Client::class); 
+                ->willReturn($user);   
 
         $serializer = $this->createMock(SerializerInterface::class);
         $serializer
@@ -33,6 +37,10 @@ class UserOneLoaderTest extends TestCase
             ->willReturn('{test}');
 
         $security = $this->createMock(Security::class);
+        $security
+            ->expects($this->once())
+            ->method('getUser')
+            ->willReturn($client);
 
         $classToTest = new UserOneLoader($userRepository, $serializer, $security);
 

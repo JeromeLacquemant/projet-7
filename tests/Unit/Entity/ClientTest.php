@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit;
+namespace App\Tests\Unit\Entity;
 
+use App\Entity\User;
 use App\Entity\Client;
 use PHPUnit\Framework\TestCase;
 
-class ProductTest extends TestCase
+class ClientTest extends TestCase
 {
     public function testPassword()
     {
@@ -29,7 +30,17 @@ class ProductTest extends TestCase
     {
         $classToTest = new Client();
 
-        $classToTest->setUsername("John");
+        $classToTest->setEmail("John");
+
         $this->assertEquals('John', $classToTest->getUsername());
+    }
+
+    public function testSetClient()
+    {
+        $classToTest = new User();
+        $client = new Client();
+
+        $classToTest->setClient($client);
+        $this->assertEquals($client, $classToTest->getClient());
     }
 }

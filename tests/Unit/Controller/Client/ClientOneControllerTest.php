@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Tests\Unit\Client;
+
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 use App\Controller\Client\ClientOneController;

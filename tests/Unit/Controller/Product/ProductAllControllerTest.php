@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Tests\Unit\Product;
+
 use PHPUnit\Framework\TestCase;
 use App\Controller\Product\ProductAllController;
 use Symfony\Component\HttpFoundation\Response;
