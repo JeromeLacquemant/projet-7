@@ -23,7 +23,7 @@ class ClientOneLoader implements ClientOneLoaderInterface
 
         $product = $this->clientRepository->find($id);
     
-        $response = $this->serializer->serialize($product, "json");
+        $response = $this->serializer->serialize($product, "json", ['groups' => 'client:read']);
 
         return $response;
     }
