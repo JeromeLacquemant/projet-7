@@ -22,7 +22,7 @@ class ClientAllLoader implements ClientAllLoaderInterface
     public function loadAllClients(){
         $data = $this->clientRepository->findAll();
  
-        $response = $this->serializer->serialize($data, "json");
+        $response = $this->serializer->serialize($data, "json", ['groups' => 'client:read']);
 
         return $response;
     }
