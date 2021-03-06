@@ -9,34 +9,33 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture
 {
+    public const NUMBER = 100;
+
     public function __construct(UserPasswordEncoderInterface $encoder)
     {
         $this->encoder = $encoder;
     }
-    
+
     public function load(ObjectManager $manager)
     {
-        $user = new User();
-        $user
-            ->setUsername("Username n°1")
-            ->setPassword('12345')
-            ->setEmail("username1@gmail.com");
-        $manager->persist($user);
+        for ($i = 1; $i <= self::NUMBER; ++$i) {
+            $user = new User('Lastname '.$i, 'firstname '.$i);
+            $user 
+                ->setUsername('Username '.$i)
+                ->setPassword(password_hash('12345', PASSWORD_BCRYPT))
+                ->setEmail("user_".$i."@gmail.com")
+                ->setClient($this->getReference('Client '.mt_rand(0, 3)));
 
-        $user = new User();
-        $user
-            ->setUsername("Username n°2")
-            ->setPassword('34521')
-            ->setEmail("username2@gmail.com");
-        $manager->persist($user);
-
-        $user = new User();
-        $user
-            ->setUsername("Username n°3")
-            ->setPassword('54321')
-            ->setEmail("username3@gmail.com");
-        $manager->persist($user);
+            $manager->persist($user);
+        }
 
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return [
+            ClientFixtures::class,
+        ];
     }
 }
