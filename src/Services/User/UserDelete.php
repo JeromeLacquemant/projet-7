@@ -25,20 +25,13 @@ class UserDelete implements UserDeleteInterface
 
     public function deleteUser($id)
     {
-        $client = $this->security->getUser();
-        
-
         $user = $this->userRepository->find($id);
 
-        if($user->getClient() === $client)
-        {
+        if($this->security->isGranted('edit', $user)) {
             $this->entityManagerInterface->remove($user);
             $this->entityManagerInterface->flush();
     
             return true;
-
-        } else {
-            return new Response("Vous n'êtes pas autorisé !");
-        };
+        }
     }
 }
