@@ -48,8 +48,8 @@ class UserModifyTest extends TestCase
         $security = $this->createMock(Security::class);
         $security
             ->expects($this->once())
-            ->method('getUser')
-            ->willReturn($client);
+            ->method('isGranted')
+            ->willReturn(true);
 
         $classToTest = new UserModify($userRepository, $entityManager, $security);
         $id = 5;
