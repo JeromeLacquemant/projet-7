@@ -2,6 +2,7 @@
 
 namespace App\Services\User;
 
+use App\Security\Voter\UserVoter;
 use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,23 +25,16 @@ class UserOneLoader implements UserOneLoaderInterface
     }
 
     public function loadOneUser($id)
-    {
-        $client = $this->security->getUser();
-        
+    {      
         $user = $this->userRepository->find($id);
 
-        if($user->getClient() === $client)
-        {
+        if($this->security->isGranted('view', $user)) {
             $response = $this->serializer->serialize(
                 $user, 
                 "json", 
                 ['groups' => 'user:read']
             );
-    
             return $response;
-
-        } else {
-            return new Response("Vous n'êtes pas autorisé !");
-        };
+        }
     }
 }
