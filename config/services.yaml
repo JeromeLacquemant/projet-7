@@ -31,4 +31,8 @@ services:
         tags:
             - { name: 'doctrine.event_subscriber' }
 
+    App\Security\Voter\UserVoter:
+        tags:
+            - { name: security.voter }
+
 

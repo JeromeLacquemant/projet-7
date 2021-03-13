@@ -28,9 +28,8 @@ class UserModify implements UserModifyInterface
     public function modifyUser($id, Request $request)
     {
         $registeredUser = $this->userRepository->find($id);
-        $client = $this->security->getUser(); 
 
-        if($registeredUser->getClient() === $client)
+        if($this->security->isGranted('view', $registeredUser))
         {
             $data = json_decode($request->getContent(), true);
 
@@ -43,9 +42,6 @@ class UserModify implements UserModifyInterface
             $this->entityManagerInterface->flush();
     
             return true;
-
-        } else {
-            return new Response("Vous n'êtes pas autorisé !");
-        };
+        }
     }
 }
