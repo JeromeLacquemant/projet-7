@@ -5,8 +5,9 @@ namespace App\Services\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
-use App\Services\User\Interfaces\UserDeleteInterface;
 use Symfony\Component\HttpFoundation\Response;
+use App\Services\User\Interfaces\UserDeleteInterface;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 class UserDelete implements UserDeleteInterface
 {
@@ -32,6 +33,8 @@ class UserDelete implements UserDeleteInterface
             $this->entityManagerInterface->flush();
     
             return true;
+        } else {
+            throw new Exception('Vous n\'êtes pas autorisé');
         }
     }
 }

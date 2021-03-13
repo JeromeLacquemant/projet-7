@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use App\Services\User\Interfaces\UserModifyInterface;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 class UserModify implements UserModifyInterface
 {
@@ -42,6 +43,8 @@ class UserModify implements UserModifyInterface
             $this->entityManagerInterface->flush();
     
             return true;
+        } else {
+            throw new Exception('Vous n\'êtes pas autorisé');
         }
     }
 }

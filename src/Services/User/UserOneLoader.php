@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\SerializerInterface;
 use App\Services\User\Interfaces\UserOneLoaderInterface;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 class UserOneLoader implements UserOneLoaderInterface
 {
@@ -35,6 +36,8 @@ class UserOneLoader implements UserOneLoaderInterface
                 ['groups' => 'user:read']
             );
             return $response;
+        } else {
+            throw new Exception('Vous n\'êtes pas autorisé');
         }
     }
 }
