@@ -1,21 +1,55 @@
 <?php
 namespace App\EventListener;
 
+use App\Exception\ValidationException;
+use App\Exception\UserNotFoundException;
+use App\Exception\ClientNotFoundException;
+use App\Exception\ProductNotFoundException;
+use App\Exception\ClientUnauthorizedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
-
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 class ExceptionListener
 {
+    const exceptionTypeNotFound = HttpFoundationResponse::HTTP_NOT_FOUND;
+    const exceptionTypeForbidden = HttpFoundationResponse::HTTP_FORBIDDEN;
+
     public function onKernelException(ExceptionEvent $event)
     {
-        // You get the exception object from the received event
         $exception = $event->getThrowable();
-        
-        // create json response and set the nice message from exception
-        $customResponse = new JsonResponse(['status'=>false, 'message' => $exception->getMessage()],403);
-        
-        // set it as response and it will be sent
+
+        switch (true) {
+            case $exception instanceof NotFoundHttpException:
+                $status = 404;
+                $message = $exception->getMessage();
+                $constant = self::exceptionTypeNotFound;
+                break;
+            case $exception instanceof UserNotFoundException:
+                $status = 404;
+                $message = $exception->getMessage();
+                $constant = self::exceptionTypeNotFound;
+                break;
+            case $exception instanceof ClientNotFoundException:
+                $status = 404;
+                $message = $exception->getMessage();
+                $constant = self::exceptionTypeNotFound;
+                break;
+            case $exception instanceof ProductNotFoundException:
+                $status = 404;
+                $message = $exception->getMessage();
+                $constant = self::exceptionTypeNotFound;
+                break;
+            case $exception instanceof ClientUnauthorizedException:
+                $status = 403;
+                $message = $exception->getMessage();
+                $constant = self::exceptionTypeForbidden;
+                break;
+        }
+
+        $customResponse = new JsonResponse(['status'=>$status, 'message' => $message], $constant);
+
         $event->setResponse($customResponse);
     }
 }
