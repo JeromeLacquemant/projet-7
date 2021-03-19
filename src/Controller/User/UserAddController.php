@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\User\Interfaces\UserAddInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class UserAddController
 {
@@ -22,7 +23,9 @@ class UserAddController
      */
     public function addOneUser(Request $request)
     {
-        $response = new Response($this->userAddInterface->addUser($request), 201);
+        $data = $this->userAddInterface->addUser($request);
+
+        $response = new JsonResponse(['message' => $data], 201);
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
