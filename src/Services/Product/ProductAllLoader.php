@@ -20,8 +20,13 @@ class ProductAllLoader implements ProductAllLoaderInterface
     }
 
     public function loadAllProducts(){
-        $data = $this->productRepository->findAll();
+        // Get the first page of products
+		$paginatedResult = $this->productRepository->getProducts(2);
+		// get the total number of products
+		$totalOrder = count($paginatedResult);
+        
+        //$data = $this->productRepository->getAllProductQueryBuilder();
  
-        return $this->serializer->serialize($data, "json");
+        return $this->serializer->serialize($paginatedResult, "json");
     }
 }
