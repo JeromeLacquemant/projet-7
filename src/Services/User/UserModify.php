@@ -3,12 +3,14 @@
 namespace App\Services\User;
 
 use App\Repository\UserRepository;
+use App\Exception\UserNotFoundException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\HttpFoundation\Response;
+use App\Exception\ClientUnauthorizedException;
+use Symfony\Component\Validator\ConstraintViolation;
 use App\Services\User\Interfaces\UserModifyInterface;
-use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserModify implements UserModifyInterface
 {
@@ -18,17 +20,23 @@ class UserModify implements UserModifyInterface
     public function __construct(
         UserRepository $userRepository,
         EntityManagerInterface $entityManagerInterface,
-        Security $security
+        Security $security,
+        ValidatorInterface $validator
         ) 
     {
         $this->userRepository = $userRepository;
         $this->entityManagerInterface = $entityManagerInterface;
         $this->security = $security;
+        $this->validator = $validator;
     }
 
     public function modifyUser($id, Request $request)
     {
         $registeredUser = $this->userRepository->find($id);
+
+        if(is_null($registeredUser)) {
+            throw new UserNotFoundException('user not found');
+        }
 
         if($this->security->isGranted('view', $registeredUser))
         {
@@ -38,13 +46,25 @@ class UserModify implements UserModifyInterface
                 ->setUsername($data["username"])
                 ->setPassword($data["password"])
                 ->setEmail($data["email"]);
+
+            $violations = $this->validator->validate($registeredUser);
+
+            if (count($violations) > 0) {
+                foreach ($violations as $violation) {
+                   if ($violation instanceof ConstraintViolation) {
+                        $message = $violation->getMessage();
+                        $messages[] = $message;
+                    }
+                }
+                return $messages;
+            }
     
             $this->entityManagerInterface->persist($registeredUser);
             $this->entityManagerInterface->flush();
     
-            return true;
+            return "L'utilisateur a été ajouté avec succès";
         } else {
-            throw new Exception('Vous n\'êtes pas autorisé');
+            throw new ClientUnauthorizedException('Vous n\'êtes pas autorisé à modifier à cet user');
         }
     }
 }
