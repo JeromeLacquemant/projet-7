@@ -46,7 +46,8 @@ class UserDeleteTest extends TestCase
 
         $classToTest = new UserDelete($userRepository, $entityManager, $security);
         $id = 5;
+        $expected = "L'utilisateur a bien été effacé de la base de données";
 
-        $this->assertTrue($classToTest->deleteUser($id));
+        $this->assertEquals($expected, $classToTest->deleteUser($id));
     }
 }

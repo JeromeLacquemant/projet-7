@@ -3,9 +3,9 @@
 // src/Security/PostVoter.php
 namespace App\Security\Voter;
 
+use Exception;
 use App\Entity\User;
 use App\Entity\Client;
-use Exception;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -61,8 +61,6 @@ class UserVoter extends Voter
         // if they can edit, they can view
         if ($this->canEdit($user, $client)) {
             return true;
-        } else {
-            throw new Exception('Vous netes pas autorisé');
         }
     }
 

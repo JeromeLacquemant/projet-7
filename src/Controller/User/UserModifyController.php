@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Services\User\Interfaces\UserModifyInterface;
 
 class UserModifyController
@@ -22,7 +23,9 @@ class UserModifyController
      */
     public function modifyOneUser($id, Request $request)
     {
-        $response = new Response($this->userModifyInterface->modifyUser($id, $request), 204);
+        $message = $this->userModifyInterface->modifyUser($id, $request);
+        
+        $response = new JsonResponse(['message' => $message], 200);
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;

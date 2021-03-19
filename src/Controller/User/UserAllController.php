@@ -20,7 +20,7 @@ class UserAllController
      */
     public function seeUsers()
     {
-        $response = new Response($this->loader->loadAllUsers());
+        $response = new Response($this->loader->loadAllUsers(), 200);
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;

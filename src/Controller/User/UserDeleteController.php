@@ -4,6 +4,7 @@ namespace App\Controller\User;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Services\User\Interfaces\UserDeleteInterface;
 
 class UserDeleteController
@@ -20,7 +21,8 @@ class UserDeleteController
      */
     public function deleteOneUser($id)
     {
-        $response = new Response($this->userDeleteInterface->deleteUser($id), 204);
+        $response = new JsonResponse(['message' => $this->userDeleteInterface->deleteUser($id)], 200);
+
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;

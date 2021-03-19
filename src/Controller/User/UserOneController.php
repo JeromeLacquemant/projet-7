@@ -20,7 +20,7 @@ class UserOneController
      */
     public function seeUser($id)
     {
-        $response = new Response($this->loader->loadOneUser($id));
+        $response = new Response($this->loader->loadOneUser($id), 200);
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
