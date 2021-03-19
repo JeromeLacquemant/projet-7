@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Services\User;
 
-use App\Entity\Client;
 use App\Entity\User;
+use App\Entity\Client;
 use PHPUnit\Framework\TestCase;
 use App\Services\User\UserModify;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserModifyTest extends TestCase
 {
@@ -38,7 +39,13 @@ class UserModifyTest extends TestCase
             ->expects($this->once())
             ->method('find')
             ->willReturn($user); 
-        
+
+        $validator = $this->createMock(ValidatorInterface::class);
+        $validator
+            ->expects($this->once())
+            ->method('validate')
+            ->willReturn([]);
+
         $request = $this->createMock(Request::class);
         $request    
             ->expects($this->once())
@@ -51,9 +58,10 @@ class UserModifyTest extends TestCase
             ->method('isGranted')
             ->willReturn(true);
 
-        $classToTest = new UserModify($userRepository, $entityManager, $security);
+        $classToTest = new UserModify($userRepository, $entityManager, $security, $validator);
         $id = 5;
+        $expected = "L'utilisateur a été ajouté avec succès";
 
-        $this->assertTrue($classToTest->modifyUser($id, $request));
+        $this->assertEquals($expected, $classToTest->modifyUser($id, $request));
     }
 }
