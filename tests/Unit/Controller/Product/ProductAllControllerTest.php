@@ -3,8 +3,9 @@
 namespace App\Tests\Unit\Product;
 
 use PHPUnit\Framework\TestCase;
-use App\Controller\Product\ProductAllController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Controller\Product\ProductAllController;
 use App\Services\Product\Interfaces\ProductAllLoaderInterface;
 
 class ProductAllControllerTest extends TestCase
@@ -16,9 +17,11 @@ class ProductAllControllerTest extends TestCase
             ->expects($this->once())
             ->method('loadAllProducts');
 
+        $request = $this->createMock(Request::class);
+
         $classToTest = new ProductAllController($loader);
 
-        $this->assertInstanceOf(Response::class, $classToTest->seeProducts());
+        $this->assertInstanceOf(Response::class, $classToTest->seeProducts($request));
     }
     
 }

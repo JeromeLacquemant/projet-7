@@ -3,6 +3,7 @@
 namespace App\Services\Product;
 
 use App\Repository\ProductRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
 use App\Services\Product\Interfaces\ProductAllLoaderInterface;
 
@@ -19,13 +20,10 @@ class ProductAllLoader implements ProductAllLoaderInterface
         $this->serializer = $serializer;
     }
 
-    public function loadAllProducts(){
-        // Get the first page of products
-		$paginatedResult = $this->productRepository->getProducts(2);
-		// get the total number of products
-		$totalOrder = count($paginatedResult);
+    public function loadAllProducts(Request $request){
+        $data = $request->query->get('page');
         
-        //$data = $this->productRepository->getAllProductQueryBuilder();
+		$paginatedResult = $this->productRepository->getProducts($data);
  
         return $this->serializer->serialize($paginatedResult, "json");
     }

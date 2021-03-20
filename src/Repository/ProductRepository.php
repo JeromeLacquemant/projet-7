@@ -35,7 +35,7 @@ class ProductRepository extends ServiceEntityRepository
 	}
 
     public function getProducts($page){
-		$pageSize = 5;
+		$pageSize = 4;
 		$firstResult = ($page - 1) * $pageSize;
 
 		$queryBuilder = $this->getAllProductQueryBuilder();
@@ -52,32 +52,4 @@ class ProductRepository extends ServiceEntityRepository
 
 		return $paginator;
 	}
-    // /**
-    //  * @return Product[] Returns an array of Product objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Product
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
