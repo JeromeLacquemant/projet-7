@@ -8,9 +8,11 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 
 class ProductFixtures extends Fixture
 {
+    public const NUMBER = 100;
+
     public function load(ObjectManager $manager)
     {
-        for ($i = 1; $i<10; ++$i)
+        for ($i = 1; $i<self::NUMBER; ++$i)
         {
             $product = new Product();
             $product
