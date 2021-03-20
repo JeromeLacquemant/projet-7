@@ -20,17 +20,15 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-        /**
-	 * Retrieve the list of active orders with all their actives packages
+    /**
+	 * Retrieve the list of products 
 	 * @return QueryBuilder
 	 */
 	public function getAllProductQueryBuilder(){
 
-		// Select the orders and their packages
 		$queryBuilder = $this->createQueryBuilder('product');
         $queryBuilder->addSelect('product');
 		
-		//Return the QueryBuilder
 		return $queryBuilder;
 	}
 
@@ -40,14 +38,11 @@ class ProductRepository extends ServiceEntityRepository
 
 		$queryBuilder = $this->getAllProductQueryBuilder();
 		
-		// Set the returned page
 		$queryBuilder->setFirstResult($firstResult);
 		$queryBuilder->setMaxResults($pageSize);
 		
-		// Generate the Query
 		$query = $queryBuilder->getQuery();
 		
-		// Generate the Paginator
 		$paginator = new Paginator($query, true);
 
 		return $paginator;

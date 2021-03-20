@@ -21,9 +21,9 @@ class ProductAllLoader implements ProductAllLoaderInterface
     }
 
     public function loadAllProducts(Request $request){
-        $data = $request->query->get('page');
+        $page = $request->query->get('page');
         
-		$paginatedResult = $this->productRepository->getProducts($data);
+		$paginatedResult = $this->productRepository->getProducts($page);
  
         return $this->serializer->serialize($paginatedResult, "json");
     }
