@@ -15,6 +15,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class ProductRepository extends ServiceEntityRepository
 {
+	const numberOfElementsByPage = 4;
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Product::class);
@@ -33,13 +34,12 @@ class ProductRepository extends ServiceEntityRepository
 	}
 
     public function getProducts($page){
-		$pageSize = 4;
-		$firstResult = ($page - 1) * $pageSize;
+		$firstResult = ($page - 1) * self::numberOfElementsByPage;
 
 		$queryBuilder = $this->getAllProductQueryBuilder();
 		
 		$queryBuilder->setFirstResult($firstResult);
-		$queryBuilder->setMaxResults($pageSize);
+		$queryBuilder->setMaxResults(self::numberOfElementsByPage);
 		
 		$query = $queryBuilder->getQuery();
 		
