@@ -3,10 +3,9 @@
 namespace App\Services\User;
 
 use App\Repository\UserRepository;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
 use App\Services\User\Interfaces\UserAllLoaderInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserAllLoader implements UserAllLoaderInterface
 {
@@ -15,22 +14,25 @@ class UserAllLoader implements UserAllLoaderInterface
 
     public function __construct(
         UserRepository $userRepository,
-        SerializerInterface $serializer,
-        Security $security) 
+        SerializerInterface $serializer,) 
     {
         $this->userRepository = $userRepository;
         $this->serializer = $serializer;
-        $this->security = $security;
+        
     }
 
-    public function loadAllUsers()
+    public function loadAllUsers(Request $request)
     {
-        $id = $this->security->getUser();
+        $page = $request->query->get('page');
 
-        $data = $this->userRepository->findBy(['client' => $id]);
+        if(isset($page)) {
+            $page = 1;
+        }
+
+        $paginatedResult = $this->userRepository->getUsers($page);
 
         $response = $this->serializer->serialize(
-            $data, 
+            $paginatedResult, 
             "json", 
             ['groups' => 'user:read']
         );

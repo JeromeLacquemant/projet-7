@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Symfony\Component\Security\Core\Security;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,37 +16,41 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class UserRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+	const numberOfElementsByPage = 6;
+
+    public function __construct(ManagerRegistry $registry, Security $security)
     {
         parent::__construct($registry, User::class);
+        $this->security = $security;
     }
 
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+    /**
+	 * Retrieve the list of users
+	 * @return QueryBuilder
+	 */
+	public function getAllUsersQueryBuilder($id){
 
-    /*
-    public function findOneBySomeField($value): ?User
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
+		$queryBuilder = $this->createQueryBuilder('user');
+        $queryBuilder   ->andWhere('user.client = :id')
+                        ->setParameter('id', $id);
+		
+		return $queryBuilder;
+	}
+
+    public function getUsers($page){
+        $id = $this->security->getUser();
+
+		$firstResult = ($page - 1) * self::numberOfElementsByPage;
+
+		$queryBuilder = $this->getAllUsersQueryBuilder($id);
+		
+		$queryBuilder->setFirstResult($firstResult);
+		$queryBuilder->setMaxResults(self::numberOfElementsByPage);
+		
+		$query = $queryBuilder->getQuery();
+		
+		$paginator = new Paginator($query, true);
+
+		return $paginator;
+	}
 }
