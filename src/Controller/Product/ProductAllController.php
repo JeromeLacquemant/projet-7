@@ -21,7 +21,7 @@ class ProductAllController
      */
     public function seeProducts(Request $request)
     {
-        $response = new Response($this->productAllLoaderInterface->loadAllProducts($request));
+        $response = new Response($this->productAllLoaderInterface->loadAllProducts($request), 200);
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
