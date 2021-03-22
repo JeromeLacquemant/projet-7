@@ -3,6 +3,7 @@
 namespace App\Services\Client;
 
 use App\Repository\ClientRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
 use App\Services\Client\Interfaces\ClientAllLoaderInterface;
 
@@ -19,11 +20,14 @@ class ClientAllLoader implements ClientAllLoaderInterface
         $this->serializer = $serializer;
     }
 
-    public function loadAllClients(){
-        $data = $this->clientRepository->findAll();
- 
-        $response = $this->serializer->serialize($data, "json", ['groups' => 'client:read']);
+    public function loadAllClients(Request $request){
+        $page = $request->query->get('page');
+        
+        if(isset($page)) {
+            $page = 1;
+        }
+		$paginatedResult = $this->clientRepository->getClients($page);
 
-        return $response;
+        return $this->serializer->serialize($paginatedResult, "json", ['groups' => 'client:read']);
     }
 }
