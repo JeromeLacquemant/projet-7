@@ -2,6 +2,7 @@
 
 namespace App\Controller\Client;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\Client\Interfaces\ClientAllLoaderInterface;
@@ -17,9 +18,9 @@ class ClientAllController
     /**
      * @Route("/all-clients", name="see_all_clients")
      */
-    public function seeClients()
+    public function seeClients(Request $request)
     {
-        $response = new Response($this->clientAllLoaderInterface->loadAllClients());
+        $response = new Response($this->clientAllLoaderInterface->loadAllClients($request), 200);
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;

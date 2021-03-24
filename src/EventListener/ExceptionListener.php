@@ -15,6 +15,7 @@ class ExceptionListener
 {
     const exceptionTypeNotFound = HttpFoundationResponse::HTTP_NOT_FOUND;
     const exceptionTypeForbidden = HttpFoundationResponse::HTTP_FORBIDDEN;
+    const exceptionBadRequest = HttpFoundationResponse::HTTP_BAD_REQUEST;
 
     public function onKernelException(ExceptionEvent $event)
     {
@@ -46,6 +47,10 @@ class ExceptionListener
                 $message = $exception->getMessage();
                 $constant = self::exceptionTypeForbidden;
                 break;
+            default:    
+                $status = 400;
+                $message = $exception->getMessage();
+                $constant = self::exceptionBadRequest;
         }
 
         $customResponse = new JsonResponse(['status'=>$status, 'message' => $message], $constant);
