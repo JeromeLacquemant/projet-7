@@ -23,6 +23,8 @@ class UserOneController
         $response = new Response($this->loader->loadOneUser($id), 200);
         $response->headers->set('Content-Type', 'application/json');
 
+        $response->setMaxAge(3600);
+
         return $response;
     }
 }

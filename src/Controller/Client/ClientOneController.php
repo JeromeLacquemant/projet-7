@@ -23,6 +23,8 @@ class ClientOneController
         $response = new Response($this->clientOneLoaderInterface->loadOneClient($id));
         $response->headers->set('Content-Type', 'application/json');
 
+        $response->setMaxAge(3600);
+        
         return $response;
     }
 }

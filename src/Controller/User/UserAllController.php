@@ -24,6 +24,8 @@ class UserAllController
         $response = new Response($this->loader->loadAllUsers($request), 200);
         $response->headers->set('Content-Type', 'application/json');
 
+        $response->setMaxAge(3600);
+
         return $response;
     }
 }
