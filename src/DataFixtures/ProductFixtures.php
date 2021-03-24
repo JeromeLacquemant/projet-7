@@ -8,7 +8,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 
 class ProductFixtures extends Fixture
 {
-    public const NUMBER = 100;
+    public const NUMBER = 9500;
 
     public function load(ObjectManager $manager)
     {

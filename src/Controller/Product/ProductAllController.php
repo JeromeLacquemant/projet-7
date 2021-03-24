@@ -24,6 +24,8 @@ class ProductAllController
         $response = new Response($this->productAllLoaderInterface->loadAllProducts($request), 200);
         $response->headers->set('Content-Type', 'application/json');
 
+        $response->setMaxAge(3600);
+
         return $response;
     }
 }

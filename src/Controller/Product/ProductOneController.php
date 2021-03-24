@@ -23,6 +23,8 @@ class ProductOneController
         $response = new Response($this->productOneLoaderInterface->loadOneProduct($id));
         $response->headers->set('Content-Type', 'application/json');
 
+        $response->setMaxAge(3600);
+
         return $response;
     }
 }
