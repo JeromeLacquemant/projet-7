@@ -27,8 +27,6 @@ class UserAddController
 
         $response = new JsonResponse(['message' => $data], 201);
         $response->headers->set('Content-Type', 'application/json');
-
-        $response->setMaxAge(3600);
         
         return $response;
     }

@@ -28,8 +28,6 @@ class UserModifyController
         $response = new JsonResponse(['message' => $message], 200);
         $response->headers->set('Content-Type', 'application/json');
 
-        $response->setMaxAge(3600);
-
         return $response;
     }
 }
