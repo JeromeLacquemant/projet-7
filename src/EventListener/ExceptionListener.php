@@ -1,7 +1,6 @@
 <?php
 namespace App\EventListener;
 
-use App\Exception\ValidationException;
 use App\Exception\UserNotFoundException;
 use App\Exception\ClientNotFoundException;
 use App\Exception\ProductNotFoundException;
@@ -23,37 +22,25 @@ class ExceptionListener
 
         switch (true) {
             case $exception instanceof NotFoundHttpException:
-                $status = 404;
-                $message = $exception->getMessage();
-                $constant = self::exceptionTypeNotFound;
+                $status = self::exceptionTypeNotFound;
                 break;
             case $exception instanceof UserNotFoundException:
-                $status = 404;
-                $message = $exception->getMessage();
-                $constant = self::exceptionTypeNotFound;
+                $status = self::exceptionTypeNotFound;
                 break;
             case $exception instanceof ClientNotFoundException:
-                $status = 404;
-                $message = $exception->getMessage();
-                $constant = self::exceptionTypeNotFound;
+                $status = self::exceptionTypeNotFound;
                 break;
             case $exception instanceof ProductNotFoundException:
-                $status = 404;
-                $message = $exception->getMessage();
-                $constant = self::exceptionTypeNotFound;
+                $status = self::exceptionTypeNotFound;
                 break;
             case $exception instanceof ClientUnauthorizedException:
-                $status = 403;
-                $message = $exception->getMessage();
-                $constant = self::exceptionTypeForbidden;
+                $status = self::exceptionTypeForbidden;
                 break;
             default:    
-                $status = 400;
-                $message = $exception->getMessage();
-                $constant = self::exceptionBadRequest;
+                $status = self::exceptionBadRequest;
         }
 
-        $customResponse = new JsonResponse(['status'=>$status, 'message' => $message], $constant);
+        $customResponse = new JsonResponse(['status'=>$status, 'message' => $exception->getMessage()]);
 
         $event->setResponse($customResponse);
     }
