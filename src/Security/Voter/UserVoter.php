@@ -16,12 +16,13 @@ class UserVoter extends Voter
     // these strings are just invented: you can use anything
     const VIEW = 'view';
     const EDIT = 'edit';
+    const DELETE = 'delete';
 
     protected function supports(string $attribute, $subject)
     {
         
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, [self::VIEW, self::EDIT])) {
+        if (!in_array($attribute, [self::VIEW, self::EDIT, self::DELETE])) {
             return false;
         }
 
@@ -51,6 +52,8 @@ class UserVoter extends Voter
                 return $this->canView($user, $client);
             case self::EDIT:
                 return $this->canEdit($user, $client);
+            case self::DELETE:
+                return $this->canDelete($user, $client);
         }
 
         throw new \LogicException('This code should not be reached!');
@@ -65,6 +68,11 @@ class UserVoter extends Voter
     }
 
     private function canEdit(User $user, Client $client)
+    {
+        return $client === $user->getClient();
+    }
+
+    private function canDelete(User $user, Client $client)
     {
         return $client === $user->getClient();
     }

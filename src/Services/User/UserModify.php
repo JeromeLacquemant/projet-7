@@ -38,7 +38,7 @@ class UserModify implements UserModifyInterface
             throw new UserNotFoundException('user not found');
         }
 
-        if($this->security->isGranted('view', $registeredUser))
+        if($this->security->isGranted('edit', $registeredUser))
         {
             $data = json_decode($request->getContent(), true);
 
