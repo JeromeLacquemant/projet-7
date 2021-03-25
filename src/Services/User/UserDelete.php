@@ -37,7 +37,7 @@ class UserDelete implements UserDeleteInterface
             throw new UserNotFoundException('Cet utilisateur n\'existe pas');
         }
 
-        if($this->security->isGranted('edit', $user)) {
+        if($this->security->isGranted('delete', $user)) {
             $this->entityManagerInterface->remove($user);
             $this->entityManagerInterface->flush();
     
