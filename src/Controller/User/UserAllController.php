@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\User\Interfaces\UserAllLoaderInterface;
+use OpenApi\Annotations as OA;
 
 class UserAllController
 {
@@ -17,7 +18,11 @@ class UserAllController
     }
 
      /**
-     * @Route("/api/all-users", name="see_all_users")
+      *     @OA\Response(
+     *     response=200,
+     *     description="Returns the rewards of an user")
+     * 
+     * @Route("/api/all-users", name="see_all_users", methods={"GET"})
      */
     public function seeUsers(Request $request)
     {
