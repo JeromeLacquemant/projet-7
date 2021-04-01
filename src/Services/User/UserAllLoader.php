@@ -14,7 +14,7 @@ class UserAllLoader implements UserAllLoaderInterface
 
     public function __construct(
         UserRepository $userRepository,
-        SerializerInterface $serializer,) 
+        SerializerInterface $serializer)
     {
         $this->userRepository = $userRepository;
         $this->serializer = $serializer;
