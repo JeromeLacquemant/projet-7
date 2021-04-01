@@ -5,3 +5,5 @@ services:
 
     App\Tests\Behat\:
         resource: '../Tests/Behat/*'
+
+    Behatch\HttpCall\Request: ~

@@ -4,7 +4,8 @@ Feature:
 Display all users with a get response
 
     Scenario: All users are displayed
-        When I send a "GET" request to "api/all-users?page=1"
+        Given I am successfully logged in with username: "client_1@gmail.com", and password: "12345"
+        When I send a "GET" request to "api/all-users?page=1" and I am logged in
         Then the response status code should be 200
         And the response should be in JSON
 
