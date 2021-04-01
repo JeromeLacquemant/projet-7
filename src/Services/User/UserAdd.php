@@ -2,12 +2,12 @@
 
 namespace App\Services\User;
 
+use App\Services\User\Interfaces\UserAddInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
-use App\Services\User\Interfaces\UserAddInterface;
-use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserAdd implements UserAddInterface
@@ -19,7 +19,7 @@ class UserAdd implements UserAddInterface
         SerializerInterface $serializer,
         EntityManagerInterface $entityManager,
         Security $security,
-        ValidatorInterface $validator) 
+        ValidatorInterface $validator)
     {
         $this->serializer = $serializer;
         $this->entityManager = $entityManager;
@@ -27,10 +27,11 @@ class UserAdd implements UserAddInterface
         $this->validator = $validator;
     }
 
-    public function addUser(Request $request) {
+    public function addUser(Request $request)
+    {
         $data = $request->getContent();
-        $client = $this->security->getUser(); 
-        
+        $client = $this->security->getUser();
+
         $user = $this->serializer->deserialize($data, 'App\Entity\User', 'json');
         $user->setClient($client);
 
@@ -43,12 +44,13 @@ class UserAdd implements UserAddInterface
                     $messages[] = $message;
                 }
             }
+
             return $messages;
         }
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();
-        
+
         return "L'utilisateur a été ajouté avec succès";
     }
 }

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Services\User;
 
-use App\Entity\User;
 use App\Entity\Client;
-use PHPUnit\Framework\TestCase;
-use App\Services\User\UserDelete;
+use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Services\User\UserDelete;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Security;
 
 class UserDeleteTest extends TestCase
@@ -27,17 +27,17 @@ class UserDeleteTest extends TestCase
         $client = new Client();
 
         $user = new User();
-            $user->setUsername("Daniel");
-            $user->setPassword("password");
-            $user->setEmail("mai@mail.com");
-            $user->setClient($client);
-                
+        $user->setUsername('Daniel');
+        $user->setPassword('password');
+        $user->setEmail('mai@mail.com');
+        $user->setClient($client);
+
         $userRepository = $this->createMock(UserRepository::class);
         $userRepository
             ->expects($this->once())
             ->method('find')
             ->willReturn($user);
-        
+
         $security = $this->createMock(Security::class);
         $security
             ->expects($this->once())

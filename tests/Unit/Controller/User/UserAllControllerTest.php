@@ -2,15 +2,15 @@
 
 namespace App\Tests\Unit\Controller\User;
 
-use PHPUnit\Framework\TestCase;
 use App\Controller\User\UserAllController;
+use App\Services\User\Interfaces\UserAllLoaderInterface;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Services\User\Interfaces\UserAllLoaderInterface;
 
 class UserAllControllerTest extends TestCase
 {
-    public function testUserAllController() 
+    public function testUserAllController()
     {
         $loader = $this->createMock(UserAllLoaderInterface::class);
         $loader
@@ -23,5 +23,4 @@ class UserAllControllerTest extends TestCase
 
         $this->assertInstanceOf(Response::class, $classToTest->seeUsers($request));
     }
-    
 }

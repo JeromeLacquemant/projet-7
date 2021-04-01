@@ -2,20 +2,20 @@
 
 namespace App\Controller\User;
 
+use App\Services\User\Interfaces\UserOneLoaderInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Services\User\Interfaces\UserOneLoaderInterface;
 
 class UserOneController
 {
     private $loader;
 
-    public function __construct(UserOneLoaderInterface $loader) 
+    public function __construct(UserOneLoaderInterface $loader)
     {
         $this->loader = $loader;
     }
 
-     /**
+    /**
      * @Route("api/users/{id}", name="see_one_user", methods={"GET"})
      */
     public function seeUser($id)

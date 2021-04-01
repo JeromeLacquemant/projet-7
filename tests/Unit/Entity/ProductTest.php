@@ -13,7 +13,7 @@ class ProductTest extends TestCase
     {
         $classToTest = new Product();
 
-        $classToTest->setName("Produit1");
+        $classToTest->setName('Produit1');
         $this->assertEquals('Produit1', $classToTest->getName());
     }
 
@@ -21,7 +21,7 @@ class ProductTest extends TestCase
     {
         $classToTest = new Product();
 
-        $classToTest->setDescription("Description du produit");
+        $classToTest->setDescription('Description du produit');
         $this->assertEquals('Description du produit', $classToTest->getDescription());
     }
 
@@ -29,7 +29,7 @@ class ProductTest extends TestCase
     {
         $classToTest = new Product();
 
-        $classToTest->setPrice("265");
+        $classToTest->setPrice('265');
         $this->assertEquals('265', $classToTest->getPrice());
     }
 }

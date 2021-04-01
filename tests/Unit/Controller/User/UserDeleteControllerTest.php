@@ -2,14 +2,14 @@
 
 namespace App\Tests\Unit\Controller\User;
 
-use PHPUnit\Framework\TestCase;
 use App\Controller\User\UserDeleteController;
-use Symfony\Component\HttpFoundation\Response;
 use App\Services\User\Interfaces\UserDeleteInterface;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserDeleteControllerTest extends TestCase
 {
-    public function testUserDeleteController() 
+    public function testUserDeleteController()
     {
         $loader = $this->createMock(UserDeleteInterface::class);
         $loader
@@ -21,5 +21,4 @@ class UserDeleteControllerTest extends TestCase
 
         $this->assertInstanceOf(Response::class, $classToTest->deleteOneUser($id));
     }
-    
 }

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Services\Client;
 
-use PHPUnit\Framework\TestCase;
 use App\Repository\ClientRepository;
 use App\Services\Client\ClientAllLoader;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -24,7 +24,7 @@ class ClientAllLoaderTest extends TestCase
         $productRepository = $this->createMock(ClientRepository::class);
 
         $request = $this->createMock(Request::class);
-        $request->query = new InputBag;
+        $request->query = new InputBag();
 
         $classToTest = new ClientAllLoader($productRepository, $serializer);
 

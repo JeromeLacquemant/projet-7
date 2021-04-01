@@ -6,9 +6,9 @@ namespace App\Tests\Unit\Services\User;
 
 use App\Entity\Client;
 use App\Entity\User;
-use PHPUnit\Framework\TestCase;
 use App\Repository\UserRepository;
 use App\Services\User\UserOneLoader;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -19,16 +19,16 @@ class UserOneLoaderTest extends TestCase
         $client = new Client();
 
         $user = new User();
-            $user->setUsername("Daniel");
-            $user->setPassword("password");
-            $user->setEmail("mai@ail.com");
-            $user->setClient($client);
+        $user->setUsername('Daniel');
+        $user->setPassword('password');
+        $user->setEmail('mai@ail.com');
+        $user->setClient($client);
 
         $userRepository = $this->createMock(UserRepository::class);
-            $userRepository
+        $userRepository
                 ->expects($this->once())
                 ->method('find')
-                ->willReturn($user);   
+                ->willReturn($user);
 
         $serializer = $this->createMock(SerializerInterface::class);
         $serializer

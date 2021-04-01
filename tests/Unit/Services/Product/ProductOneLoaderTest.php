@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Services\Product;
 
 use App\Entity\Product;
-use PHPUnit\Framework\TestCase;
 use App\Repository\ProductRepository;
 use App\Services\Product\ProductOneLoader;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class ProductOneLoaderTest extends TestCase
@@ -17,10 +17,10 @@ class ProductOneLoaderTest extends TestCase
         $product = new Product();
 
         $productRepository = $this->createMock(ProductRepository::class);
-            $productRepository
+        $productRepository
                 ->expects($this->once())
                 ->method('find')
-                ->willReturn($product);   
+                ->willReturn($product);
 
         $serializer = $this->createMock(SerializerInterface::class);
         $serializer

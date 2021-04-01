@@ -3,9 +3,9 @@
 namespace App\Services\User;
 
 use App\Repository\UserRepository;
+use App\Services\User\Interfaces\UserAllLoaderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
-use App\Services\User\Interfaces\UserAllLoaderInterface;
 
 class UserAllLoader implements UserAllLoaderInterface
 {
@@ -18,22 +18,21 @@ class UserAllLoader implements UserAllLoaderInterface
     {
         $this->userRepository = $userRepository;
         $this->serializer = $serializer;
-        
     }
 
     public function loadAllUsers(Request $request)
     {
         $page = $request->query->get('page');
 
-        if(isset($page)) {
+        if (isset($page)) {
             $page = 1;
         }
 
         $paginatedResult = $this->userRepository->getUsers($page);
 
         $response = $this->serializer->serialize(
-            $paginatedResult, 
-            "json", 
+            $paginatedResult,
+            'json',
             ['groups' => 'user:read']
         );
 

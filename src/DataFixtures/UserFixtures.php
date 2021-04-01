@@ -3,8 +3,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture
@@ -20,11 +20,11 @@ class UserFixtures extends Fixture
     {
         for ($i = 1; $i <= self::NUMBER; ++$i) {
             $user = new User('Lastname '.$i, 'firstname '.$i);
-            $user 
+            $user
                 ->setUsername('Username '.$i)
                 //->setPassword(password_hash('12345', PASSWORD_BCRYPT))
                 ->setPassword('12345')
-                ->setEmail("user_".$i."@gmail.com")
+                ->setEmail('user_'.$i.'@gmail.com')
                 ->setClient($this->getReference('Client '.mt_rand(0, 3)));
 
             $manager->persist($user);

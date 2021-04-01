@@ -2,19 +2,20 @@
 
 namespace App\Controller\Client;
 
+use App\Services\Client\Interfaces\ClientAllLoaderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Services\Client\Interfaces\ClientAllLoaderInterface;
 
 class ClientAllController
 {
     private $clientAllLoaderInterface;
 
-    public function __construct(ClientAllLoaderInterface $clientAllLoaderInterface) 
+    public function __construct(ClientAllLoaderInterface $clientAllLoaderInterface)
     {
         $this->clientAllLoaderInterface = $clientAllLoaderInterface;
     }
+
     /**
      * @Route("/all-clients", name="see_all_clients", methods={"GET"})
      */

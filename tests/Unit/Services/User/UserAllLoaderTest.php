@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Services\User;
 
-use PHPUnit\Framework\TestCase;
 use App\Repository\UserRepository;
 use App\Services\User\UserAllLoader;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class UserAllLoaderTest extends TestCase
@@ -27,7 +27,7 @@ class UserAllLoaderTest extends TestCase
         $security = $this->createMock(Security::class);
 
         $request = $this->createMock(Request::class);
-        $request->query = new InputBag;
+        $request->query = new InputBag();
 
         $classToTest = new UserAllLoader($userRepository, $serializer);
 

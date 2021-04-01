@@ -3,8 +3,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\Client;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
 
 class ClientFixtures extends Fixture
 {
@@ -14,15 +14,15 @@ class ClientFixtures extends Fixture
             'Orange',
             'Free',
             'SFR',
-            'Bouygues'
+            'Bouygues',
         ];
 
-        for ($i = 0; $i <sizeof($names); ++$i) {
+        for ($i = 0; $i < sizeof($names); ++$i) {
             $client = new Client();
             $client
-                ->setUsername("Client ".$i)
+                ->setUsername('Client '.$i)
                 ->setPassword(password_hash('12345', PASSWORD_BCRYPT))
-                ->setEmail("client_".$i."@gmail.com");
+                ->setEmail('client_'.$i.'@gmail.com');
 
             $manager->persist($client);
             $this->addReference('Client '.$i, $client);

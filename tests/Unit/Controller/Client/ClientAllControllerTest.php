@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Tests\Unit\Controller\Client;
+
+use App\Controller\Client\ClientAllController;
+use App\Services\Client\Interfaces\ClientAllLoaderInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
-use App\Controller\Client\ClientAllController;
 use Symfony\Component\HttpFoundation\Response;
-use App\Services\Client\Interfaces\ClientAllLoaderInterface;
 
 class ClientAllControllerTest extends TestCase
 {
-    public function testProductAllController() 
+    public function testProductAllController()
     {
         $loader = $this->createMock(ClientAllLoaderInterface::class);
         $loader
@@ -22,5 +23,4 @@ class ClientAllControllerTest extends TestCase
 
         $this->assertInstanceOf(Response::class, $classToTest->seeClients($request));
     }
-    
 }

@@ -2,14 +2,12 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 use App\Repository\UserRepository;
-use Symfony\Component\Serializer\Annotation\Groups;
-
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -48,7 +46,6 @@ class User implements UserInterface
      * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="user")
      */
     private $client;
-
 
     public function getId(): ?int
     {
@@ -103,9 +100,15 @@ class User implements UserInterface
         return $this;
     }
 
-    public function eraseCredentials() {}
+    public function eraseCredentials()
+    {
+    }
 
-    public function getSalt() {}
+    public function getSalt()
+    {
+    }
 
-    public function getRoles() {}
+    public function getRoles()
+    {
+    }
 }

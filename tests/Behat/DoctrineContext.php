@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace App\Tests\Behat;
 
-use Behat\Behat\Context\Context;
-use App\DataFixtures\UserFixtures;
-use Doctrine\ORM\Tools\SchemaTool;
 use App\DataFixtures\ClientFixtures;
 use App\DataFixtures\ProductFixtures;
-use Doctrine\ORM\Tools\ToolsException;
-use Doctrine\Common\DataFixtures\Loader;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Common\DataFixtures\Purger\ORMPurger;
+use App\DataFixtures\UserFixtures;
+use Behat\Behat\Context\Context;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Doctrine\Common\DataFixtures\Loader;
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Tools\SchemaTool;
+use Doctrine\ORM\Tools\ToolsException;
 
 final class DoctrineContext implements Context
 {

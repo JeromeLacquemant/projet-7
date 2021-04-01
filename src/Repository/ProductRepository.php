@@ -3,9 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Product;
-use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Product|null find($id, $lockMode = null, $lockVersion = null)
@@ -15,37 +15,39 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class ProductRepository extends ServiceEntityRepository
 {
-	const numberOfElementsByPage = 9500;
-	
+    const numberOfElementsByPage = 9500;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Product::class);
     }
 
     /**
-	 * Retrieve the list of products 
-	 * @return QueryBuilder
-	 */
-	public function getAllProductQueryBuilder(){
-
-		$queryBuilder = $this->createQueryBuilder('product');
+     * Retrieve the list of products.
+     *
+     * @return QueryBuilder
+     */
+    public function getAllProductQueryBuilder()
+    {
+        $queryBuilder = $this->createQueryBuilder('product');
         $queryBuilder->addSelect('product');
-		
-		return $queryBuilder;
-	}
 
-    public function getProducts($page){
-		$firstResult = ($page - 1) * self::numberOfElementsByPage;
+        return $queryBuilder;
+    }
 
-		$queryBuilder = $this->getAllProductQueryBuilder();
-		
-		$queryBuilder->setFirstResult($firstResult);
-		$queryBuilder->setMaxResults(self::numberOfElementsByPage);
-		
-		$query = $queryBuilder->getQuery();
-		
-		$paginator = new Paginator($query, true);
+    public function getProducts($page)
+    {
+        $firstResult = ($page - 1) * self::numberOfElementsByPage;
 
-		return $paginator;
-	}
+        $queryBuilder = $this->getAllProductQueryBuilder();
+
+        $queryBuilder->setFirstResult($firstResult);
+        $queryBuilder->setMaxResults(self::numberOfElementsByPage);
+
+        $query = $queryBuilder->getQuery();
+
+        $paginator = new Paginator($query, true);
+
+        return $paginator;
+    }
 }

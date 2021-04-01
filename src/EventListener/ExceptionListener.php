@@ -1,14 +1,15 @@
 <?php
+
 namespace App\EventListener;
 
-use App\Exception\UserNotFoundException;
 use App\Exception\ClientNotFoundException;
-use App\Exception\ProductNotFoundException;
 use App\Exception\ClientUnauthorizedException;
+use App\Exception\ProductNotFoundException;
+use App\Exception\UserNotFoundException;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 class ExceptionListener
 {
@@ -36,11 +37,11 @@ class ExceptionListener
             case $exception instanceof ClientUnauthorizedException:
                 $status = self::exceptionTypeForbidden;
                 break;
-            default:    
+            default:
                 $status = self::exceptionBadRequest;
         }
 
-        $customResponse = new JsonResponse(['status'=>$status, 'message' => $exception->getMessage()]);
+        $customResponse = new JsonResponse(['status' => $status, 'message' => $exception->getMessage()]);
 
         $event->setResponse($customResponse);
     }

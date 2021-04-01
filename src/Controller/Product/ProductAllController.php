@@ -2,19 +2,17 @@
 
 namespace App\Controller\Product;
 
+use App\Services\Product\Interfaces\ProductAllLoaderInterface;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Services\Product\Interfaces\ProductAllLoaderInterface;
-use Nelmio\ApiDocBundle\Annotation\Model;
-use Nelmio\ApiDocBundle\Annotation\Security;
-use OpenApi\Annotations as OA;
 
 class ProductAllController
 {
     private $productAllLoaderInterface;
 
-    public function __construct(ProductAllLoaderInterface $productAllLoaderInterface) 
+    public function __construct(ProductAllLoaderInterface $productAllLoaderInterface)
     {
         $this->productAllLoaderInterface = $productAllLoaderInterface;
     }

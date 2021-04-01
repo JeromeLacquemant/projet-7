@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Services\User;
 
-use App\Entity\User;
 use App\Entity\Client;
-use PHPUnit\Framework\TestCase;
-use App\Services\User\UserModify;
+use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Services\User\UserModify;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -29,16 +29,16 @@ class UserModifyTest extends TestCase
         $client = new Client();
 
         $user = new User();
-            $user->setUsername("Daniel");
-            $user->setPassword("password");
-            $user->setEmail("mai@mail.com");
-            $user->setClient($client);
+        $user->setUsername('Daniel');
+        $user->setPassword('password');
+        $user->setEmail('mai@mail.com');
+        $user->setClient($client);
 
         $userRepository = $this->createMock(UserRepository::class);
         $userRepository
             ->expects($this->once())
             ->method('find')
-            ->willReturn($user); 
+            ->willReturn($user);
 
         $validator = $this->createMock(ValidatorInterface::class);
         $validator
@@ -47,7 +47,7 @@ class UserModifyTest extends TestCase
             ->willReturn([]);
 
         $request = $this->createMock(Request::class);
-        $request    
+        $request
             ->expects($this->once())
             ->method('getContent')
             ->willReturn('{"username":"daniel","password":"password","email":"mail@mail.com"}');

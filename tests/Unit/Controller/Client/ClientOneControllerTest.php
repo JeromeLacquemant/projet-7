@@ -2,14 +2,14 @@
 
 namespace App\Tests\Unit\Controller\Client;
 
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\Response;
 use App\Controller\Client\ClientOneController;
 use App\Services\Client\Interfaces\ClientOneLoaderInterface;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Response;
 
 class ClientOneControllerTest extends TestCase
 {
-    public function testClientOneController() 
+    public function testClientOneController()
     {
         $loader = $this->createMock(ClientOneLoaderInterface::class);
         $loader
@@ -18,8 +18,7 @@ class ClientOneControllerTest extends TestCase
 
         $classToTest = new ClientOneController($loader);
         $id = 5;
-        
+
         $this->assertInstanceOf(Response::class, $classToTest->seeClient($id));
     }
-    
 }

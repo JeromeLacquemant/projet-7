@@ -7,14 +7,14 @@ namespace App\Tests\Behat;
 use App\Repository\ClientRepository;
 use Behat\Behat\Context\Context;
 use Behatch\HttpCall\Request;
-use Behatch\Context\RestContext;
 
 class RestApiContext implements Context
 {
     /**
      * RestApiContext constructor.
-     * @param ClientInterface   $client
-     * @param string            $dummyDataPath
+     *
+     * @param ClientInterface $client
+     * @param string          $dummyDataPath
      */
     public function __construct(ClientRepository $client, $dummyDataPath = null)
     {
@@ -23,7 +23,7 @@ class RestApiContext implements Context
     }
 
     /**
-     * Adds JWT Token to Authentication header for next request
+     * Adds JWT Token to Authentication header for next request.
      *
      * @param string $username
      * @param string $password
@@ -36,12 +36,12 @@ class RestApiContext implements Context
             'json' => [
                 'username' => $username,
                 'password' => $password,
-            ]
+            ],
         ]);
 
         \PHPUnit_Framework_Assert::assertEquals(200, $response->getStatusCode());
 
         $responseBody = json_decode($response->getBody(), true);
-        $this->addHeader('Authorization', 'Bearer ' . $responseBody['token']);
+        $this->addHeader('Authorization', 'Bearer '.$responseBody['token']);
     }
 }

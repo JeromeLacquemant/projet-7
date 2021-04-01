@@ -1,18 +1,16 @@
 <?php
 
 // src/Security/PostVoter.php
+
 namespace App\Security\Voter;
 
-use Exception;
-use App\Entity\User;
 use App\Entity\Client;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
-use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
+use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class UserVoter extends Voter
 {
-    
     // these strings are just invented: you can use anything
     const VIEW = 'view';
     const EDIT = 'edit';
@@ -20,7 +18,6 @@ class UserVoter extends Voter
 
     protected function supports(string $attribute, $subject)
     {
-        
         // if the attribute isn't one we support, return false
         if (!in_array($attribute, [self::VIEW, self::EDIT, self::DELETE])) {
             return false;
@@ -30,14 +27,14 @@ class UserVoter extends Voter
         if (!$subject instanceof User) {
             return false;
         }
-        
+
         return true;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token)
     {
         $client = $token->getUser();
-        
+
         if (!$client instanceof Client) {
             // the user must be logged in; if not, deny access
             return false;
@@ -48,7 +45,7 @@ class UserVoter extends Voter
         $user = $subject;
 
         switch ($attribute) {
-            case self::VIEW:   
+            case self::VIEW:
                 return $this->canView($user, $client);
             case self::EDIT:
                 return $this->canEdit($user, $client);
@@ -77,4 +74,3 @@ class UserVoter extends Voter
         return $client === $user->getClient();
     }
 }
-
