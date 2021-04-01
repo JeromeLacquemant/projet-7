@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Services\Product;
+namespace App\Tests\Unit\Services\Client;
 
 use App\Entity\Client;
 use PHPUnit\Framework\TestCase;

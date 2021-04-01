@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Unit\User;
+namespace App\Tests\Unit\Controller\User;
 
 use PHPUnit\Framework\TestCase;
 use App\Controller\User\UserAllController;

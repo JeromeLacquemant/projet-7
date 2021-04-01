@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Unit\Product;
+namespace App\Tests\Unit\Controller\Product;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
