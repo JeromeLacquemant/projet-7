@@ -2,36 +2,27 @@
 
 namespace App\Controller\Product;
 
+use App\Responder\JsonResponder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use App\Services\Product\Interfaces\ProductAllLoaderInterface;
-use Nelmio\ApiDocBundle\Annotation\Model;
-use Nelmio\ApiDocBundle\Annotation\Security;
-use OpenApi\Annotations as OA;
 
 class ProductAllController
 {
     private $productAllLoaderInterface;
 
-    public function __construct(ProductAllLoaderInterface $productAllLoaderInterface) 
+    public function __construct(
+        ProductAllLoaderInterface $productAllLoaderInterface,
+        JsonResponder $jsonResponder) 
     {
         $this->productAllLoaderInterface = $productAllLoaderInterface;
+        $this->jsonResponder = $jsonResponder;
     }
 
-    /**
-     * @Route("/all-products", name="see_all_products", methods={"GET"})
-     * @OA\Response(
-     *     response=200,
-     *     description="Returns the rewards of an user")
-     */
-    public function seeProducts(Request $request)
+    public function __invoke(Request $request)
     {
-        $response = new Response($this->productAllLoaderInterface->loadAllProducts($request), 200);
-        $response->headers->set('Content-Type', 'application/json');
+        $users = $this->productAllLoaderInterface->loadAllProducts($request);
 
-        $response->setMaxAge(3600);
-
-        return $response;
+        return $this->jsonResponder->respond($users, 200);
     }
 }
