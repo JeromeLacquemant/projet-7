@@ -15,7 +15,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class ProductRepository extends ServiceEntityRepository
 {
-	const numberOfElementsByPage = 9500;
+	const numberOfElementsByPage = 6;
 	
     public function __construct(ManagerRegistry $registry)
     {
