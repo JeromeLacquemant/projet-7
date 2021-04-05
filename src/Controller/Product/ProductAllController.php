@@ -2,6 +2,7 @@
 
 namespace App\Controller\Product;
 
+use App\Responder\JsonResponder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,21 +12,21 @@ class ProductAllController
 {
     private $productAllLoaderInterface;
 
-    public function __construct(ProductAllLoaderInterface $productAllLoaderInterface) 
+    public function __construct(
+        ProductAllLoaderInterface $productAllLoaderInterface,
+        JsonResponder $jsonResponder) 
     {
         $this->productAllLoaderInterface = $productAllLoaderInterface;
+        $this->jsonResponder = $jsonResponder;
     }
-
+    
     /**
-     * @Route("/all-products", name="see_all_products")
+     * @Route("/products", name="see_all_products")
      */
     public function seeProducts(Request $request)
     {
-        $response = new Response($this->productAllLoaderInterface->loadAllProducts($request), 200);
-        $response->headers->set('Content-Type', 'application/json');
+        $users = $this->productAllLoaderInterface->loadAllProducts($request);
 
-        $response->setMaxAge(3600);
-
-        return $response;
+        return $this->jsonResponder->respond($users, $request, 200);
     }
 }

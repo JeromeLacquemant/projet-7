@@ -14,8 +14,10 @@
         "doctrine/orm": "^2.8",
         "friendsofphp/php-cs-fixer": "^2.18",
         "lexik/jwt-authentication-bundle": "^2.10",
+        "nelmio/api-doc-bundle": "^4.2",
         "phpdocumentor/reflection-docblock": "^5.2",
         "phpstan/phpstan": "^0.12.70",
+        "symfony/asset": "5.2.*",
         "symfony/browser-kit": "5.2.*",
         "symfony/console": "5.2.*",
         "symfony/css-selector": "5.2.*",
@@ -28,8 +30,12 @@
         "symfony/property-info": "5.2.*",
         "symfony/security-bundle": "5.2.*",
         "symfony/serializer": "5.2.*",
+        "symfony/twig-bundle": "5.2.*",
         "symfony/validator": "5.2.*",
-        "symfony/yaml": "5.2.*"
+        "symfony/yaml": "5.2.*",
+        "twig/extra-bundle": "^2.12|^3.0",
+        "twig/twig": "^2.12|^3.0",
+        "zircote/swagger-php": "^3.1"
     },
     "config": {
         "optimize-autoloader": true,

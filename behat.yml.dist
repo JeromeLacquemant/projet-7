@@ -5,6 +5,10 @@ default:
                 - behatch:context:json
                 - behatch:context:rest
                 - Behat\MinkExtension\Context\MinkContext
+                - App\Tests\Behat\DoctrineContext:
+                    container: '@service_container'
+                    entityManager: '@doctrine.orm.entity.manager'
+                
 
     extensions:
         FriendsOfBehat\SymfonyExtension:

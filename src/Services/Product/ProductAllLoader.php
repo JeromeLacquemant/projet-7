@@ -29,6 +29,6 @@ class ProductAllLoader implements ProductAllLoaderInterface
         
 		$paginatedResult = $this->productRepository->getProducts($page);
 
-        return $this->serializer->serialize($paginatedResult, "json");
+        return $paginatedResult;
     }
 }

@@ -30,6 +30,10 @@ security:
             anonymous: true
             lazy: true
 
+        api_doc:
+            pattern: ^/doc
+            security: false
+
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 

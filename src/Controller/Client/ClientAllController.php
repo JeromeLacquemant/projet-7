@@ -16,7 +16,7 @@ class ClientAllController
         $this->clientAllLoaderInterface = $clientAllLoaderInterface;
     }
     /**
-     * @Route("/all-clients", name="see_all_clients")
+     * @Route("/all-clients", name="see_all_clients", methods={"GET"})
      */
     public function seeClients(Request $request)
     {

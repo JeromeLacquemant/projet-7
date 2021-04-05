@@ -11,10 +11,10 @@ class UserFixtures extends Fixture
 {
     public const NUMBER = 100;
 
-    public function __construct(UserPasswordEncoderInterface $encoder)
-    {
-        $this->encoder = $encoder;
-    }
+    // public function __construct(UserPasswordEncoderInterface $encoder)
+    // {
+    //     $this->encoder = $encoder;
+    // }
 
     public function load(ObjectManager $manager)
     {
@@ -22,7 +22,8 @@ class UserFixtures extends Fixture
             $user = new User('Lastname '.$i, 'firstname '.$i);
             $user 
                 ->setUsername('Username '.$i)
-                ->setPassword(password_hash('12345', PASSWORD_BCRYPT))
+                //->setPassword(password_hash('12345', PASSWORD_BCRYPT))
+                ->setPassword('12345')
                 ->setEmail("user_".$i."@gmail.com")
                 ->setClient($this->getReference('Client '.mt_rand(0, 3)));
 
