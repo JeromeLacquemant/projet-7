@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
-final class JsonResponder
+class JsonResponder
 {
     const codeHttpOk = HttpFoundationResponse::HTTP_OK;
     const cacheTiming = 3600;
@@ -20,7 +20,7 @@ final class JsonResponder
         $this->serializer = $serializer;
     }
 
-    public function respond($response, $codeHttp=self::codeHttpOk, $request)
+    public function respond($response, $request, $codeHttp=self::codeHttpOk)
     {        
     $jsonResponse = new JsonResponse(
             $this->serializer->serialize($response, 'json'),
