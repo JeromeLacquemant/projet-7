@@ -10,14 +10,11 @@ use App\Services\Product\Interfaces\ProductOneLoaderInterface;
 class ProductOneLoader implements ProductOneLoaderInterface
 {
     private $productRepository;
-    private $serializer;
 
     public function __construct(
-        ProductRepository $productRepository,
-        SerializerInterface $serializer) 
+        ProductRepository $productRepository) 
     {
         $this->productRepository = $productRepository;
-        $this->serializer = $serializer;
     }
 
     public function loadOneProduct($id){
@@ -28,8 +25,6 @@ class ProductOneLoader implements ProductOneLoaderInterface
             throw new ProductNotFoundException('Le produit n\'a pas été trouvé.');
         }
 
-        $response = $this->serializer->serialize($product, "json");
-
-        return $response;
+        return $product;
     }
 }

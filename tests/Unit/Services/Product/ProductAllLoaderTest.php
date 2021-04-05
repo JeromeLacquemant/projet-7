@@ -7,6 +7,7 @@ namespace App\Tests\Unit\Services\Product;
 use PHPUnit\Framework\TestCase;
 use App\Repository\ProductRepository;
 use App\Services\Product\ProductAllLoader;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -15,19 +16,17 @@ class ProductAllLoaderTest extends TestCase
 {
     public function testProductAllLoader()
     {
-        $serializer = $this->createMock(SerializerInterface::class);
-        $serializer
-            ->expects($this->once())
-            ->method('serialize')
-            ->willReturn('{test}');
-
         $productRepository = $this->createMock(ProductRepository::class);
+        $productRepository
+            ->expects($this->once())
+            ->method('getProducts')
+            ->willReturn(new Paginator(1));
 
         $request = $this->createMock(Request::class);
         $request->query = new InputBag;
 
-        $classToTest = new ProductAllLoader($productRepository, $serializer);
+        $classToTest = new ProductAllLoader($productRepository);
 
-        $this->assertIsString($classToTest->loadAllProducts($request));
+        $this->assertInstanceOf(Paginator::class, $classToTest->loadAllProducts($request));
     }
 }

@@ -21,7 +21,7 @@ class ProductAllController
     }
     
     /**
-     * @Route("/products", name="see_all_products")
+     * @Route("/products", name="see_all_products", methods={"GET"})
      */
     public function seeProducts(Request $request)
     {
