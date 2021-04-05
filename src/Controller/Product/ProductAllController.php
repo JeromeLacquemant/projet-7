@@ -5,6 +5,7 @@ namespace App\Controller\Product;
 use App\Responder\JsonResponder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use App\Services\Product\Interfaces\ProductAllLoaderInterface;
 
 class ProductAllController
@@ -18,11 +19,14 @@ class ProductAllController
         $this->productAllLoaderInterface = $productAllLoaderInterface;
         $this->jsonResponder = $jsonResponder;
     }
-
-    public function __invoke(Request $request)
+    
+    /**
+     * @Route("/products", name="see_all_products")
+     */
+    public function seeProducts(Request $request)
     {
         $users = $this->productAllLoaderInterface->loadAllProducts($request);
 
-        return $this->jsonResponder->respond($users, 200);
+        return $this->jsonResponder->respond($users, 200, $request);
     }
 }
