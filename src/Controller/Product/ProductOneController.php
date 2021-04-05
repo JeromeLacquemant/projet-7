@@ -2,6 +2,8 @@
 
 namespace App\Controller\Product;
 
+use App\Responder\JsonResponder;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\Product\Interfaces\ProductOneLoaderInterface;
@@ -10,21 +12,21 @@ class ProductOneController
 {
     private $productOneLoaderInterface;
 
-    public function __construct(ProductOneLoaderInterface $productOneLoaderInterface) 
+    public function __construct(
+        ProductOneLoaderInterface $productOneLoaderInterface,
+        JsonResponder $jsonResponder) 
     {
         $this->productOneLoaderInterface = $productOneLoaderInterface;
+        $this->jsonResponder = $jsonResponder;
     }
 
      /**
      * @Route("/products/{id}", name="see_one_product", methods={"GET"})
      */
-    public function seeProduct($id)
+    public function seeProduct($id, Request $request)
     {
-        $response = new Response($this->productOneLoaderInterface->loadOneProduct($id));
-        $response->headers->set('Content-Type', 'application/json');
+        $user = $this->productOneLoaderInterface->loadOneProduct($id);
 
-        $response->setMaxAge(3600);
-
-        return $response;
+        return $this->jsonResponder->respond($user, $request, 200);
     }
 }
