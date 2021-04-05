@@ -8,7 +8,7 @@ use App\Entity\Product;
 use PHPUnit\Framework\TestCase;
 use App\Repository\ProductRepository;
 use App\Services\Product\ProductOneLoader;
-use Symfony\Component\Serializer\SerializerInterface;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class ProductOneLoaderTest extends TestCase
 {
@@ -17,21 +17,15 @@ class ProductOneLoaderTest extends TestCase
         $product = new Product();
 
         $productRepository = $this->createMock(ProductRepository::class);
-            $productRepository
-                ->expects($this->once())
-                ->method('find')
-                ->willReturn($product);   
-
-        $serializer = $this->createMock(SerializerInterface::class);
-        $serializer
+        $productRepository
             ->expects($this->once())
-            ->method('serialize')
-            ->willReturn('{test}');
+            ->method('find')
+            ->willReturn($product);   
 
-        $classToTest = new ProductOneLoader($productRepository, $serializer);
+        $classToTest = new ProductOneLoader($productRepository);
 
         $id = 8;
-
-        $this->assertIsString($classToTest->loadOneProduct($id));
+        
+        $this->assertInstanceOf(Product::class, $classToTest->loadOneProduct($id));
     }
 }
