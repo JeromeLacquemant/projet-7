@@ -2,6 +2,8 @@
 
 namespace App\Controller\Client;
 
+use App\Responder\JsonResponder;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\Client\Interfaces\ClientOneLoaderInterface;
@@ -9,22 +11,23 @@ use App\Services\Client\Interfaces\ClientOneLoaderInterface;
 class ClientOneController
 {
     private $clientOneLoaderInterface;
+    private $jsonResponder;
 
-    public function __construct(ClientOneLoaderInterface $clientOneLoaderInterface) 
+    public function __construct(
+        ClientOneLoaderInterface $clientOneLoaderInterface,
+        JsonResponder $jsonResponder) 
     {
         $this->clientOneLoaderInterface = $clientOneLoaderInterface;
+        $this->jsonResponder = $jsonResponder;
     }
 
      /**
      * @Route("/clients/{id}", name="see_one_client", methods={"GET"})
      */
-    public function seeClient($id)
+    public function seeClient($id, Request $request)
     {
-        $response = new Response($this->clientOneLoaderInterface->loadOneClient($id));
-        $response->headers->set('Content-Type', 'application/json');
-
-        $response->setMaxAge(3600);
+        $client = $this->clientOneLoaderInterface->loadOneClient($id);
         
-        return $response;
+        return $this->jsonResponder->respond($client, $request, ['groups' => 'client:read'], 200);;
     }
 }
