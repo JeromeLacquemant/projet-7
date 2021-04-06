@@ -7,27 +7,25 @@ namespace App\Tests\Unit\Services\Client;
 use PHPUnit\Framework\TestCase;
 use App\Repository\ClientRepository;
 use App\Services\Client\ClientAllLoader;
-use Symfony\Component\HttpFoundation\InputBag;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\HttpFoundation\InputBag;
 
 class ClientAllLoaderTest extends TestCase
 {
     public function testProductAllLoader()
     {
-        $serializer = $this->createMock(SerializerInterface::class);
-        $serializer
+        $clientRepository = $this->createMock(ClientRepository::class);
+        $clientRepository
             ->expects($this->once())
-            ->method('serialize')
-            ->willReturn('{test}');
-
-        $productRepository = $this->createMock(ClientRepository::class);
+            ->method('getClients')
+            ->willReturn(new Paginator(1));
 
         $request = $this->createMock(Request::class);
         $request->query = new InputBag;
 
-        $classToTest = new ClientAllLoader($productRepository, $serializer);
+        $classToTest = new ClientAllLoader($clientRepository);
 
-        $this->assertIsString($classToTest->loadAllClients($request));
+        $this->assertInstanceOf(Paginator::class, $classToTest->loadAllClients($request));
     }
 }
