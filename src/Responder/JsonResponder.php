@@ -20,22 +20,22 @@ class JsonResponder
         $this->serializer = $serializer;
     }
 
-    public function respond($response, $request, $codeHttp=self::codeHttpOk)
-    {        
-    $jsonResponse = new JsonResponse(
-            $this->serializer->serialize($response, 'json'),
-            $codeHttp,
-            [],
-            true
-        );
+    public function respond($response, $request, $group, $codeHttp=self::codeHttpOk)
+    {         
+        $jsonResponse = new JsonResponse(
+                $this->serializer->serialize($response, 'json', $group),
+                $codeHttp,
+                [],
+                true
+            );
 
-    $jsonResponse->headers->set('Content-Type', 'application/json');
+        $jsonResponse->headers->set('Content-Type', 'application/json');
 
-    if($request->isMethodCacheable() == "GET")
-    {
-        $jsonResponse->setMaxAge(self::cacheTiming);
-    }
-    
-    return $jsonResponse;
+        if($request->isMethodCacheable() == "GET")
+        {
+            $jsonResponse->setMaxAge(self::cacheTiming);
+        }
+        
+        return $jsonResponse;
     }
 }

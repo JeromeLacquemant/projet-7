@@ -8,7 +8,6 @@ use App\Entity\Client;
 use PHPUnit\Framework\TestCase;
 use App\Repository\ClientRepository;
 use App\Services\Client\ClientOneLoader;
-use Symfony\Component\Serializer\SerializerInterface;
 
 class ClientOneLoaderTest extends TestCase
 {
@@ -17,21 +16,15 @@ class ClientOneLoaderTest extends TestCase
         $client = new Client();
         
         $clientRepository = $this->createMock(ClientRepository::class);
-            $clientRepository
-                ->expects($this->once())
-                ->method('find')
-                ->willReturn($client);   
-
-        $serializer = $this->createMock(SerializerInterface::class);
-        $serializer
+        $clientRepository
             ->expects($this->once())
-            ->method('serialize')
-            ->willReturn('{test}');
+            ->method('find')
+            ->willReturn($client);   
 
-        $classToTest = new ClientOneLoader($clientRepository, $serializer);
+        $classToTest = new ClientOneLoader($clientRepository);
 
         $id = 8;
 
-        $this->assertIsString($classToTest->loadOneClient($id));
+        $this->assertInstanceOf(Client::class, $classToTest->loadOneClient($id));
     }
 }
