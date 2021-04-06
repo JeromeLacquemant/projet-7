@@ -3,8 +3,11 @@
 namespace App\Tests\Unit\Client;
 
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\Response;
+use App\Responder\JsonResponder;
+use Symfony\Component\HttpFoundation\Request;
 use App\Controller\Client\ClientOneController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Services\Client\Interfaces\ClientOneLoaderInterface;
 
 class ClientOneControllerTest extends TestCase
@@ -16,10 +19,18 @@ class ClientOneControllerTest extends TestCase
             ->expects($this->once())
             ->method('loadOneClient');
 
-        $classToTest = new ClientOneController($loader);
+        $request = $this->createMock(Request::class);
+
+        $jsonResponder = $this->createMock(JsonResponder::class);
+        $jsonResponder
+            ->expects($this->once())
+            ->method('respond')
+            ->willReturn(new JsonResponse);
+
+        $classToTest = new ClientOneController($loader, $jsonResponder);
         $id = 5;
         
-        $this->assertInstanceOf(Response::class, $classToTest->seeClient($id));
+        $this->assertInstanceOf(Response::class, $classToTest->seeClient($id, $request));
     }
     
 }
