@@ -20,16 +20,8 @@ class JsonResponder
         $this->serializer = $serializer;
     }
 
-    public function respond($response, $request, $codeHttp=self::codeHttpOk)
-    {  
-        // Handle the case of utilisation of groups for clients
-        $pathInfo = $request->getPathInfo();
-        if($pathInfo == "/clients") {
-            $group = ['groups' => 'client:read'];
-        } else {
-            $group = [];
-        }
-        
+    public function respond($response, $request, $group, $codeHttp=self::codeHttpOk)
+    {         
         $jsonResponse = new JsonResponse(
                 $this->serializer->serialize($response, 'json', $group),
                 $codeHttp,
