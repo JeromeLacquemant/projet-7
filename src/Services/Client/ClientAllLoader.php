@@ -28,6 +28,6 @@ class ClientAllLoader implements ClientAllLoaderInterface
         }
 		$paginatedResult = $this->clientRepository->getClients($page);
 
-        return $this->serializer->serialize($paginatedResult, "json", ['groups' => 'client:read']);
+        return $paginatedResult;
     }
 }

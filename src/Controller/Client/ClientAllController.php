@@ -2,6 +2,7 @@
 
 namespace App\Controller\Client;
 
+use App\Responder\JsonResponder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,20 +12,20 @@ class ClientAllController
 {
     private $clientAllLoaderInterface;
 
-    public function __construct(ClientAllLoaderInterface $clientAllLoaderInterface) 
+    public function __construct(
+        ClientAllLoaderInterface $clientAllLoaderInterface,
+        JsonResponder $jsonResponder) 
     {
         $this->clientAllLoaderInterface = $clientAllLoaderInterface;
+        $this->jsonResponder = $jsonResponder;
     }
     /**
      * @Route("/clients", name="see_all_clients", methods={"GET"})
      */
     public function seeClients(Request $request)
     {
-        $response = new Response($this->clientAllLoaderInterface->loadAllClients($request), 200);
-        $response->headers->set('Content-Type', 'application/json');
+        $clients = $this->clientAllLoaderInterface->loadAllClients($request);
 
-        $response->setMaxAge(3600);
-
-        return $response;
+        return $this->jsonResponder->respond($clients, $request, 200);
     }
 }
