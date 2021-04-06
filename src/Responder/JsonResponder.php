@@ -21,21 +21,29 @@ class JsonResponder
     }
 
     public function respond($response, $request, $codeHttp=self::codeHttpOk)
-    {        
-    $jsonResponse = new JsonResponse(
-            $this->serializer->serialize($response, 'json'),
-            $codeHttp,
-            [],
-            true
-        );
+    {  
+        // Handle the case of utilisation of groups for clients
+        $pathInfo = $request->getPathInfo();
+        if($pathInfo == "/clients") {
+            $group = ['groups' => 'client:read'];
+        } else {
+            $group = [];
+        }
+        
+        $jsonResponse = new JsonResponse(
+                $this->serializer->serialize($response, 'json', $group),
+                $codeHttp,
+                [],
+                true
+            );
 
-    $jsonResponse->headers->set('Content-Type', 'application/json');
+        $jsonResponse->headers->set('Content-Type', 'application/json');
 
-    if($request->isMethodCacheable() == "GET")
-    {
-        $jsonResponse->setMaxAge(self::cacheTiming);
-    }
-    
-    return $jsonResponse;
+        if($request->isMethodCacheable() == "GET")
+        {
+            $jsonResponse->setMaxAge(self::cacheTiming);
+        }
+        
+        return $jsonResponse;
     }
 }
