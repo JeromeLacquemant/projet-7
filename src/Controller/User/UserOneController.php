@@ -2,7 +2,8 @@
 
 namespace App\Controller\User;
 
-use Symfony\Component\HttpFoundation\Response;
+use App\Responder\JsonResponder;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\User\Interfaces\UserOneLoaderInterface;
 
@@ -10,21 +11,21 @@ class UserOneController
 {
     private $loader;
 
-    public function __construct(UserOneLoaderInterface $loader) 
+    public function __construct(
+        UserOneLoaderInterface $loader,
+        JsonResponder $jsonResponder) 
     {
         $this->loader = $loader;
+        $this->jsonResponder = $jsonResponder;
     }
 
      /**
      * @Route("api/users/{id}", name="see_one_user", methods={"GET"})
      */
-    public function seeUser($id)
+    public function seeUser($id, Request $request)
     {
-        $response = new Response($this->loader->loadOneUser($id), 200);
-        $response->headers->set('Content-Type', 'application/json');
+        $user = $this->loader->loadOneUser($id);
 
-        $response->setMaxAge(3600);
-
-        return $response;
+        return $this->jsonResponder->respond($user, $request, ['groups' => 'user:read'], 200);
     }
 }

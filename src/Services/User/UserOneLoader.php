@@ -2,30 +2,21 @@
 
 namespace App\Services\User;
 
-use App\Security\Voter\UserVoter;
 use App\Repository\UserRepository;
-use App\Exception\ClientUnauthorized;
 use App\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\Security;
 use App\Exception\ClientUnauthorizedException;
-use App\Exception\ClientUnauthorizedToSeeUser;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Serializer\SerializerInterface;
 use App\Services\User\Interfaces\UserOneLoaderInterface;
-use Symfony\Component\Config\Definition\Exception\Exception;
 
 class UserOneLoader implements UserOneLoaderInterface
 {
     private $userRepository;
-    private $serializer;
 
     public function __construct(
         UserRepository $userRepository,
-        SerializerInterface $serializer,
         Security $security) 
     {
         $this->userRepository = $userRepository;
-        $this->serializer = $serializer;
         $this->security = $security;
     }
 
@@ -38,12 +29,7 @@ class UserOneLoader implements UserOneLoaderInterface
         }
 
         if($this->security->isGranted('view', $user)) {
-            $response = $this->serializer->serialize(
-                $user, 
-                "json", 
-                ['groups' => 'user:read']
-            );
-            return $response;
+            return $user;
         } 
             throw new ClientUnauthorizedException('Vous n\'êtes pas autorisé à accéder à cet user');
     }
