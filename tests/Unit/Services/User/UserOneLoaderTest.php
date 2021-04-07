@@ -30,22 +30,16 @@ class UserOneLoaderTest extends TestCase
                 ->method('find')
                 ->willReturn($user);   
 
-        $serializer = $this->createMock(SerializerInterface::class);
-        $serializer
-            ->expects($this->once())
-            ->method('serialize')
-            ->willReturn('{test}');
-
         $security = $this->createMock(Security::class);
         $security
             ->expects($this->once())
             ->method('isGranted')
             ->willReturn(true);
 
-        $classToTest = new UserOneLoader($userRepository, $serializer, $security);
+        $classToTest = new UserOneLoader($userRepository, $security);
 
         $id = 8;
 
-        $this->assertIsString($classToTest->loadOneUser($id));
+        $this->assertInstanceOf(User::class, $classToTest->loadOneUser($id));
     }
 }
