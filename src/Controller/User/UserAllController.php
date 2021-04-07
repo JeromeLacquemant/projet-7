@@ -2,35 +2,30 @@
 
 namespace App\Controller\User;
 
+use App\Responder\JsonResponder;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\User\Interfaces\UserAllLoaderInterface;
-use OpenApi\Annotations as OA;
 
 class UserAllController
 {
     private $loader;
 
-    public function __construct(UserAllLoaderInterface $loader) 
+    public function __construct(
+        UserAllLoaderInterface $loader,
+        JsonResponder $jsonResponder) 
     {
         $this->loader = $loader;
+        $this->jsonResponder = $jsonResponder;
     }
 
      /**
-      *     @OA\Response(
-     *     response=200,
-     *     description="Returns the rewards of an user")
-     * 
-     * @Route("/api/all-users", name="see_all_users", methods={"GET"})
+     * @Route("/api/users", name="see_all_users", methods={"GET"})
      */
     public function seeUsers(Request $request)
     {
-        $response = new Response($this->loader->loadAllUsers($request), 200);
-        $response->headers->set('Content-Type', 'application/json');
+        $users = $this->loader->loadAllUsers($request);
 
-        $response->setMaxAge(3600);
-
-        return $response;
+        return $this->jsonResponder->respond($users, $request, ['groups' => 'user:read'], 200);
     }
 }
