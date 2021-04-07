@@ -2,6 +2,7 @@
 
 namespace App\Controller\User;
 
+use App\Responder\JsonResponder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,21 +14,20 @@ class UserAddController
     private $userAddInterface;
 
     public function __construct(
-        UserAddInterface $userAddInterface) 
+        UserAddInterface $userAddInterface,
+        JsonResponder $jsonResponder) 
     {
         $this->userAddInterface = $userAddInterface;
+        $this->jsonResponder = $jsonResponder;
     }
 
      /**
-     * @Route("api/users/add-new-user", name="add_user", methods={"POST"})
+     * @Route("api/users", name="add_user", methods={"POST"})
      */
     public function addOneUser(Request $request)
     {
-        $data = $this->userAddInterface->addUser($request);
+        $userAdded = $this->userAddInterface->addUser($request);
 
-        $response = new JsonResponse(['message' => $data], 201);
-        $response->headers->set('Content-Type', 'application/json');
-        
-        return $response;
+        return $this->jsonResponder->respond(['message' => $userAdded], $request, ['groups' => 'user:read'], 201);
     }
 }

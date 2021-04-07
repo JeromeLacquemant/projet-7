@@ -19,7 +19,7 @@ class ClientAllLoader implements ClientAllLoaderInterface
     public function loadAllClients(Request $request){
         $page = $request->query->get('page');
         
-        if(isset($page)) {
+        if(!isset($page)) {
             $page = 1;
         }
 		$paginatedResult = $this->clientRepository->getClients($page);

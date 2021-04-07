@@ -62,7 +62,7 @@ class UserModify implements UserModifyInterface
             $this->entityManagerInterface->persist($registeredUser);
             $this->entityManagerInterface->flush();
     
-            return "L'utilisateur a été ajouté avec succès";
+            return "L'utilisateur a été modifié avec succès";
         } else {
             throw new ClientUnauthorizedException('Vous n\'êtes pas autorisé à modifier à cet user');
         }

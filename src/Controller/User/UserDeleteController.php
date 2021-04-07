@@ -2,28 +2,30 @@
 
 namespace App\Controller\User;
 
-use Symfony\Component\HttpFoundation\Response;
+use App\Responder\JsonResponder;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Services\User\Interfaces\UserDeleteInterface;
 
 class UserDeleteController
 {
     private $userDeleteInterface;
 
-    public function __construct(UserDeleteInterface $userDeleteInterface) 
+    public function __construct(
+        UserDeleteInterface $userDeleteInterface,
+        JsonResponder $jsonResponder) 
     {
         $this->userDeleteInterface = $userDeleteInterface;
+        $this->jsonResponder = $jsonResponder;
     }
 
      /**
-     * @Route("api/users/delete/{id}", name="delete_user", methods={"DELETE"})
+     * @Route("api/users/{id}", name="delete_user", methods={"DELETE"})
      */
-    public function deleteOneUser($id)
+    public function deleteOneUser($id, Request $request)
     {
-        $response = new JsonResponse(['message' => $this->userDeleteInterface->deleteUser($id)], 200);
-        $response->headers->set('Content-Type', 'application/json');
-        
-        return $response;
+        $userDeleted = $this->userDeleteInterface->deleteUser($id);
+
+        return $this->jsonResponder->respond(['message' => $userDeleted], $request, ['groups' => 'user:read'], 201);
     }
 }
