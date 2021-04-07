@@ -2,32 +2,30 @@
 
 namespace App\Controller\User;
 
-use App\Entity\User;
+use App\Responder\JsonResponder;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Services\User\Interfaces\UserModifyInterface;
 
 class UserModifyController
 {
     private $userModifyInterface;
 
-    public function __construct(UserModifyInterface $userModifyInterface) 
+    public function __construct(
+        UserModifyInterface $userModifyInterface,
+        JsonResponder $jsonResponder) 
     {
         $this->userModifyInterface = $userModifyInterface;
+        $this->jsonResponder = $jsonResponder;
     }
 
      /**
-     * @Route("api/users/modify/{id}", name="modify_user", methods={"PUT"})
+     * @Route("api/users/{id}", name="modify_user", methods={"PUT"})
      */
     public function modifyOneUser($id, Request $request)
     {
-        $message = $this->userModifyInterface->modifyUser($id, $request);
-        
-        $response = new JsonResponse(['message' => $message], 200);
-        $response->headers->set('Content-Type', 'application/json');
+        $userModified = $this->userModifyInterface->modifyUser($id, $request);
 
-        return $response;
+        return $this->jsonResponder->respond(['message' => $userModified], $request, ['groups' => 'user:read'], 200);
     }
 }
