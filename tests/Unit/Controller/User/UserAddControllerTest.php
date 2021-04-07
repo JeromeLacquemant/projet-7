@@ -3,10 +3,12 @@
 namespace App\Tests\Unit\User;
 
 use PHPUnit\Framework\TestCase;
+use App\Responder\JsonResponder;
 use App\Controller\User\UserAddController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Services\User\Interfaces\UserAddInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class UserAddControllerTest extends TestCase
 {
@@ -19,9 +21,15 @@ class UserAddControllerTest extends TestCase
             
         $request = $this->createMock(Request::class);
 
-        $classToTest = new UserAddController($loader);
+        $jsonResponder = $this->createMock(JsonResponder::class);
+        $jsonResponder
+            ->expects($this->once())
+            ->method('respond')
+            ->willReturn(new JsonResponse);
+
+        $classToTest = new UserAddController($loader, $jsonResponder);
         
-        $this->assertInstanceOf(Response::class, $classToTest->addOneUser($request));
+        $this->assertInstanceOf(JsonResponse::class, $classToTest->addOneUser($request));
     }
     
 }
