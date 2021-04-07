@@ -19,7 +19,7 @@ class ProductAllLoader implements ProductAllLoaderInterface
     public function loadAllProducts(Request $request){
         $page = $request->query->get('page');
         
-        if(isset($page)) {
+        if(!isset($page)) {
             $page = 1;
         }
         

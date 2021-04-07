@@ -20,7 +20,7 @@ class UserAllLoader implements UserAllLoaderInterface
     {
         $page = $request->query->get('page');
 
-        if(isset($page)) {
+        if(!isset($page)) {
             $page = 1;
         }
 
