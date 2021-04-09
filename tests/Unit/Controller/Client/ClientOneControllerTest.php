@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Unit\Client;
+namespace App\Tests\Unit\Controller\Client;
 
 use PHPUnit\Framework\TestCase;
 use App\Responder\JsonResponder;
