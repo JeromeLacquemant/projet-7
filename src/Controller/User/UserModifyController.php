@@ -25,7 +25,9 @@ class UserModifyController
     public function modifyOneUser($id, Request $request)
     {
         $userModified = $this->userModifyInterface->modifyUser($id, $request);
+        $message = $userModified[0];
+        $codeStatus = $userModified[1];
 
-        return $this->jsonResponder->respond(['message' => $userModified], $request, ['groups' => 'user:read'], 200);
+        return $this->jsonResponder->respond(['message' => $message], $request, ['groups' => 'user:read'], $codeStatus);
     }
 }

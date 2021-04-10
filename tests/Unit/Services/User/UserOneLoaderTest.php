@@ -37,9 +37,9 @@ class UserOneLoaderTest extends TestCase
             ->willReturn(true);
 
         $classToTest = new UserOneLoader($userRepository, $security);
-
+        $expected = [$user, 200];
         $id = 8;
 
-        $this->assertInstanceOf(User::class, $classToTest->loadOneUser($id));
+        $this->assertEquals($expected, $classToTest->loadOneUser($id));
     }
 }

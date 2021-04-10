@@ -29,7 +29,7 @@ class UserOneLoader implements UserOneLoaderInterface
         }
 
         if($this->security->isGranted('view', $user)) {
-            return $user;
+            return [$user, 200];
         } 
             throw new ClientUnauthorizedException('Vous n\'êtes pas autorisé à accéder à cet user');
     }

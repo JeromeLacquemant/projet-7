@@ -25,7 +25,8 @@ class UserOneController
     public function seeUser($id, Request $request)
     {
         $user = $this->loader->loadOneUser($id);
+        $codeStatus = $user[1];
 
-        return $this->jsonResponder->respond($user, $request, ['groups' => 'user:read'], 200);
+        return $this->jsonResponder->respond($user[0], $request, ['groups' => 'user:read'], $codeStatus);
     }
 }
