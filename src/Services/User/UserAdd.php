@@ -43,12 +43,12 @@ class UserAdd implements UserAddInterface
                     $messages[] = $message;
                 }
             }
-            return $messages;
+            return [$messages, 400];
         }
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();
         
-        return "L'utilisateur a été ajouté avec succès";
+        return ["L'utilisateur a été ajouté avec succès", 201];
     }
 }

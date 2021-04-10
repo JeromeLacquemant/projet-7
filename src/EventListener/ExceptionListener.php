@@ -40,7 +40,7 @@ class ExceptionListener
                 $status = self::exceptionBadRequest;
         }
 
-        $customResponse = new JsonResponse(['status'=>$status, 'message' => $exception->getMessage()]);
+        $customResponse = new JsonResponse(['message' => $exception->getMessage()], $status);
 
         $event->setResponse($customResponse);
     }

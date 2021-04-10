@@ -17,7 +17,8 @@ class UserAddControllerTest extends TestCase
         $loader = $this->createMock(UserAddInterface::class);
         $loader
             ->expects($this->once())
-            ->method('addUser');
+            ->method('addUser')
+            ->willReturn(["message", 201]);
             
         $request = $this->createMock(Request::class);
 

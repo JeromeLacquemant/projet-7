@@ -60,7 +60,7 @@ class UserAddTest extends TestCase
             ->willReturn($client);
 
         $classToTest = new UserAdd($serializer, $entityManager, $security, $validator);
-        $expected = "L'utilisateur a été ajouté avec succès";
+        $expected = ["L'utilisateur a été ajouté avec succès", 201];
 
         $this->assertEquals($expected, $classToTest->addUser($request));
     }
