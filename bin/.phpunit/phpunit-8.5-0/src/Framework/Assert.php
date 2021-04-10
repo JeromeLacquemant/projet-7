@@ -3115,6 +3115,13 @@ abstract class Assert
         return new IsTrue;
     }
 
+    /**
+     * @psalm-template CallbackInput of mixed
+     *
+     * @psalm-param callable(CallbackInput $callback): bool $callback
+     *
+     * @psalm-return Callback<CallbackInput>
+     */
     public static function callback(callable $callback): Callback
     {
         return new Callback($callback);
@@ -3592,6 +3599,9 @@ abstract class Assert
         }
     }
 
+    /**
+     * @throws Exception
+     */
     private static function assertInternalTypeReplacement(string $type, bool $not): string
     {
         switch ($type) {

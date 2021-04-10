@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit15b0c89e73c68461118bcb64f4fdebc2
+class ComposerStaticInit5e26fd9c1aa055e9699f6d07d7ab9ed5
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
@@ -553,6 +553,7 @@ class ComposerStaticInit15b0c89e73c68461118bcb64f4fdebc2
         'PharIo\\Version\\GreaterThanOrEqualToVersionConstraint' => __DIR__ . '/..' . '/phar-io/version/src/constraints/GreaterThanOrEqualToVersionConstraint.php',
         'PharIo\\Version\\InvalidPreReleaseSuffixException' => __DIR__ . '/..' . '/phar-io/version/src/exceptions/InvalidPreReleaseSuffixException.php',
         'PharIo\\Version\\InvalidVersionException' => __DIR__ . '/..' . '/phar-io/version/src/exceptions/InvalidVersionException.php',
+        'PharIo\\Version\\NoPreReleaseSuffixException' => __DIR__ . '/..' . '/phar-io/version/src/exceptions/NoPreReleaseSuffixException.php',
         'PharIo\\Version\\OrVersionConstraintGroup' => __DIR__ . '/..' . '/phar-io/version/src/constraints/OrVersionConstraintGroup.php',
         'PharIo\\Version\\PreReleaseSuffix' => __DIR__ . '/..' . '/phar-io/version/src/PreReleaseSuffix.php',
         'PharIo\\Version\\SpecificMajorAndMinorVersionConstraint' => __DIR__ . '/..' . '/phar-io/version/src/constraints/SpecificMajorAndMinorVersionConstraint.php',
@@ -816,6 +817,7 @@ class ComposerStaticInit15b0c89e73c68461118bcb64f4fdebc2
         'TheSeer\\Tokenizer\\Tokenizer' => __DIR__ . '/..' . '/theseer/tokenizer/src/Tokenizer.php',
         'TheSeer\\Tokenizer\\XMLSerializer' => __DIR__ . '/..' . '/theseer/tokenizer/src/XMLSerializer.php',
         'Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
+        'Webmozart\\Assert\\InvalidArgumentException' => __DIR__ . '/..' . '/webmozart/assert/src/InvalidArgumentException.php',
         'Webmozart\\Assert\\Mixin' => __DIR__ . '/..' . '/webmozart/assert/src/Mixin.php',
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',
         'phpDocumentor\\Reflection\\DocBlockFactory' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactory.php',
@@ -902,9 +904,9 @@ class ComposerStaticInit15b0c89e73c68461118bcb64f4fdebc2
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit15b0c89e73c68461118bcb64f4fdebc2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit15b0c89e73c68461118bcb64f4fdebc2::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit15b0c89e73c68461118bcb64f4fdebc2::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5e26fd9c1aa055e9699f6d07d7ab9ed5::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5e26fd9c1aa055e9699f6d07d7ab9ed5::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit5e26fd9c1aa055e9699f6d07d7ab9ed5::$classMap;
 
         }, null, ClassLoader::class);
     }
