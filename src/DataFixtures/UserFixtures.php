@@ -18,7 +18,23 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        for ($i = 1; $i <= self::NUMBER; ++$i) {
+        $user = new User('Lastname 1', 'firstname 1');
+        $user 
+            ->setUsername('Username 1')
+            ->setPassword('12345')
+            ->setEmail("user_1@gmail.com")
+            ->setClient($this->getReference('Client 1'));
+        $manager->persist($user);
+
+        $user = new User('Lastname 2', 'firstname 2');
+        $user 
+            ->setUsername('Username 2')
+            ->setPassword('12345')
+            ->setEmail("user_2@gmail.com")
+            ->setClient($this->getReference('Client 2'));
+        $manager->persist($user);
+
+        for ($i = 3; $i <= self::NUMBER; ++$i) {
             $user = new User('Lastname '.$i, 'firstname '.$i);
             $user 
                 ->setUsername('Username '.$i)
