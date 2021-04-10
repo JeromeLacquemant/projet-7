@@ -56,13 +56,13 @@ class UserModify implements UserModifyInterface
                         $messages[] = $message;
                     }
                 }
-                return $messages;
+                return [$messages, 400];
             }
     
             $this->entityManagerInterface->persist($registeredUser);
             $this->entityManagerInterface->flush();
     
-            return "L'utilisateur a été modifié avec succès";
+            return ["L'utilisateur a été modifié avec succès", 200];
         } else {
             throw new ClientUnauthorizedException('Vous n\'êtes pas autorisé à modifier à cet user');
         }

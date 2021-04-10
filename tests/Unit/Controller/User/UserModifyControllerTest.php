@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Unit\User;
+namespace App\Tests\Unit\Controller\User;
 
 use PHPUnit\Framework\TestCase;
 use App\Responder\JsonResponder;
@@ -17,7 +17,8 @@ class UserModifyControllerTest extends TestCase
         $userModifyInterface = $this->createMock(UserModifyInterface::class);
         $userModifyInterface
             ->expects($this->once())
-            ->method('modifyUser');
+            ->method('modifyUser')
+            ->willReturn(["message", 200]);
         
         $request = $this->createMock(Request::class);
             

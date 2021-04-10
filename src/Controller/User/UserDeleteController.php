@@ -25,7 +25,9 @@ class UserDeleteController
     public function deleteOneUser($id, Request $request)
     {
         $userDeleted = $this->userDeleteInterface->deleteUser($id);
+        $message = $userDeleted[0];
+        $codeStatus = $userDeleted[1];
 
-        return $this->jsonResponder->respond(['message' => $userDeleted], $request, ['groups' => 'user:read'], 201);
+        return $this->jsonResponder->respond(['message' => $message], $request, ['groups' => 'user:read'], $codeStatus);
     }
 }

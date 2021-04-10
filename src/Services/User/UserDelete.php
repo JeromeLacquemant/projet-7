@@ -41,7 +41,7 @@ class UserDelete implements UserDeleteInterface
             $this->entityManagerInterface->remove($user);
             $this->entityManagerInterface->flush();
     
-            return "L'utilisateur a bien été effacé de la base de données";
+            return ["L'utilisateur a bien été effacé de la base de données", 200];
         } else {
             throw new ClientUnauthorizedException('Vous n\'êtes pas autorisé à effacer à cet user');
         }

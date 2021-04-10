@@ -27,7 +27,9 @@ class UserAddController
     public function addOneUser(Request $request)
     {
         $userAdded = $this->userAddInterface->addUser($request);
+        $message = $userAdded[0];
+        $codeStatus = $userAdded[1];
 
-        return $this->jsonResponder->respond(['message' => $userAdded], $request, ['groups' => 'user:read'], 201);
+        return $this->jsonResponder->respond(['message' => $message], $request, ['groups' => 'user:read'], $codeStatus);
     }
 }

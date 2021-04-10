@@ -60,7 +60,7 @@ class UserModifyTest extends TestCase
 
         $classToTest = new UserModify($userRepository, $entityManager, $security, $validator);
         $id = 5;
-        $expected = "L'utilisateur a été modifié avec succès";
+        $expected = ["L'utilisateur a été modifié avec succès", 200];
 
         $this->assertEquals($expected, $classToTest->modifyUser($id, $request));
     }

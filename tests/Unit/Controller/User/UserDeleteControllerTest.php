@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Unit\User;
+namespace App\Tests\Unit\Controller\User;
 
 use PHPUnit\Framework\TestCase;
 use App\Responder\JsonResponder;
@@ -16,7 +16,8 @@ class UserDeleteControllerTest extends TestCase
         $loader = $this->createMock(UserDeleteInterface::class);
         $loader
             ->expects($this->once())
-            ->method('deleteUser');
+            ->method('deleteUser')
+            ->willReturn(["message", 200]);
 
         $request = $this->createMock(Request::class);
 
