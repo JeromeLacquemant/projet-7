@@ -153,6 +153,12 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.3"
     },
+    "jms/metadata": {
+        "version": "2.5.0"
+    },
+    "jms/serializer": {
+        "version": "3.12.2"
+    },
     "justinrainbow/json-schema": {
         "version": "5.2.10"
     },
@@ -216,6 +222,9 @@
     },
     "phpdocumentor/type-resolver": {
         "version": "1.4.0"
+    },
+    "phpstan/phpdoc-parser": {
+        "version": "0.4.14"
     },
     "phpstan/phpstan": {
         "version": "0.12.70"
@@ -285,6 +294,9 @@
     },
     "symfony/event-dispatcher-contracts": {
         "version": "v2.2.0"
+    },
+    "symfony/expression-language": {
+        "version": "v5.2.4"
     },
     "symfony/filesystem": {
         "version": "v5.2.0"
@@ -505,6 +517,9 @@
     },
     "webmozart/assert": {
         "version": "1.9.1"
+    },
+    "willdurand/hateoas": {
+        "version": "3.7.0"
     },
     "zircote/swagger-php": {
         "version": "3.1.0"
