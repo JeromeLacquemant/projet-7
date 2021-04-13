@@ -10,62 +10,210 @@ nelmio_api_doc:
               tags:
                 - Documentation
               description: Display the documentation of the API
+              responses:
+                '200': 
+                  description: The documentation is displayed
 
           /products:
             get:
               tags:
                 - Products
               description: Display all the products
+              responses:
+                '200': 
+                  description: A JSON array of products (id, name, description, price)
+                  content:
+                    application/json:
+                      example: [
+                                {"id": "1", "name": "Product 1", "description": "Description 1", "price": "101"},
+                                {"id": "2", "name": "Product 2", "description": "Description 2", "price": "201"},
+                                {"id": "3", "name": "Product 2", "description": "Description 3", "price": "301"}
+                               ]
 
           /products/{id}:
             get:
               tags:
                 - Products
-              description: Display one product
+              description: Display one product by ID
+              parameters:
+                - in: path
+                  name: id
+                  schema:
+                    type: integer
+                  required: true
+                  description: Numeric ID of the product to get
+              responses:
+                '200': 
+                  description: A JSON string of one product (id, name, description, price)
+                  content:
+                    application/json:
+                      example: {"id": "1", "name": "Product 1", "description": "Description 1", "price": "101"}
+                '404': 
+                  description: Product not found
+                  content:
+                    application/json:
+                      example: {"message": "Le produit n'a pas été trouvé."}
             
           /clients:
             get:
               tags:
                 - Clients
               description: Display all clients
+              responses:
+                '200': 
+                  description: A JSON array of clients (id, username, password, email)
+                  content:
+                    application/json:
+                      example: [
+                                {"id": "1", "username": "client_1", "password": "password", "email": "client_1@gmail.com"},
+                                {"id": "2", "username": "client_2", "password": "password", "email": "client_2@gmail.com"},
+                                {"id": "3", "username": "client_3", "password": "password", "email": "client_3@gmail.com"}
+                               ]
 
           /clients/{id}:
             get:
               tags:
                 - Clients
-              description: Display one client
+              description: Display one client by ID
+              parameters:
+                - in: path
+                  name: id
+                  schema:
+                    type: integer
+                  required: true
+                  description: Numeric ID of the user to get
+              responses:
+                '200': 
+                  description: A JSON string of one client (id, username, password, email)
+                  content:
+                    application/json:
+                      example: {"id": "1", "username": "client_1", "password": "password", "email": "client_1@gmail.com"}
+                '404': 
+                  description: Client not found
+                  content:
+                    application/json:
+                      example: {"message": "Le client n'a pas été trouvé."}
 
           /api/login_check:
             post:
               tags:
                 - Authentication
               description: Generate a key to be authenticated
+              responses:
+                '200': 
+                  description: A JSON string of the token
+                  content:
+                    application/json:
+                      example: {"token": "IHHrr7lh1byMq2eHuijjQB55gIU6"}
+                '401': 
+                  description: Client unauthorized
+                  content:
+                    application/json:
+                      example: {"code": 401,"message": "Invalid credentials."}
 
           /api/users:
             get:
               tags:
                 - Users
               description: Display all users of a client
+              responses:
+                '200': 
+                  description: A JSON array of users (id, username, password, email)
+                  content:
+                    application/json:
+                      example: {"id": "1", "username": "user_1", "password": "password", "email": "user_1@gmail.com"}
+            post:
+              tags:
+                - Users
+              description: Add of a user by a client
+              responses:
+                '201': 
+                  description: User created
+                  content:
+                    application/json:
+                      example: {"username": "user_1", "password": "password", "email": "user_1@gmail.com"}
+                '400': 
+                  description: Bad request
 
           /api/users/{id}:
             get:
               tags:
                 - Users
-              description: Display one user of a client
-            post:
-              tags:
-                - Users
-              description: Add of a user by a client
+              description: Display one user of a client by ID
+              parameters:
+                - in: path
+                  name: id
+                  schema:
+                    type: integer
+                  required: true
+                  description: Numeric ID of the user to get
+              responses:
+                '200': 
+                  description: A JSON array of one user (id, username, password, email)
+                  content:
+                    application/json:
+                      example: {"id": "1", "username": "user_1", "password": "password", "email": "user_1@gmail.com"}
+                '404': 
+                  description: User not found
+                  content:
+                    application/json:
+                      example: {"message": "L'utilisateur n'a pas été trouvé"}
+                '403': 
+                  description: Client unauthorized to get user
+                  content:
+                    application/json:
+                      example: {"message": "Vous n'êtes pas autorisé à accéder à cet user"}
             put:
               tags:
                 - Users
               description: Modification of a user by a client
+              parameters:
+                - in: path
+                  name: id
+                  schema:
+                    type: integer
+                  required: true
+                  description: Numeric ID of the user to modify
+              responses:
+                '200': 
+                  description: User modified
+                '404': 
+                  description: User not found
+                  content:
+                    application/json:
+                      example: {"message": "L'utilisateur n'a pas été trouvé"}
+                '403': 
+                  description: Client unauthorized to get user
+                  content:
+                    application/json:
+                      example: {"message": "Vous n'êtes pas autorisé à modifier à cet user"}
             delete:
               tags:
                 - Users
               description: Deletion of a user by a client
+              parameters:
+                - in: path
+                  name: id
+                  schema:
+                    type: integer
+                  required: true
+                  description: Numeric ID of the user to delete
+              responses:
+                '200': 
+                  description: User modified
+                '404': 
+                  description: User not found
+                  content:
+                    application/json:
+                      example: {"message": "L'utilisateur n'a pas été trouvé"}
+                '403': 
+                  description: Client unauthorized to get user
+                  content:
+                    application/json:
+                      example: {"message": "Vous n'êtes pas autorisé à effacer à cet user"}
+
 
 
     areas: # to filter documented areas
         path_patterns:
-            - /_error​/{code} # Accepts routes under /api except /api/doc
+            - /_error​/{code} 
