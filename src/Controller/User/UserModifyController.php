@@ -20,7 +20,7 @@ class UserModifyController
     }
 
      /**
-     * @Route("api/users/{id}", name="modify_user", methods={"PUT"})
+     * @Route("/api/users/{id}", name="modify_user", methods={"PUT"})
      */
     public function modifyOneUser($id, Request $request)
     {
