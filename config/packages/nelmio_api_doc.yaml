@@ -1,9 +1,71 @@
 nelmio_api_doc:
     documentation:
         info:
-            title: My App
+            title: BileMo Project
             description: This is an awesome app!
             version: 1.0.0
+        paths:
+          /doc:
+            get:
+              tags:
+                - Documentation
+              description: Display the documentation of the API
+
+          /products:
+            get:
+              tags:
+                - Products
+              description: Display all the products
+
+          /products/{id}:
+            get:
+              tags:
+                - Products
+              description: Display one product
+            
+          /clients:
+            get:
+              tags:
+                - Clients
+              description: Display all clients
+
+          /clients/{id}:
+            get:
+              tags:
+                - Clients
+              description: Display one client
+
+          /api/login_check:
+            post:
+              tags:
+                - Authentication
+              description: Generate a key to be authenticated
+
+          /api/users:
+            get:
+              tags:
+                - Users
+              description: Display all users of a client
+
+          /api/users/{id}:
+            get:
+              tags:
+                - Users
+              description: Display one user of a client
+            post:
+              tags:
+                - Users
+              description: Add of a user by a client
+            put:
+              tags:
+                - Users
+              description: Modification of a user by a client
+            delete:
+              tags:
+                - Users
+              description: Deletion of a user by a client
+
+
     areas: # to filter documented areas
         path_patterns:
-            - ^/(?!/doc$) # Accepts routes under /api except /api/doc
+            - /_error​/{code} # Accepts routes under /api except /api/doc
