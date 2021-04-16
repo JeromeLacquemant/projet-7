@@ -6,5 +6,5 @@ namespace App\Services\Product\Interfaces;
 
 interface ProductOneLoaderInterface
 {
-    public function loadOneProduct($id);
+    public function loadOneProduct($id, $request);
 }

@@ -14,9 +14,16 @@ class LinksConstructor
                 $this->urlGenerator = $urlGenerator;
         }
 
-        public function linksConstruction($data, $id) {
-        
-                $data->setLinks(["rel" => $this->urlGenerator->generate("see_one_product", ['id' => $id])]);
+        public function linksConstruction($data, $request, $id=null) {
+
+                $route = $request->get('_route');
+
+                if($id == null) {
+                        $data->setLinks(["rel" => $this->urlGenerator->generate($route)]);
+                        return $data; 
+                }
+
+                $data->setLinks(["rel" => $this->urlGenerator->generate($route, ['id' => $id])]);
 
                 return $data;
         }

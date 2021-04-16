@@ -20,7 +20,7 @@ class ProductOneLoader implements ProductOneLoaderInterface
         $this->linksConstructor = $linksConstructor;
     }
 
-    public function loadOneProduct($id){
+    public function loadOneProduct($id, $request){
 
         $product = $this->productRepository->find($id);
     
@@ -28,7 +28,7 @@ class ProductOneLoader implements ProductOneLoaderInterface
             throw new ProductNotFoundException('Le produit n\'a pas été trouvé.');
         }
 
-        $this->linksConstructor->linksConstruction($product, $id);
+        $this->linksConstructor->linksConstruction($product, $request, $id);
 
         return $product;
     }
