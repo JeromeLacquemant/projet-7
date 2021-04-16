@@ -26,8 +26,8 @@ class ClientOneController
      */
     public function seeClient($id, Request $request)
     {
-        $client = $this->clientOneLoaderInterface->loadOneClient($id);
-        
+        $client = $this->clientOneLoaderInterface->loadOneClient($id, $request);
+
         return $this->jsonResponder->respond($client, $request, ['groups' => 'client:read'], 200);;
     }
 }
