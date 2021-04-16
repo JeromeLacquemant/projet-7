@@ -40,8 +40,9 @@ nelmio_api_doc:
                   name: id
                   schema:
                     type: integer
+                    minimum: 1
                   required: true
-                  description: Numeric ID of the product to get
+                  description: Numeric ID of the product to get        
               responses:
                 '200': 
                   description: A JSON string of one product (id, name, description, price)
@@ -80,6 +81,7 @@ nelmio_api_doc:
                   name: id
                   schema:
                     type: integer
+                    minimum: 1
                   required: true
                   description: Numeric ID of the user to get
               responses:
@@ -99,6 +101,17 @@ nelmio_api_doc:
               tags:
                 - Authentication
               description: Generate a key to be authenticated
+              requestBody:
+                required: true
+                content: 
+                  application/json:
+                    schema:
+                      type: object
+                      properties:
+                        username:
+                          type: string
+                        password:
+                          type: string
               responses:
                 '200': 
                   description: A JSON string of the token
@@ -126,6 +139,19 @@ nelmio_api_doc:
               tags:
                 - Users
               description: Add of a user by a client
+              requestBody:
+                required: true
+                content: 
+                  application/json:
+                    schema:
+                      type: object
+                      properties:
+                        username:
+                          type: string
+                        password:
+                          type: string
+                        email:
+                          type: string
               responses:
                 '201': 
                   description: User created
@@ -145,6 +171,7 @@ nelmio_api_doc:
                   name: id
                   schema:
                     type: integer
+                    minimum: 1
                   required: true
                   description: Numeric ID of the user to get
               responses:
@@ -172,8 +199,22 @@ nelmio_api_doc:
                   name: id
                   schema:
                     type: integer
+                    minimum: 1
                   required: true
                   description: Numeric ID of the user to modify
+              requestBody:
+                required: true
+                content: 
+                  application/json:
+                    schema:
+                      type: object
+                      properties:
+                        username:
+                          type: string
+                        password:
+                          type: string
+                        email:
+                          type: string
               responses:
                 '200': 
                   description: User modified
@@ -191,11 +232,25 @@ nelmio_api_doc:
               tags:
                 - Users
               description: Deletion of a user by a client
+              requestBody:
+                required: true
+                content: 
+                  application/json:
+                    schema:
+                      type: object
+                      properties:
+                        username:
+                          type: string
+                        password:
+                          type: string
+                        email:
+                          type: string
               parameters:
                 - in: path
                   name: id
                   schema:
                     type: integer
+                    minimum: 1
                   required: true
                   description: Numeric ID of the user to delete
               responses:
