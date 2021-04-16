@@ -8,12 +8,6 @@ use App\Repository\ProductRepository;
 use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
- * @Hateoas\Relation(
- *    "self",
- *    href = @Hateoas\Route(
- *        "see_all_products"
- *    )
- * )
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  */
 class Product
