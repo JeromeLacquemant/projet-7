@@ -6,8 +6,10 @@ namespace App\Tests\Unit\Services\Client;
 
 use App\Entity\Client;
 use PHPUnit\Framework\TestCase;
+use App\Hateos\LinksConstructor;
 use App\Repository\ClientRepository;
 use App\Services\Client\ClientOneLoader;
+use Symfony\Component\HttpFoundation\Request;
 
 class ClientOneLoaderTest extends TestCase
 {
@@ -21,10 +23,14 @@ class ClientOneLoaderTest extends TestCase
             ->method('find')
             ->willReturn($client);   
 
-        $classToTest = new ClientOneLoader($clientRepository);
+        $request = $this->createMock(Request::class);
+
+        $linksConstructor = $this->createMock(LinksConstructor::class);
+
+        $classToTest = new ClientOneLoader($clientRepository, $linksConstructor);
 
         $id = 8;
 
-        $this->assertInstanceOf(Client::class, $classToTest->loadOneClient($id));
+        $this->assertInstanceOf(Client::class, $classToTest->loadOneClient($id, $request));
     }
 }
