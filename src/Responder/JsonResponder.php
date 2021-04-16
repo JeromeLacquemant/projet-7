@@ -31,7 +31,7 @@ class JsonResponder
 
         $jsonResponse->headers->set('Content-Type', 'application/json');
 
-        if($request->isMethodCacheable() == "GET")
+        if($request->isMethodCacheable() == true)
         {
             $jsonResponse->setMaxAge(self::cacheTiming);
         }
