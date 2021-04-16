@@ -49,6 +49,11 @@ class User implements UserInterface
      */
     private $client;
 
+    /**
+     * @Groups({"user:read"})
+     */
+    private $links;
+
 
     public function getId(): ?int
     {
@@ -99,6 +104,18 @@ class User implements UserInterface
     public function setClient(?Client $client): self
     {
         $this->client = $client;
+
+        return $this;
+    }
+
+    public function getLinks(): array
+    {
+        return $this->links;
+    }
+
+    public function setLinks(array $links): self
+    {
+        $this->links = $links;
 
         return $this;
     }

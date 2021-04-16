@@ -6,5 +6,5 @@ namespace App\Services\User\Interfaces;
 
 interface UserOneLoaderInterface
 {
-    public function loadOneUser($id);
+    public function loadOneUser($id, $request);
 }
