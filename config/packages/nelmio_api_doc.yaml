@@ -129,6 +129,12 @@ nelmio_api_doc:
               tags:
                 - Users
               description: Display all users of a client
+              parameters:
+                - in: path
+                  name: token
+                  schema:
+                    type: string
+                  required: true
               responses:
                 '200': 
                   description: A JSON array of users (id, username, password, email)
@@ -168,6 +174,11 @@ nelmio_api_doc:
               description: Display one user of a client by ID
               parameters:
                 - in: path
+                  name: token
+                  schema:
+                    type: string
+                  required: true
+                - in: path
                   name: id
                   schema:
                     type: integer
@@ -196,12 +207,17 @@ nelmio_api_doc:
               description: Modification of a user by a client
               parameters:
                 - in: path
+                  name: token
+                  schema:
+                    type: string
+                  required: true
+                - in: path
                   name: id
                   schema:
                     type: integer
                     minimum: 1
                   required: true
-                  description: Numeric ID of the user to modify
+                  description: Numeric ID of the user to get
               requestBody:
                 required: true
                 content: 
@@ -232,6 +248,19 @@ nelmio_api_doc:
               tags:
                 - Users
               description: Deletion of a user by a client
+              parameters:
+                - in: path
+                  name: token
+                  schema:
+                    type: string
+                  required: true
+                - in: path
+                  name: id
+                  schema:
+                    type: integer
+                    minimum: 1
+                  required: true
+                  description: Numeric ID of the user to get
               requestBody:
                 required: true
                 content: 
@@ -245,14 +274,6 @@ nelmio_api_doc:
                           type: string
                         email:
                           type: string
-              parameters:
-                - in: path
-                  name: id
-                  schema:
-                    type: integer
-                    minimum: 1
-                  required: true
-                  description: Numeric ID of the user to delete
               responses:
                 '200': 
                   description: User modified
