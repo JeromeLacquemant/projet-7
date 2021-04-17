@@ -19,15 +19,17 @@ class LinksConstructor
                 $route = $request->get('_route');
 
                 if($id == null) {
-                        $data->setLinks(["rel" => $this->urlGenerator->generate($route)]);
+                       foreach($data as $value) {
+                                $id = $value->getId();
+                                $value->setLinks(["rel" => $this->urlGenerator->generate($route, ['id' => $id])]);
+                                $data = $data;
+                       }
                         return $data; 
                 }
-
                 $data->setLinks(["rel" => $this->urlGenerator->generate($route, ['id' => $id])]);
 
                 return $data;
-        }
-        
+        }   
 }
        
         

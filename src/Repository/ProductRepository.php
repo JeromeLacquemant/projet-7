@@ -42,10 +42,8 @@ class ProductRepository extends ServiceEntityRepository
 		$queryBuilder->setFirstResult($firstResult);
 		$queryBuilder->setMaxResults(self::numberOfElementsByPage);
 		
-		$query = $queryBuilder->getQuery();
-		
-		$paginator = new Paginator($query, true);
+		$query = $queryBuilder->getQuery()->getResult();
 
-		return $paginator;
+		return $query;
 	}
 }
