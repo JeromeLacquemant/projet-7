@@ -34,7 +34,7 @@ class Product
      */
     private $price;
 
-    private $links;
+    private $_links;
 
     public function getId(): ?int
     {
@@ -79,12 +79,12 @@ class Product
 
     public function getLinks(): array
     {
-        return $this->links;
+        return $this->_links;
     }
 
-    public function setLinks(array $links): self
+    public function setLinks(array $_links): self
     {
-        $this->links = $links;
+        $this->_links = $_links;
 
         return $this;
     }
