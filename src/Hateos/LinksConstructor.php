@@ -18,17 +18,75 @@ class LinksConstructor
 
                 $route = $request->get('_route');
 
-                if($id == null) {
-                       foreach($data as $value) {
-                                $id = $value->getId();
-                                $value->setLinks(["rel" => $this->urlGenerator->generate($route, ['id' => $id])]);
-                                $data = $data;
-                       }
-                        return $data; 
-                }
-                $data->setLinks(["rel" => $this->urlGenerator->generate($route, ['id' => $id])]);
+                $generatedLinks = ["rel" => $this->urlGenerator->generate($route, ['id' => $id])];
 
-                return $data;
+                if($route == "see_all_users" || $route == "see_one_user") {
+                        if($id == null) {
+                                foreach($data as $value) {
+                                         $id = $value->getId();
+
+                                         $value->setLinks(
+                                                        [
+                                                        "get" => $generatedLinks,
+                                                        "add" => ["rel" => $this->urlGenerator->generate($route)]
+                                                        ]
+                                                 );
+
+                                                 $value->setEmbedded([
+                                                        "client" => [
+                                                                "id" => $value->getClient()->getId(),
+                                                                "name" => $value->getClient()->getName(),
+                                                                "email" => $value->getClient()->getEmail()
+                                                                ]
+                                                        ]
+                                                );
+
+                                                
+
+                                         $data = $data;
+                                }
+                                 return $data; 
+                         }
+                         $data->setLinks(
+                                         [
+                                         "get" => $generatedLinks,
+                                         "put" => $generatedLinks,
+                                         "delete" => $generatedLinks
+                                         ]
+                                 );
+
+                                 $data->setEmbedded([
+                                        "client" => [
+                                                "id" => $data->getClient()->getId(),
+                                                "name" => $data->getClient()->getName(),
+                                                "email" => $data->getClient()->getEmail()
+                                                ]
+                                        ]
+                                );
+         
+                         return $data;
+                }
+
+                if($id == null) {
+                        foreach($data as $value) {
+                                 $id = $value->getId();
+                                 
+                                 $value->setLinks(
+                                                [
+                                                "get" => $generatedLinks
+                                                ]
+                                         );
+                                 $data = $data;
+                        }
+                         return $data; 
+                 }
+                 $data->setLinks(
+                                 [
+                                 "get" => $generatedLinks
+                                 ]
+                         );
+ 
+                 return $data;
         }   
 }
        
