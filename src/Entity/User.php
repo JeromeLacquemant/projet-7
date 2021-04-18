@@ -54,6 +54,11 @@ class User implements UserInterface
      */
     private $_links;
 
+    /**
+     * @Groups({"user:read"})
+     */
+    private $_embedded;
+
 
     public function getId(): ?int
     {
@@ -116,6 +121,18 @@ class User implements UserInterface
     public function setLinks(array $_links): self
     {
         $this->_links = $_links;
+
+        return $this;
+    }
+
+    public function getEmbedded(): array
+    {
+        return $this->_embedded;
+    }
+
+    public function setEmbedded(array $_embedded): self
+    {
+        $this->_embedded = $_embedded;
 
         return $this;
     }

@@ -60,6 +60,11 @@ class Client implements UserInterface
         return $this->id;
     }
 
+    public function getName(): ?string
+    {
+        return $this->username;
+    }
+
     public function getUsername(): ?string
     {
         return $this->email;
