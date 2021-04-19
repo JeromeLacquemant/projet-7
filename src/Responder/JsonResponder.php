@@ -22,6 +22,8 @@ class JsonResponder
 
     public function respond($response, $request, $group, $codeHttp=self::codeHttpOk)
     {         
+        $group['json_encode_options'] = JSON_UNESCAPED_SLASHES;
+
         $jsonResponse = new JsonResponse(
                 $this->serializer->serialize($response, 'json', $group),
                 $codeHttp,
