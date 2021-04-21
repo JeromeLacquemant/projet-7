@@ -22,7 +22,7 @@ class UserAddController
     }
 
      /**
-     * @Route("api/users", name="add_user", methods={"POST"})
+     * @Route("/api/users", name="add_user", methods={"POST"})
      */
     public function addOneUser(Request $request)
     {
