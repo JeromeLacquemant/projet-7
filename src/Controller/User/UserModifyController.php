@@ -28,6 +28,6 @@ class UserModifyController
         $message = $userModified[0];
         $codeStatus = $userModified[1];
 
-        return $this->jsonResponder->respond(['message' => $message], $request, ['groups' => 'user:read'], $codeStatus);
+        return $this->jsonResponder->respond(['message' => $message], $request, $codeStatus);
     }
 }

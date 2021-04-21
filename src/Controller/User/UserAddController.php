@@ -30,6 +30,6 @@ class UserAddController
         $message = $userAdded[0];
         $codeStatus = $userAdded[1];
 
-        return $this->jsonResponder->respond(['message' => $message], $request, ['groups' => 'user:read'], $codeStatus);
+        return $this->jsonResponder->respond(['message' => $message], $request, $codeStatus);
     }
 }

@@ -28,6 +28,6 @@ class UserDeleteController
         $message = $userDeleted[0];
         $codeStatus = $userDeleted[1];
 
-        return $this->jsonResponder->respond(['message' => $message], $request, ['groups' => 'user:read'], $codeStatus);
+        return $this->jsonResponder->respond(['message' => $message], $request, $codeStatus);
     }
 }
