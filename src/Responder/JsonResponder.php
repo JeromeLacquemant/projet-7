@@ -20,12 +20,12 @@ class JsonResponder
         $this->serializer = $serializer;
     }
 
-    public function respond($response, $request, $group, $codeHttp=self::codeHttpOk)
+    public function respond($response, $request, $codeHttp=self::codeHttpOk)
     {         
-        $group['json_encode_options'] = JSON_UNESCAPED_SLASHES;
+        $option['json_encode_options'] = JSON_UNESCAPED_SLASHES;
 
         $jsonResponse = new JsonResponse(
-                $this->serializer->serialize($response, 'json', $group),
+                $this->serializer->serialize($response, 'json', $option),
                 $codeHttp,
                 [],
                 true
