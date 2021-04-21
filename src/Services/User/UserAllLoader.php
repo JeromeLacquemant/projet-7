@@ -6,6 +6,7 @@ use App\Hateos\LinksConstructor;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Services\User\Interfaces\UserAllLoaderInterface;
+use App\Output\OutputConstructors\UserAllOutputConstruction;
 
 class UserAllLoader implements UserAllLoaderInterface
 {
@@ -13,10 +14,10 @@ class UserAllLoader implements UserAllLoaderInterface
 
     public function __construct(
         UserRepository $userRepository,
-        LinksConstructor $linksConstructor) 
+        UserAllOutputConstruction $userAllOutputConstruction) 
     {
         $this->userRepository = $userRepository;   
-        $this->linksConstructor = $linksConstructor;     
+        $this->userAllOutputConstruction = $userAllOutputConstruction;     
     }
 
     public function loadAllUsers(Request $request)
@@ -29,8 +30,8 @@ class UserAllLoader implements UserAllLoaderInterface
 
         $paginatedResult = $this->userRepository->getUsers($page);
 
-        $this->linksConstructor->linksConstruction($paginatedResult, $request);
+        $outputUser = $this->userAllOutputConstruction->outputConstruction($paginatedResult, $request);
 
-        return $paginatedResult;
+        return $outputUser;
     }
 }

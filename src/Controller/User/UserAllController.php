@@ -26,6 +26,6 @@ class UserAllController
     {
         $users = $this->loader->loadAllUsers($request);
 
-        return $this->jsonResponder->respond($users, $request, ['groups' => 'user:read'], 200);
+        return $this->jsonResponder->respond($users, $request, 200);
     }
 }
