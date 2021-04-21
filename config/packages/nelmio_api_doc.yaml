@@ -19,15 +19,27 @@ nelmio_api_doc:
               tags:
                 - Products
               description: Display all the products
+              parameters:
+                - in: query
+                  name: page
+                  schema:
+                    type: integer
+                  required: false
+                  description: Number of the page to get
               responses:
                 '200': 
                   description: A JSON array of products (id, name, description, price)
                   content:
                     application/json:
                       example: [
-                                {"id": "1", "name": "Product 1", "description": "Description 1", "price": "101"},
-                                {"id": "2", "name": "Product 2", "description": "Description 2", "price": "201"},
-                                {"id": "3", "name": "Product 2", "description": "Description 3", "price": "301"}
+                                {"id": "1", "name": "Product 1", "description": "Description 1", "price": "101", 
+                                "links": {"get": {"rel": "/products"}}},
+
+                                {"id": "2", "name": "Product 2", "description": "Description 2", "price": "201",
+                                "links": {"get": {"rel": "/products"}}},
+
+                                {"id": "3", "name": "Product 2", "description": "Description 3", "price": "301",
+                                "links": {"get": {"rel": "/products"}}}
                                ]
 
           /products/{id}:
@@ -48,7 +60,8 @@ nelmio_api_doc:
                   description: A JSON string of one product (id, name, description, price)
                   content:
                     application/json:
-                      example: {"id": "1", "name": "Product 1", "description": "Description 1", "price": "101"}
+                      example: {"id": "1", "name": "Product 1", "description": "Description 1", "price": "101",
+                                "links": {"get": {"rel": "/products/1"}}}
                 '404': 
                   description: Product not found
                   content:
@@ -60,15 +73,27 @@ nelmio_api_doc:
               tags:
                 - Clients
               description: Display all clients
+              parameters:
+                - in: query
+                  name: page
+                  schema:
+                    type: integer
+                  required: false
+                  description: Number of the page to get
               responses:
                 '200': 
                   description: A JSON array of clients (id, username, password, email)
                   content:
                     application/json:
                       example: [
-                                {"id": "1", "username": "client_1", "password": "password", "email": "client_1@gmail.com"},
-                                {"id": "2", "username": "client_2", "password": "password", "email": "client_2@gmail.com"},
-                                {"id": "3", "username": "client_3", "password": "password", "email": "client_3@gmail.com"}
+                                {"id": "1", "username": "client_1", "password": "password", "email": "client_1@gmail.com",
+                                "links": {"get": {"rel": "/clients"}}},
+
+                                {"id": "2", "username": "client_2", "password": "password", "email": "client_2@gmail.com",
+                                "links": {"get": {"rel": "/clients"}}},
+
+                                {"id": "3", "username": "client_3", "password": "password", "email": "client_3@gmail.com",
+                                "links": {"get": {"rel": "/clients"}}}
                                ]
 
           /clients/{id}:
@@ -89,7 +114,8 @@ nelmio_api_doc:
                   description: A JSON string of one client (id, username, password, email)
                   content:
                     application/json:
-                      example: {"id": "1", "username": "client_1", "password": "password", "email": "client_1@gmail.com"}
+                      example: {"id": "1", "username": "client_1", "password": "password", "email": "client_1@gmail.com",
+                                "links": {"get": {"rel": "/clients/1"}}}
                 '404': 
                   description: Client not found
                   content:
@@ -130,6 +156,12 @@ nelmio_api_doc:
                 - Users
               description: Display all users of a client
               parameters:
+                - in: query
+                  name: page
+                  schema:
+                    type: integer
+                  required: false
+                  description: Number of the page to get
                 - in: path
                   name: token
                   schema:
@@ -140,7 +172,19 @@ nelmio_api_doc:
                   description: A JSON array of users (id, username, password, email)
                   content:
                     application/json:
-                      example: {"id": "1", "username": "user_1", "password": "password", "email": "user_1@gmail.com"}
+                      example:  [
+                                {"id": "1", "username": "user_1", "password": "password", "email": "user_1@gmail.com",
+                                "links": {"get": {"rel": "/users"}}, 
+                                "embedded": {"client": {"id": 1,"name": "Client 1","email": "client_1@gmail.com"}}},
+
+                                {"id": "2", "username": "user_2", "password": "password", "email": "user_2@gmail.com",
+                                "links": {"get": {"rel": "/users"}},
+                                "embedded": {"client": {"id": 1,"name": "Client 1","email": "client_1@gmail.com"}}},
+
+                                {"id": "3", "username": "user_3", "password": "password", "email": "user_3@gmail.com",
+                                "links": {"get": {"rel": "/users"}},
+                                "embedded": {"client": {"id": 1,"name": "Client 1","email": "client_1@gmail.com"}}}
+                                ]
             post:
               tags:
                 - Users
@@ -163,7 +207,7 @@ nelmio_api_doc:
                   description: User created
                   content:
                     application/json:
-                      example: {"username": "user_1", "password": "password", "email": "user_1@gmail.com"}
+                      example: {"message": "L'utilisateur a été ajouté avec succès"}
                 '400': 
                   description: Bad request
 
@@ -190,7 +234,9 @@ nelmio_api_doc:
                   description: A JSON array of one user (id, username, password, email)
                   content:
                     application/json:
-                      example: {"id": "1", "username": "user_1", "password": "password", "email": "user_1@gmail.com"}
+                      example: {"id": "1", "username": "user_1", "password": "password", "email": "user_1@gmail.com",
+                                "links": {"get": {"rel": "/users/1"}},
+                                "embedded": {"client": {"id": 1,"name": "Client 1","email": "client_1@gmail.com"}}}
                 '404': 
                   description: User not found
                   content:
@@ -287,8 +333,6 @@ nelmio_api_doc:
                   content:
                     application/json:
                       example: {"message": "Vous n'êtes pas autorisé à effacer à cet user"}
-
-
 
     areas: # to filter documented areas
         path_patterns:
