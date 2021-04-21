@@ -6,6 +6,7 @@ use App\Hateos\LinksConstructor;
 use App\Repository\ClientRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Services\Client\Interfaces\ClientAllLoaderInterface;
+use App\Output\OutputConstructors\ClientAllOutputConstruction;
 
 class ClientAllLoader implements ClientAllLoaderInterface
 {
@@ -13,10 +14,10 @@ class ClientAllLoader implements ClientAllLoaderInterface
 
     public function __construct(
         ClientRepository $clientRepository,
-        LinksConstructor $linksConstructor) 
+        ClientAllOutputConstruction $clientAllOutputConstruction) 
     {
         $this->clientRepository = $clientRepository;
-        $this->linksConstructor = $linksConstructor;
+        $this->clientAllOutputConstruction = $clientAllOutputConstruction;
     }
 
     public function loadAllClients(Request $request){
@@ -28,8 +29,8 @@ class ClientAllLoader implements ClientAllLoaderInterface
 
 		$paginatedResult = $this->clientRepository->getClients($page);
 
-        $this->linksConstructor->linksConstruction($paginatedResult, $request);
+        $outputClient = $this->clientAllOutputConstruction->outputConstruction($paginatedResult, $request);
 
-        return $paginatedResult;
+        return $outputClient;
     }
 }
