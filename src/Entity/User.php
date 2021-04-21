@@ -49,17 +49,6 @@ class User implements UserInterface
      */
     private $client;
 
-    /**
-     * @Groups({"user:read"})
-     */
-    private $_links;
-
-    /**
-     * @Groups({"user:read"})
-     */
-    private $_embedded;
-
-
     public function getId(): ?int
     {
         return $this->id;
@@ -109,30 +98,6 @@ class User implements UserInterface
     public function setClient(?Client $client): self
     {
         $this->client = $client;
-
-        return $this;
-    }
-
-    public function getLinks(): array
-    {
-        return $this->_links;
-    }
-
-    public function setLinks(array $_links): self
-    {
-        $this->_links = $_links;
-
-        return $this;
-    }
-
-    public function getEmbedded(): array
-    {
-        return $this->_embedded;
-    }
-
-    public function setEmbedded(array $_embedded): self
-    {
-        $this->_embedded = $_embedded;
 
         return $this;
     }

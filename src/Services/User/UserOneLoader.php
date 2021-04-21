@@ -2,12 +2,13 @@
 
 namespace App\Services\User;
 
+use App\Hateos\LinksConstructor;
 use App\Repository\UserRepository;
 use App\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\Security;
 use App\Exception\ClientUnauthorizedException;
-use App\Hateos\LinksConstructor;
 use App\Services\User\Interfaces\UserOneLoaderInterface;
+use App\Output\OutputConstructors\UserOneOutputConstruction;
 
 class UserOneLoader implements UserOneLoaderInterface
 {
@@ -16,11 +17,11 @@ class UserOneLoader implements UserOneLoaderInterface
     public function __construct(
         UserRepository $userRepository,
         Security $security,
-        LinksConstructor $linksConstructor) 
+        UserOneOutputConstruction $userOneOutputConstruction) 
     {
         $this->userRepository = $userRepository;
         $this->security = $security;
-        $this->linksConstructor = $linksConstructor;
+        $this->userOneOutputConstruction = $userOneOutputConstruction;
     }
 
     public function loadOneUser($id, $request)
@@ -31,10 +32,11 @@ class UserOneLoader implements UserOneLoaderInterface
             throw new UserNotFoundException('L\'utilisateur n\'a pas été trouvé');
         }
 
-        $this->linksConstructor->linksConstruction($user, $request, $id);
+        $userOutput = $this->userOneOutputConstruction->outputConstruction($user, $request, $id);
 
         if($this->security->isGranted('view', $user)) {
-            return [$user, 200];
+            
+            return [$userOutput, 200];
         } 
             throw new ClientUnauthorizedException('Vous n\'êtes pas autorisé à accéder à cet user');
     }
