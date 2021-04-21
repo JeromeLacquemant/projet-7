@@ -17,6 +17,11 @@ class ClientAllOutputConstruction
 
     public function outputConstruction($data, $request)
     {
+        if($data == null) {
+            $outputs = [];
+            return $outputs;
+        }
+        
         foreach ($data as $value) {   
             $outputClient = new ClientOutput();
             $outputClient

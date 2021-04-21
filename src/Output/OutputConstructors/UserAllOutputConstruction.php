@@ -21,6 +21,11 @@ class UserAllOutputConstruction
 
     public function outputConstruction($data, $request)
     {
+        if($data == null) {
+            $outputs = [];
+            return $outputs;
+        }
+        
         foreach ($data as $value) {   
             $outputUser = new UserOutput();
             $outputUser

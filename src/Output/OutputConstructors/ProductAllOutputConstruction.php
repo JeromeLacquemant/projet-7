@@ -20,6 +20,11 @@ class ProductAllOutputConstruction
 
     public function outputConstruction($data, $request)
     {
+        if($data == null) {
+            $outputs = [];
+            return $outputs;
+        }
+        
         foreach ($data as $value) {   
             $outputProduct = new ProductOutput();
             $outputProduct
