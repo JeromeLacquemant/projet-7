@@ -4,15 +4,19 @@ namespace App\Output\OutputConstructors;
 
 use App\Output\Outputs\UserOutput;
 use App\Hateos\LinksUserConstructor;
+use App\Hateos\EmbeddedUserConstructor;
 
 class UserAllOutputConstruction
 {
     private $linksUserConstructor;
+    private $embeddedUserConstructor;
 
     public function __construct(
-        LinksUserConstructor $linksUserConstructor) 
+        LinksUserConstructor $linksUserConstructor,
+        EmbeddedUserConstructor $embeddedUserConstructor) 
     {
         $this->linksUserConstructor = $linksUserConstructor;
+        $this->embeddedUserConstructor = $embeddedUserConstructor;
     }
 
     public function outputConstruction($data, $request)
@@ -26,6 +30,8 @@ class UserAllOutputConstruction
                 ->setEmail($value->getEmail());
 
             $this->linksUserConstructor->linksConstruction($outputUser, $request);
+
+            $this->embeddedUserConstructor->embeddedConstruction($value, $outputUser);
             
             $outputs[] = $outputUser;
         }

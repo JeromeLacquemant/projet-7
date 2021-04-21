@@ -4,29 +4,34 @@ namespace App\Output\OutputConstructors;
 
 use App\Output\Outputs\UserOutput;
 use App\Hateos\LinksUserConstructor;
+use App\Hateos\EmbeddedUserConstructor;
 
 class UserOneOutputConstruction
 {
     private $linksUserConstructor;
 
     public function __construct(
-        LinksUserConstructor $linksUserConstructor) 
+        LinksUserConstructor $linksUserConstructor,
+        EmbeddedUserConstructor $embeddedUserConstructor) 
     {
         $this->linksUserConstructor = $linksUserConstructor;
+        $this->embeddedUserConstructor = $embeddedUserConstructor;
     }
 
     public function outputConstruction($data, $request, $id)
     {
-        $outputClient = new UserOutput();
+        $outputUser = new UserOutput();
         
-        $outputClient
+        $outputUser
                 ->setId($data->getId())        
                 ->setUsername($data->getUsername())
                 ->setPassword($data->getPassword())
                 ->setEmail($data->getEmail());
 
-        $this->linksUserConstructor->linksConstruction($outputClient, $request, $id);
+        $this->linksUserConstructor->linksConstruction($outputUser, $request, $id);
 
-        return $outputClient;
+        $this->embeddedUserConstructor->embeddedConstruction($data, $outputUser);
+        
+        return $outputUser;
     }
 }

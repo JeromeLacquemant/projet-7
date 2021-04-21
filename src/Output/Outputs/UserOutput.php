@@ -15,6 +15,8 @@ class UserOutput
 
     private $_links;
 
+    private $_embedded;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,6 +73,18 @@ class UserOutput
     public function setLinks(array $_links): self
     {
         $this->_links = $_links;
+
+        return $this;
+    }
+
+    public function getEmbedded(): array
+    {
+        return $this->_embedded;
+    }
+
+    public function setEmbedded(array $_embedded): self
+    {
+        $this->_embedded = $_embedded;
 
         return $this;
     }
