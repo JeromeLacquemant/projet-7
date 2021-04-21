@@ -6,6 +6,7 @@ use App\Hateos\LinksConstructor;
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Output\OutputConstructors\ProductAllOutputConstruction;
 use App\Services\Product\Interfaces\ProductAllLoaderInterface;
 
 class ProductAllLoader implements ProductAllLoaderInterface
@@ -14,10 +15,10 @@ class ProductAllLoader implements ProductAllLoaderInterface
 
     public function __construct(
         ProductRepository $productRepository,
-        LinksConstructor $linksConstructor) 
+        ProductAllOutputConstruction $productAllOutputConstruction) 
     {
         $this->productRepository = $productRepository;
-        $this->linksConstructor = $linksConstructor;
+        $this->productAllOutputConstruction = $productAllOutputConstruction;
     }
 
     public function loadAllProducts(Request $request){
@@ -29,8 +30,8 @@ class ProductAllLoader implements ProductAllLoaderInterface
         
 		$paginatedResult = $this->productRepository->getProducts($page);
 
-        $this->linksConstructor->linksConstruction($paginatedResult, $request);
+        $outputProduct = $this->productAllOutputConstruction->outputConstruction($paginatedResult, $request);
 
-        return $paginatedResult;
+        return $outputProduct;
     }
 }
