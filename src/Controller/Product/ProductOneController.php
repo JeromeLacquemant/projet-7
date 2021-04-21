@@ -28,6 +28,6 @@ class ProductOneController
     {
         $user = $this->productOneLoaderInterface->loadOneProduct($id, $request);
 
-        return $this->jsonResponder->respond($user, $request, [], 200);
+        return $this->jsonResponder->respond($user, $request, 200);
     }
 }
