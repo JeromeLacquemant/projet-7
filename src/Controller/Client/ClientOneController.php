@@ -28,6 +28,6 @@ class ClientOneController
     {
         $client = $this->clientOneLoaderInterface->loadOneClient($id, $request);
 
-        return $this->jsonResponder->respond($client, $request, ['groups' => 'client:read'], 200);;
+        return $this->jsonResponder->respond($client, $request, 200);;
     }
 }

@@ -4,8 +4,9 @@ namespace App\Services\Client;
 
 use App\Repository\ClientRepository;
 use App\Exception\ClientNotFoundException;
-use App\Hateos\LinksConstructor;
 use App\Services\Client\Interfaces\ClientOneLoaderInterface;
+use App\Output\OutputConstructors\ClientOneOutputConstruction;
+
 
 class ClientOneLoader implements ClientOneLoaderInterface
 {
@@ -13,10 +14,10 @@ class ClientOneLoader implements ClientOneLoaderInterface
 
     public function __construct(
         ClientRepository $clientRepository,
-        LinksConstructor $linksConstructor) 
+        ClientOneOutputConstruction $clientOneOutputConstruction) 
     {
         $this->clientRepository = $clientRepository;
-        $this->linksConstructor = $linksConstructor;
+        $this->clientOneOutputConstruction = $clientOneOutputConstruction;
     }
 
     public function loadOneClient($id, $request){
@@ -26,9 +27,9 @@ class ClientOneLoader implements ClientOneLoaderInterface
         if(is_null($client)) {
             throw new ClientNotFoundException('Le client n\'a pas été trouvé.');
         }
+        
+        $outputClient = $this->clientOneOutputConstruction->outputConstruction($client, $request, $id);
 
-        $this->linksConstructor->linksConstruction($client, $request, $id);
-
-        return $client;
+        return $outputClient;
     }
 }

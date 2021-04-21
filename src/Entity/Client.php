@@ -45,11 +45,6 @@ class Client implements UserInterface
      */
     private $user;
 
-    /**
-     * @Groups({"client:read"})
-     */
-    private $_links;
-
     public function __construct()
     {
         $this->user = new ArrayCollection();
@@ -97,18 +92,6 @@ class Client implements UserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    public function getLinks(): array
-    {
-        return $this->_links;
-    }
-
-    public function setLinks(array $_links): self
-    {
-        $this->_links = $_links;
 
         return $this;
     }
