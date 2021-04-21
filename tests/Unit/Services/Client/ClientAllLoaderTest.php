@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Services\Client;
 
 use PHPUnit\Framework\TestCase;
+use App\Hateos\LinksConstructor;
 use App\Repository\ClientRepository;
 use App\Services\Client\ClientAllLoader;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -24,7 +25,9 @@ class ClientAllLoaderTest extends TestCase
         $request = $this->createMock(Request::class);
         $request->query = new InputBag;
 
-        $classToTest = new ClientAllLoader($clientRepository);
+        $linksConstructor = $this->createMock(LinksConstructor::class);
+
+        $classToTest = new ClientAllLoader($clientRepository, $linksConstructor);
 
         $this->assertInstanceOf(Paginator::class, $classToTest->loadAllClients($request));
     }

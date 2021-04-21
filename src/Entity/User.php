@@ -49,7 +49,6 @@ class User implements UserInterface
      */
     private $client;
 
-
     public function getId(): ?int
     {
         return $this->id;

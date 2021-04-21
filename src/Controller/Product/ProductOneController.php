@@ -2,6 +2,7 @@
 
 namespace App\Controller\Product;
 
+use App\Entity\Article;
 use App\Responder\JsonResponder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,8 +26,8 @@ class ProductOneController
      */
     public function seeProduct($id, Request $request)
     {
-        $user = $this->productOneLoaderInterface->loadOneProduct($id);
+        $user = $this->productOneLoaderInterface->loadOneProduct($id, $request);
 
-        return $this->jsonResponder->respond($user, $request, [], 200);
+        return $this->jsonResponder->respond($user, $request, 200);
     }
 }

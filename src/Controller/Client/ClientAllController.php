@@ -25,6 +25,6 @@ class ClientAllController
     {
         $clients = $this->clientAllLoaderInterface->loadAllClients($request);
 
-        return $this->jsonResponder->respond($clients, $request, ['groups' => 'client:read'], 200);
+        return $this->jsonResponder->respond($clients, $request, 200);
     }
 }

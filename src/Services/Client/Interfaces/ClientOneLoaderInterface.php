@@ -6,5 +6,5 @@ namespace App\Services\Client\Interfaces;
 
 interface ClientOneLoaderInterface
 {
-    public function loadOneClient($id);
+    public function loadOneClient($id, $request);
 }

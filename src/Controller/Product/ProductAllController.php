@@ -27,6 +27,6 @@ class ProductAllController
     {
         $users = $this->productAllLoaderInterface->loadAllProducts($request);
 
-        return $this->jsonResponder->respond($users, $request, [], 200);
+        return $this->jsonResponder->respond($users, $request, 200);
     }
 }

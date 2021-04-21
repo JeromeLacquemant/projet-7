@@ -20,10 +20,12 @@ class JsonResponder
         $this->serializer = $serializer;
     }
 
-    public function respond($response, $request, $group, $codeHttp=self::codeHttpOk)
+    public function respond($response, $request, $codeHttp=self::codeHttpOk)
     {         
+        $option['json_encode_options'] = JSON_UNESCAPED_SLASHES;
+
         $jsonResponse = new JsonResponse(
-                $this->serializer->serialize($response, 'json', $group),
+                $this->serializer->serialize($response, 'json', $option),
                 $codeHttp,
                 [],
                 true
@@ -31,7 +33,7 @@ class JsonResponder
 
         $jsonResponse->headers->set('Content-Type', 'application/json');
 
-        if($request->isMethodCacheable() == "GET")
+        if($request->isMethodCacheable() == true)
         {
             $jsonResponse->setMaxAge(self::cacheTiming);
         }

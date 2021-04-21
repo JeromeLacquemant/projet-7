@@ -42,10 +42,8 @@ class ClientRepository extends ServiceEntityRepository
 		$queryBuilder->setFirstResult($firstResult);
 		$queryBuilder->setMaxResults(self::numberOfElementsByPage);
 		
-		$query = $queryBuilder->getQuery();
+		$query = $queryBuilder->getQuery()->getResult();
 		
-		$paginator = new Paginator($query, true);
-
-		return $paginator;
+		return $query;
 	}
 }

@@ -6,9 +6,11 @@ namespace App\Tests\Unit\Services\Product;
 
 use App\Entity\Product;
 use PHPUnit\Framework\TestCase;
+use App\Hateos\LinksConstructor;
 use App\Repository\ProductRepository;
 use App\Services\Product\ProductOneLoader;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProductOneLoaderTest extends TestCase
 {
@@ -22,10 +24,14 @@ class ProductOneLoaderTest extends TestCase
             ->method('find')
             ->willReturn($product);   
 
-        $classToTest = new ProductOneLoader($productRepository);
+        $request = $this->createMock(Request::class);
+
+        $linksConstructor = $this->createMock(LinksConstructor::class);
+
+        $classToTest = new ProductOneLoader($productRepository, $linksConstructor);
 
         $id = 8;
         
-        $this->assertInstanceOf(Product::class, $classToTest->loadOneProduct($id));
+        $this->assertInstanceOf(Product::class, $classToTest->loadOneProduct($id, $request));
     }
 }
