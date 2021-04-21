@@ -2,17 +2,17 @@
 
 namespace App\Output\OutputConstructors;
 
-use App\Hateos\LinksConstructor;
 use App\Output\Outputs\UserOutput;
+use App\Hateos\LinksUserConstructor;
 
 class UserAllOutputConstruction
 {
-    private $linksConstructor;
+    private $linksUserConstructor;
 
     public function __construct(
-        LinksConstructor $linksConstructor) 
+        LinksUserConstructor $linksUserConstructor) 
     {
-        $this->linksConstructor = $linksConstructor;
+        $this->linksUserConstructor = $linksUserConstructor;
     }
 
     public function outputConstruction($data, $request)
@@ -25,7 +25,7 @@ class UserAllOutputConstruction
                 ->setPassword($value->getPassword())
                 ->setEmail($value->getEmail());
 
-            $this->linksConstructor->linksConstruction($outputUser, $request);
+            $this->linksUserConstructor->linksConstruction($outputUser, $request);
             
             $outputs[] = $outputUser;
         }

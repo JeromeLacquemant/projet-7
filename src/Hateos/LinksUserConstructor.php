@@ -4,7 +4,7 @@ namespace App\Hateos;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class LinksConstructor
+class LinksUserConstructor
 {
         private $urlGenerator;
 
@@ -19,23 +19,26 @@ class LinksConstructor
                 $route = $request->get('_route');
                 
                 $generatedLinks = ["rel" => $this->urlGenerator->generate($route, ['id' => $id])];
-
+                
                 if($id == null) {
                         $id = $data->getId();
-                                 
                         $data->setLinks(
                                 [
-                                "get" => $generatedLinks
+                                "get" => $generatedLinks,
+                                "add" => ["rel" => $this->urlGenerator->generate($route)]
                                 ]
                         );
                         return $data; 
-                 }
-
+                }
+                         
                 $data->setLinks(
                         [
-                        "get" => $generatedLinks
+                        "get" => $generatedLinks,
+                        "put" => $generatedLinks,
+                        "delete" => $generatedLinks
                         ]
                 );
+
                 return $data;
         }   
 }
