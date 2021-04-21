@@ -20,17 +20,6 @@ class LinksConstructor
                 
                 $generatedLinks = ["rel" => $this->urlGenerator->generate($route, ['id' => $id])];
 
-                if($id == null) {
-                        $id = $data->getId();
-                                 
-                        $data->setLinks(
-                                [
-                                "get" => $generatedLinks
-                                ]
-                        );
-                        return $data; 
-                 }
-
                 $data->setLinks(
                         [
                         "get" => $generatedLinks
