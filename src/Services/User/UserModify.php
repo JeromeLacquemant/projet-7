@@ -3,6 +3,7 @@
 namespace App\Services\User;
 
 use App\Repository\UserRepository;
+use App\Dto\CustomerUserResponseDto;
 use App\Exception\UserNotFoundException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,18 +17,23 @@ class UserModify implements UserModifyInterface
 {
     private $userRepository;
     private $entityManagerInterface;
+    private $security;
+    private $validator;
+    private $customerUserResponseDto;
 
     public function __construct(
         UserRepository $userRepository,
         EntityManagerInterface $entityManagerInterface,
         Security $security,
-        ValidatorInterface $validator
+        ValidatorInterface $validator,
+        CustomerUserResponseDto $customerUserResponseDto
         ) 
     {
         $this->userRepository = $userRepository;
         $this->entityManagerInterface = $entityManagerInterface;
         $this->security = $security;
         $this->validator = $validator;
+        $this->customerUserResponseDto = $customerUserResponseDto;
     }
 
     public function modifyUser($id, Request $request)
@@ -42,10 +48,12 @@ class UserModify implements UserModifyInterface
         {
             $data = json_decode($request->getContent(), true);
 
+            $userDto = $this->customerUserResponseDto->transformFromObject($data);
+
             $registeredUser
-                ->setUsername($data["username"])
-                ->setPassword($data["password"])
-                ->setEmail($data["email"]);
+                ->setUsername($userDto->username)
+                ->setPassword($userDto->password)
+                ->setEmail($userDto->email);
 
             $violations = $this->validator->validate($registeredUser);
 
