@@ -2,10 +2,8 @@
 
 namespace App\Services\Product;
 
-use App\Hateos\LinksConstructor;
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use App\Output\OutputConstructors\ProductAllOutputConstruction;
 use App\Services\Product\Interfaces\ProductAllLoaderInterface;
 
