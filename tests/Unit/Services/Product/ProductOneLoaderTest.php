@@ -6,17 +6,18 @@ namespace App\Tests\Unit\Services\Product;
 
 use App\Entity\Product;
 use PHPUnit\Framework\TestCase;
-use App\Hateos\LinksConstructor;
+use App\Output\Outputs\ProductOutput;
 use App\Repository\ProductRepository;
 use App\Services\Product\ProductOneLoader;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Component\HttpFoundation\Request;
+use App\Output\OutputConstructors\ProductOneOutputConstruction;
 
 class ProductOneLoaderTest extends TestCase
 {
     public function testUserOneLoader()
     {
         $product = new Product();
+        $productOutput = new ProductOutput();
 
         $productRepository = $this->createMock(ProductRepository::class);
         $productRepository
@@ -26,12 +27,16 @@ class ProductOneLoaderTest extends TestCase
 
         $request = $this->createMock(Request::class);
 
-        $linksConstructor = $this->createMock(LinksConstructor::class);
+        $productOneOutputConstruction = $this->createMock(ProductOneOutputConstruction::class);
+        $productOneOutputConstruction
+            ->expects($this->once())
+            ->method('outputConstruction')
+            ->willReturn($productOutput); 
 
-        $classToTest = new ProductOneLoader($productRepository, $linksConstructor);
+        $classToTest = new ProductOneLoader($productRepository, $productOneOutputConstruction);
 
         $id = 8;
         
-        $this->assertInstanceOf(Product::class, $classToTest->loadOneProduct($id, $request));
+        $this->assertInstanceOf(ProductOutput::class, $classToTest->loadOneProduct($id, $request));
     }
 }
