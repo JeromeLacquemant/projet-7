@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Services\User;
 
 use App\Entity\User;
-use App\Entity\Client;
+use App\Dto\UserResponseDto;
 use PHPUnit\Framework\TestCase;
 use App\Services\User\UserModify;
 use App\Repository\UserRepository;
+use App\Dto\CustomerUserResponseDto;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
@@ -26,13 +27,22 @@ class UserModifyTest extends TestCase
             ->expects($this->once())
             ->method('flush');
 
-        $client = new Client();
+        $userResponseDto = new UserResponseDto();
+            $userResponseDto->username = "username";
+            $userResponseDto->email = 'mail@mail.com';
+            $userResponseDto->password = "password";
+
+        $customerUserResponseDto = $this->createMock(CustomerUserResponseDto::class);
+        $customerUserResponseDto
+            ->expects($this->once())
+            ->method('transformFromObject')
+            ->willReturn($userResponseDto);
 
         $user = new User();
-            $user->setUsername("Daniel");
-            $user->setPassword("password");
-            $user->setEmail("mai@mail.com");
-            $user->setClient($client);
+        $user  
+            ->setUsername("username")
+            ->setPassword("password")
+            ->setEmail("mai@mail.com");
 
         $userRepository = $this->createMock(UserRepository::class);
         $userRepository
@@ -58,8 +68,8 @@ class UserModifyTest extends TestCase
             ->method('isGranted')
             ->willReturn(true);
 
-        $classToTest = new UserModify($userRepository, $entityManager, $security, $validator);
-        $id = 5;
+        $classToTest = new UserModify($userRepository, $entityManager, $security, $validator, $customerUserResponseDto);
+        $id = 1;
         $expected = ["L'utilisateur a été modifié avec succès", 200];
 
         $this->assertEquals($expected, $classToTest->modifyUser($id, $request));

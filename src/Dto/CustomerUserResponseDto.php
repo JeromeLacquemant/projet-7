@@ -36,7 +36,7 @@ class CustomerUserResponseDto
         $dto->username = $user['username'];
         $dto->password = $user['password'];
         $dto->email = $user['email'];
-        
+
         return $dto;
         
     }
