@@ -6,16 +6,18 @@ namespace App\Tests\Unit\Services\Client;
 
 use App\Entity\Client;
 use PHPUnit\Framework\TestCase;
-use App\Hateos\LinksConstructor;
 use App\Repository\ClientRepository;
 use App\Services\Client\ClientOneLoader;
 use Symfony\Component\HttpFoundation\Request;
+use App\Output\OutputConstructors\ClientOneOutputConstruction;
+use App\Output\Outputs\ClientOutput;
 
 class ClientOneLoaderTest extends TestCase
 {
     public function testUserOneLoader()
     {
         $client = new Client();
+        $clientOutput = new ClientOutput();
         
         $clientRepository = $this->createMock(ClientRepository::class);
         $clientRepository
@@ -25,12 +27,16 @@ class ClientOneLoaderTest extends TestCase
 
         $request = $this->createMock(Request::class);
 
-        $linksConstructor = $this->createMock(LinksConstructor::class);
+        $clientOneOutputConstruction = $this->createMock(ClientOneOutputConstruction::class);
+        $clientOneOutputConstruction
+            ->expects($this->once())
+            ->method('outputConstruction')
+            ->willReturn($clientOutput); 
 
-        $classToTest = new ClientOneLoader($clientRepository, $linksConstructor);
+        $classToTest = new ClientOneLoader($clientRepository, $clientOneOutputConstruction);
 
-        $id = 8;
+        $id = 1;
 
-        $this->assertInstanceOf(Client::class, $classToTest->loadOneClient($id, $request));
+        $this->assertInstanceOf(ClientOutput::class, $classToTest->loadOneClient($id, $request));
     }
 }
