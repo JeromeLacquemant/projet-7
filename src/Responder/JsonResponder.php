@@ -27,7 +27,7 @@ class JsonResponder
         $jsonResponse = new JsonResponse(
                 $this->serializer->serialize($response, 'json', $option),
                 $codeHttp,
-                [],
+                ['X-API-Version' => 1],
                 true
             );
 
