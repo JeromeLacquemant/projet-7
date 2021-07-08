@@ -2,20 +2,30 @@
 
 namespace App\Entity;
 
+use Ramsey\Uuid\UuidInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Hateoas\Configuration\Relation;
 use App\Repository\ProductRepository;
 use Hateoas\Configuration\Annotation as Hateoas;
+use Ramsey\Uuid\Nonstandard\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  */
 class Product
 {
+    public function __construct()
+    {
+        $this->id = Uuid::uuid4()->toString();
+    }
+    
     /**
+     * @var \Ramsey\Uuid\UuidInterface
+     *
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class=UuidGenerator::class)
      */
     private $id;
 
@@ -34,7 +44,7 @@ class Product
      */
     private $price;
 
-    public function getId(): ?int
+    public function getId()
     {
         return $this->id;
     }
