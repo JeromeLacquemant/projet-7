@@ -4,10 +4,11 @@ namespace App\Entity;
 
 use Ramsey\Uuid\UuidInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Nonstandard\Uuid;
 use Hateoas\Configuration\Relation;
 use App\Repository\ProductRepository;
+use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Hateoas\Configuration\Annotation as Hateoas;
-use Ramsey\Uuid\Nonstandard\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
