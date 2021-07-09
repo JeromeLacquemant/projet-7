@@ -2,12 +2,20 @@
 
 namespace App\Output\Outputs;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 class ProductOutput
 {
     private $id;
 
+    /**
+     * @Assert\Length(min=5, max=100)
+     */
     private $name;
 
+    /**
+     * @Assert\Length(min=5, max=255)
+     */
     private $description;
     
     private $price;
