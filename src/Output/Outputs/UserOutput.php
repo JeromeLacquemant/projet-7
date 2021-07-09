@@ -13,12 +13,12 @@ class UserOutput
     private $id;
 
     /**
-     * @Assert\Length(min=5, max=100)
+     * @Assert\Length(min=5, max=100, minMessage="Votre username doit contenir entre 5 et 100 caratères.")
      */
     private $username;
 
     /**
-     * @Assert\Length(min=8)
+     * @Assert\Length(min=8, minMessage="Votre mot de passe doit contenir au moins 8 caractères.")
      */
     private $password;
 

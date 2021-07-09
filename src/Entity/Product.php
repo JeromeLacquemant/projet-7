@@ -9,6 +9,7 @@ use Hateoas\Configuration\Relation;
 use App\Repository\ProductRepository;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Hateoas\Configuration\Annotation as Hateoas;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
@@ -32,11 +33,13 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=5, max=100, minMessage="Votre nom de produit doit contenir entre 5 et 100 caratères.")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=5, max=255, minMessage="Votre description doit contenir entre 5 et 100 caratères.")
      */
     private $description;
 

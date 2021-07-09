@@ -13,6 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields = {"email"})
  * @UniqueEntity(fields={"email"}, message = "L'adresse email est déjà utilisé")
  */
 class User implements UserInterface
@@ -27,18 +28,21 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=5, max=100, minMessage="Votre username doit contenir entre 5 et 100 caratères.")
      * @Groups("user:read")
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=8, minMessage="Votre mot de passe doit contenir au moins 8 caratères.")
      * @Groups("user:read")
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email()
      * @Groups("user:read")
      * @Assert\Email()
      */
