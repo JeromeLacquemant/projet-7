@@ -14,12 +14,12 @@ class ProductOutput
     
     private $_links;
     
-    public function getId(): ?int
+    public function getId()
     {
         return $this->id;
     }
 
-    public function setId(int $id): self
+    public function setId($id): self
     {
         $this->id = $id;
 
