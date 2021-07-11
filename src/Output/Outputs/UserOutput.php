@@ -2,29 +2,14 @@
 
 namespace App\Output\Outputs;
 
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
-/**
-* @UniqueEntity(fields = {"email"})
-*/
 class UserOutput
 {
     private $id;
 
-    /**
-     * @Assert\Length(min=5, max=100, minMessage="Votre username doit contenir entre 5 et 100 caratères.")
-     */
     private $username;
 
-    /**
-     * @Assert\Length(min=8, minMessage="Votre mot de passe doit contenir au moins 8 caractères.")
-     */
     private $password;
 
-    /**
-     * @Assert\Email()
-     */
     private $email;
 
     private $_links;
