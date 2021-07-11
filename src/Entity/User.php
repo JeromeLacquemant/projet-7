@@ -28,7 +28,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=5, max=100, minMessage="Votre username doit contenir entre 5 et 100 caratères.")
+     * @Assert\Length(min=5, max=30, minMessage="Votre username doit contenir entre 5 et 100 caratères.")
      * @Groups("user:read")
      */
     private $username;
