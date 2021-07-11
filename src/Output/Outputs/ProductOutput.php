@@ -9,7 +9,7 @@ class ProductOutput
     private $id;
 
     /**
-     * @Assert\Length(min=5, max=100, , minMessage="Votre nom de produit doit contenir entre 5 et 100 caratères.")
+     * @Assert\Length(min=5, max=100, minMessage="Votre nom de produit doit contenir entre 5 et 100 caratères.")
      */
     private $name;
 
