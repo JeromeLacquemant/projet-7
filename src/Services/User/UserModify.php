@@ -11,6 +11,7 @@ use App\Exception\ClientUnauthorizedException;
 use Symfony\Component\Validator\ConstraintViolation;
 use App\Services\User\Interfaces\UserModifyInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use App\Output\OutputConstructors\UserValidationOutputConstruction;
 
 class UserModify implements UserModifyInterface
 {
@@ -21,17 +22,26 @@ class UserModify implements UserModifyInterface
         UserRepository $userRepository,
         EntityManagerInterface $entityManagerInterface,
         Security $security,
-        ValidatorInterface $validator
+        ValidatorInterface $validator,
+        UserValidationOutputConstruction $userValidationOutputConstruction
         ) 
     {
         $this->userRepository = $userRepository;
         $this->entityManagerInterface = $entityManagerInterface;
         $this->security = $security;
         $this->validator = $validator;
+        $this->userValidationOutputConstruction = $userValidationOutputConstruction;
     }
 
     public function modifyUser($id, Request $request)
     {
+        $outputUser = $this->userValidationOutputConstruction->outputConstruction($request);
+
+        if(is_array($outputUser))
+        {
+            return [$outputUser, 400];
+        }
+        
         $registeredUser = $this->userRepository->find($id);
 
         if(is_null($registeredUser)) {

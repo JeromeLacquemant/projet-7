@@ -8,7 +8,7 @@ use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class UserAddOutputConstruction
+class UserValidationOutputConstruction
 {
     public function __construct(
         SerializerInterface $serializer,
