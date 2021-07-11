@@ -8,26 +8,40 @@ use Symfony\Component\Security\Core\Security;
 use App\Services\User\Interfaces\UserAddInterface;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Serializer\SerializerInterface;
+use App\Output\OutputConstructors\UserAddOutputConstruction;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserAdd implements UserAddInterface
 {
     private $serializer;
     private $entityManager;
+    private $security;
+    private $validator;
+    private $userAddOutputConstruction;
 
     public function __construct(
         SerializerInterface $serializer,
         EntityManagerInterface $entityManager,
         Security $security,
-        ValidatorInterface $validator) 
+        ValidatorInterface $validator,
+        UserAddOutputConstruction $userAddOutputConstruction) 
     {
         $this->serializer = $serializer;
         $this->entityManager = $entityManager;
         $this->security = $security;
         $this->validator = $validator;
+        $this->userAddOutputConstruction = $userAddOutputConstruction;
     }
 
     public function addUser(Request $request) {
+        
+        $outputUser = $this->userAddOutputConstruction->outputConstruction($request);
+
+        if(is_array($outputUser))
+        {
+            return [$outputUser, 400];
+        }
+
         $data = $request->getContent();
         $client = $this->security->getUser(); 
         
