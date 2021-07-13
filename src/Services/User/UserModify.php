@@ -50,12 +50,11 @@ class UserModify implements UserModifyInterface
 
         if($this->security->isGranted('edit', $registeredUser))
         {
-            $data = json_decode($request->getContent(), true);
-
-            $registeredUser
-                ->setUsername($data["username"])
-                ->setPassword($data["password"])
-                ->setEmail($data["email"]);
+            $registeredUser->modify(
+                $outputUser->getUsername(),
+                $outputUser->getPassword(),
+                $outputUser->getEmail()
+            );
 
             $violations = $this->validator->validate($registeredUser);
 
