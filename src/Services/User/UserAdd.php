@@ -2,14 +2,15 @@
 
 namespace App\Services\User;
 
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use App\Services\User\Interfaces\UserAddInterface;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Serializer\SerializerInterface;
-use App\Output\OutputConstructors\UserValidationOutputConstruction;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use App\Output\OutputConstructors\UserValidationOutputConstruction;
 
 class UserAdd implements UserAddInterface
 {
@@ -42,10 +43,14 @@ class UserAdd implements UserAddInterface
             return [$outputUser, 400];
         }
 
-        $data = $request->getContent();
+        $user = new User(
+            $outputUser->getUsername(),
+            $outputUser->getPassword(),
+            $outputUser->getEmail()
+        );
+   
         $client = $this->security->getUser(); 
         
-        $user = $this->serializer->deserialize($data, 'App\Entity\User', 'json');
         $user->setClient($client);
 
         $violations = $this->validator->validate($user);
