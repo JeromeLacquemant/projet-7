@@ -7,14 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields = {"email"})
- * @UniqueEntity(fields={"email"}, message = "L'adresse email est déjà utilisé")
  */
 class User implements UserInterface
 {
@@ -28,23 +24,19 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=5, max=30, minMessage="Votre username doit contenir entre 5 et 100 caratères.")
      * @Groups("user:read")
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=8, minMessage="Votre mot de passe doit contenir au moins 8 caratères.")
      * @Groups("user:read")
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Email()
      * @Groups("user:read")
-     * @Assert\Email()
      */
     private $email;
 
@@ -111,4 +103,18 @@ class User implements UserInterface
     public function getSalt() {}
 
     public function getRoles() {}
+
+    public function __construct($username, $password, $email)
+    {
+        $this->setUsername($username);
+        $this->setPassword($password);
+        $this->setEmail($email);
+    }
+
+    public function modify($username, $password, $email)
+    {
+        $this->setUsername($username);
+        $this->setPassword($password);
+        $this->setEmail($email);
+    }
 }
