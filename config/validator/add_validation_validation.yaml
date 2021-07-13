@@ -1,0 +1,35 @@
+App\Output\Outputs\UserOutput:
+  properties:
+        username:
+            - NotBlank: { message: "Un username est requis." }
+            - Length: 
+                min: 3
+                max: 30
+                minMessage: "Votre username doit contenir au moins 3 caratères."
+                maxMessage: "Votre username doit contenir au maximum 30 caratères."
+        password:
+            - NotBlank: ~
+            - Length:
+                min: 8
+                minMessage: "Votre mot de passe doit contenir au moins 8 caratères."
+
+App\Entity\User:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: 
+            fields: email
+            errorPath: email
+            message: "Cet email est déjà pris."
+    properties:
+        username:
+            - NotBlank: { message: 'Un username est requis.' }
+            - Length: 
+                min: 3
+                max: 30
+                minMessage: "Votre username doit contenir au moins 3 caratères."
+                maxMessage: "Votre username doit contenir au maximum 30 caratères."
+        password:
+            - NotBlank: ~
+            - Length:
+                min: 8
+                minMessage: "Votre mot de passe doit contenir au moins 8 caratères."
+                
