@@ -21,13 +21,11 @@ class UserAdd implements UserAddInterface
     private $userValidationOutputConstruction;
 
     public function __construct(
-        SerializerInterface $serializer,
         EntityManagerInterface $entityManager,
         Security $security,
         ValidatorInterface $validator,
         UserValidationOutputConstruction $userValidationOutputConstruction) 
     {
-        $this->serializer = $serializer;
         $this->entityManager = $entityManager;
         $this->security = $security;
         $this->validator = $validator;

@@ -12,11 +12,9 @@ class UserValidationOutputConstruction
 {
     public function __construct(
         SerializerInterface $serializer,
-        Security $security,
         ValidatorInterface $validator) 
     {
         $this->serializer = $serializer;
-        $this->security = $security;
         $this->validator = $validator;
     }
 
