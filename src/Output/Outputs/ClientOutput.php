@@ -3,20 +3,34 @@
 namespace App\Output\Outputs;
 
 use App\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+/**
+* @UniqueEntity(fields = {"email"})
+*/
 class ClientOutput
 {
         private $id;
-    
+
+        /**
+         * @Assert\Length(min=5, max=100, minMessage="Votre username doit contenir entre 5 et 100 caratères.")
+         */
         private $username;
-    
+
+        /**
+         * @Assert\Length(min=8, minMessage="Votre mot de passe doit contenir au moins 8 caractères.")
+         */
         private $password;
-    
+
+        /**
+         * @Assert\Email()
+         */
         private $email;
     
         private $_links;

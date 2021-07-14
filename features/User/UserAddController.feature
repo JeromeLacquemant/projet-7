@@ -9,7 +9,7 @@ Add a new user
         """
             {
                 "username": "jhon",
-                "password": "doe",
+                "password": "12345678",
                 "email": "jhon.doe@gmail.com"
             }
         """
@@ -21,7 +21,7 @@ Add a new user
         """
             {
                 "username": "jhon",
-                "password": "doe",
+                "password": "12345678",
                 "email": "jhon.doe@gmail.com"
             }
         """
@@ -38,7 +38,7 @@ Add a new user
         """
             {
                 "username": "jhon",
-                "password": "doe",
+                "password": "12345678",
                 "email": "user_1@gmail.com"
             }
         """
@@ -46,7 +46,7 @@ Add a new user
         And the response should be in JSON
         Then the response should be equal to:
         """
-        {"message":["L'adresse email est d\u00e9j\u00e0 utilis\u00e9"]}
+        {"message":["Cet email est d\u00e9j\u00e0 pris."]}
         """
 
     Scenario: Wrong route

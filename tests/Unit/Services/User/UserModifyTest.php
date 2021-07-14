@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Services\User;
 
 use App\Entity\User;
-use App\Entity\Client;
 use PHPUnit\Framework\TestCase;
 use App\Services\User\UserModify;
 use App\Repository\UserRepository;
@@ -13,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use App\Output\OutputConstructors\UserValidationOutputConstruction;
 
 class UserModifyTest extends TestCase
 {
@@ -26,13 +26,7 @@ class UserModifyTest extends TestCase
             ->expects($this->once())
             ->method('flush');
 
-        $client = new Client();
-
-        $user = new User();
-            $user->setUsername("Daniel");
-            $user->setPassword("password");
-            $user->setEmail("mai@mail.com");
-            $user->setClient($client);
+        $user = new User("username", "password", "email");
 
         $userRepository = $this->createMock(UserRepository::class);
         $userRepository
@@ -47,10 +41,6 @@ class UserModifyTest extends TestCase
             ->willReturn([]);
 
         $request = $this->createMock(Request::class);
-        $request    
-            ->expects($this->once())
-            ->method('getContent')
-            ->willReturn('{"username":"daniel","password":"password","email":"mail@mail.com"}');
 
         $security = $this->createMock(Security::class);
         $security
@@ -58,7 +48,13 @@ class UserModifyTest extends TestCase
             ->method('isGranted')
             ->willReturn(true);
 
-        $classToTest = new UserModify($userRepository, $entityManager, $security, $validator);
+        $userValidationOutputConstruction = $this->createMock(UserValidationOutputConstruction::class);
+        $userValidationOutputConstruction
+            ->expects($this->once())
+            ->method('outputConstruction')
+            ->willReturn($user); 
+
+        $classToTest = new UserModify($userRepository, $entityManager, $security, $validator, $userValidationOutputConstruction);
         $id = 5;
         $expected = ["L'utilisateur a été modifié avec succès", 200];
 

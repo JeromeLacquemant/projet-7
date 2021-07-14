@@ -37,7 +37,7 @@ class ClientTest extends TestCase
 
     public function testSetClient()
     {
-        $classToTest = new User();
+        $classToTest = new User("username", "password", "email");
         $client = new Client();
 
         $classToTest->setClient($client);

@@ -11,8 +11,8 @@ use PHPUnit\Framework\TestCase;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use App\Output\OutputConstructors\UserValidationOutputConstruction;
 
 class UserAddTest extends TestCase
 {
@@ -20,18 +20,7 @@ class UserAddTest extends TestCase
     {
         $client = new Client();
 
-        $user = new User();
-            $user->setUsername("Daniel");
-            $user->setPassword("password");
-            $user->setEmail("mai@mail.com");
-            $user->setClient($client);
-
-        $serializer = $this->createMock(SerializerInterface::class);
-        $serializer
-            ->expects($this->once())
-            ->method('deserialize')
-            ->willReturn('test')
-            ->willReturn($user);
+        $user = new User("username", "password", "email");
 
         $entityManager = $this->createMock(EntityManagerInterface::class);
         $entityManager
@@ -48,10 +37,6 @@ class UserAddTest extends TestCase
             ->willReturn([]);
 
         $request = $this->createMock(Request::class);
-        $request    
-            ->expects($this->once())
-            ->method('getContent')
-            ->willReturn('{"username":"daniel","password":"password","email":"mail@mail.com"}');
 
         $security = $this->createMock(Security::class);
         $security
@@ -59,7 +44,13 @@ class UserAddTest extends TestCase
             ->method('getUser')
             ->willReturn($client);
 
-        $classToTest = new UserAdd($serializer, $entityManager, $security, $validator);
+        $userValidationOutputConstruction = $this->createMock(UserValidationOutputConstruction::class);
+        $userValidationOutputConstruction
+            ->expects($this->once())
+            ->method('outputConstruction')
+            ->willReturn($user); 
+
+        $classToTest = new UserAdd($entityManager, $security, $validator, $userValidationOutputConstruction);
         $expected = ["L'utilisateur a été ajouté avec succès", 201];
 
         $this->assertEquals($expected, $classToTest->addUser($request));

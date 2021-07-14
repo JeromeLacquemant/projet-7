@@ -26,7 +26,7 @@ class UserDeleteTest extends TestCase
 
         $client = new Client();
 
-        $user = new User();
+        $user = new User("username", "password", "email");
             $user->setUsername("Daniel");
             $user->setPassword("password");
             $user->setEmail("mai@mail.com");

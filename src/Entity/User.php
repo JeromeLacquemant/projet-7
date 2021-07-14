@@ -7,13 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"email"}, message = "L'adresse email est déjà utilisé")
  */
 class User implements UserInterface
 {
@@ -40,7 +37,6 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups("user:read")
-     * @Assert\Email()
      */
     private $email;
 
@@ -107,4 +103,18 @@ class User implements UserInterface
     public function getSalt() {}
 
     public function getRoles() {}
+
+    public function __construct($username, $password, $email)
+    {
+        $this->setUsername($username);
+        $this->setPassword($password);
+        $this->setEmail($email);
+    }
+
+    public function modify($username, $password, $email)
+    {
+        $this->setUsername($username);
+        $this->setPassword($password);
+        $this->setEmail($email);
+    }
 }

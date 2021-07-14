@@ -2,7 +2,6 @@
 
 namespace App\Output\Outputs;
 
-
 class UserOutput
 {
     private $id;

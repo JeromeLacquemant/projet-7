@@ -21,7 +21,7 @@ class UserOneLoaderTest extends TestCase
         $client = new Client();
         $userOutput = new UserOutput();
 
-        $user = new User();
+        $user = new User("username", "password", "email");
             $user->setUsername("Daniel");
             $user->setPassword("password");
             $user->setEmail("mai@ail.com");

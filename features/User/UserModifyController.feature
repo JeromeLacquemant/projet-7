@@ -10,7 +10,7 @@ Modify a new user
         """
         {
             "username": "jhon",
-            "password": "doe",
+            "password": "12345678",
             "email": "user@gmail.com"
         }
         """
@@ -22,7 +22,7 @@ Modify a new user
         """
         {
             "username": "jhon",
-            "password": "doe",
+            "password": "12345678",
             "email": "user@gmail.com"
         }
         """
@@ -40,7 +40,7 @@ Modify a new user
         """
         {
             "username": "jhon",
-            "password": "doe",
+            "password": "12345678",
             "email": "user@gmail.com"
         }
         """
