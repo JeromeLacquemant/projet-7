@@ -12,6 +12,7 @@ class JsonResponder
 {
     const codeHttpOk = HttpFoundationResponse::HTTP_OK;
     const cacheTiming = 3600;
+    const apiVersion = "1.0.0";
 
     private SerializerInterface $serializer;
 
@@ -31,7 +32,7 @@ class JsonResponder
                 true
             );
 
-        $jsonResponse->headers->set('Content-Type', 'application/json');
+        $jsonResponse->headers->set('Content-Type', 'application/json;version= '.self::apiVersion);
 
         if($request->isMethodCacheable() == true)
         {
