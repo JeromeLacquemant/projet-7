@@ -21,7 +21,7 @@ class UserFixtures extends Fixture
         $user = new User('Lastname 1', 'firstname 1', "user_1@gmail.com");
         $user 
             ->setUsername('Username dd')
-            ->setPassword('12345')
+            ->setPassword(password_hash('12345', PASSWORD_BCRYPT))
             ->setEmail("user_1@gmail.com")
             ->setClient($this->getReference('Client 1'));
         $manager->persist($user);
@@ -29,7 +29,7 @@ class UserFixtures extends Fixture
         $user = new User('Lastname 2', 'firstname 2', "user_2@gmail.com");
         $user 
             ->setUsername('Username 2')
-            ->setPassword('12345')
+            ->setPassword(password_hash('12345', PASSWORD_BCRYPT))
             ->setEmail("user_2@gmail.com")
             ->setClient($this->getReference('Client 2'));
         $manager->persist($user);
@@ -38,7 +38,7 @@ class UserFixtures extends Fixture
             $user = new User('Lastname '.$i, 'firstname '.$i, "user_".$i."@gmail.com");
             $user 
                 ->setUsername('Usernamesss '.$i)
-                ->setPassword('12345')
+                ->setPassword(password_hash('12345', PASSWORD_BCRYPT))
                 ->setEmail("user_".$i."@gmail.com")
                 ->setClient($this->getReference('Client '.mt_rand(0, 3)));
 
