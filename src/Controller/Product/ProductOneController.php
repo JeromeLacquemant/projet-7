@@ -22,7 +22,7 @@ class ProductOneController
     }
 
      /**
-     * @Route("/products/{id}", name="see_one_product", methods={"GET"})
+     * @Route("api/products/{id}", name="see_one_product", methods={"GET"})
      */
     public function seeProduct($id, Request $request)
     {

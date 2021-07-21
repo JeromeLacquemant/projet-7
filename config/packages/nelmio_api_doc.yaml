@@ -14,7 +14,7 @@ nelmio_api_doc:
                 '200': 
                   description: The documentation is displayed
 
-          /products:
+          api/products:
             get:
               tags:
                 - Products
@@ -26,6 +26,11 @@ nelmio_api_doc:
                     type: integer
                   required: false
                   description: Number of the page to get
+                - in: path
+                  name: token
+                  schema:
+                    type: string
+                  required: true
               responses:
                 '200': 
                   description: A JSON array of products (id, name, description, price)
@@ -42,7 +47,7 @@ nelmio_api_doc:
                                 "links": {"get": {"rel": "/products"}}}
                                ]
 
-          /products/{id}:
+          api/products/{id}:
             get:
               tags:
                 - Products
@@ -54,7 +59,12 @@ nelmio_api_doc:
                     type: integer
                     minimum: 1
                   required: true
-                  description: Numeric ID of the product to get        
+                  description: Numeric ID of the product to get   
+                - in: path
+                  name: token
+                  schema:
+                    type: string
+                  required: true     
               responses:
                 '200': 
                   description: A JSON string of one product (id, name, description, price)
@@ -68,7 +78,7 @@ nelmio_api_doc:
                     application/json:
                       example: {"message": "Le produit n'a pas été trouvé."}
             
-          /clients:
+          api/clients:
             get:
               tags:
                 - Clients
@@ -80,23 +90,28 @@ nelmio_api_doc:
                     type: integer
                   required: false
                   description: Number of the page to get
+                - in: path
+                  name: token
+                  schema:
+                    type: string
+                  required: true
               responses:
                 '200': 
                   description: A JSON array of clients (id, username, password, email)
                   content:
                     application/json:
                       example: [
-                                {"id": "1", "username": "client_1", "password": "password", "email": "client_1@gmail.com",
+                                {"id": "1", "username": "client_1", "email": "client_1@gmail.com",
                                 "links": {"get": {"rel": "/clients"}}},
 
-                                {"id": "2", "username": "client_2", "password": "password", "email": "client_2@gmail.com",
+                                {"id": "2", "username": "client_2", "email": "client_2@gmail.com",
                                 "links": {"get": {"rel": "/clients"}}},
 
-                                {"id": "3", "username": "client_3", "password": "password", "email": "client_3@gmail.com",
+                                {"id": "3", "username": "client_3", "email": "client_3@gmail.com",
                                 "links": {"get": {"rel": "/clients"}}}
                                ]
 
-          /clients/{id}:
+          api/clients/{id}:
             get:
               tags:
                 - Clients
@@ -109,12 +124,17 @@ nelmio_api_doc:
                     minimum: 1
                   required: true
                   description: Numeric ID of the user to get
+                - in: path
+                  name: token
+                  schema:
+                    type: string
+                  required: true
               responses:
                 '200': 
                   description: A JSON string of one client (id, username, password, email)
                   content:
                     application/json:
-                      example: {"id": "1", "username": "client_1", "password": "password", "email": "client_1@gmail.com",
+                      example: {"id": "1", "username": "client_1", "email": "client_1@gmail.com",
                                 "links": {"get": {"rel": "/clients/1"}}}
                 '404': 
                   description: Client not found

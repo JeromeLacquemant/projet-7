@@ -22,7 +22,7 @@ class ClientOneController
     }
 
      /**
-     * @Route("/clients/{id}", name="see_one_client", methods={"GET"})
+     * @Route("api/clients/{id}", name="see_one_client", methods={"GET"})
      */
     public function seeClient($id, Request $request)
     {

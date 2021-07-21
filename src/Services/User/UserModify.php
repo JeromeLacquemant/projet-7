@@ -73,7 +73,7 @@ class UserModify implements UserModifyInterface
     
             return ["L'utilisateur a été modifié avec succès", 200];
         } else {
-            throw new ClientUnauthorizedException('Vous n\'êtes pas autorisé à modifier à cet user');
+            throw new ClientUnauthorizedException('Vous n\'êtes pas autorisé à modifier cet user');
         }
     }
 }

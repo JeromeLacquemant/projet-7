@@ -19,7 +19,7 @@ class ClientAllController
         $this->jsonResponder = $jsonResponder;
     }
     /**
-     * @Route("/clients", name="see_all_clients", methods={"GET"})
+     * @Route("api/clients", name="see_all_clients", methods={"GET"})
      */
     public function seeClients(Request $request)
     {
