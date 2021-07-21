@@ -101,13 +101,13 @@ nelmio_api_doc:
                   content:
                     application/json:
                       example: [
-                                {"id": "1", "username": "client_1", "password": "password", "email": "client_1@gmail.com",
+                                {"id": "1", "username": "client_1", "email": "client_1@gmail.com",
                                 "links": {"get": {"rel": "/clients"}}},
 
-                                {"id": "2", "username": "client_2", "password": "password", "email": "client_2@gmail.com",
+                                {"id": "2", "username": "client_2", "email": "client_2@gmail.com",
                                 "links": {"get": {"rel": "/clients"}}},
 
-                                {"id": "3", "username": "client_3", "password": "password", "email": "client_3@gmail.com",
+                                {"id": "3", "username": "client_3", "email": "client_3@gmail.com",
                                 "links": {"get": {"rel": "/clients"}}}
                                ]
 
@@ -134,7 +134,7 @@ nelmio_api_doc:
                   description: A JSON string of one client (id, username, password, email)
                   content:
                     application/json:
-                      example: {"id": "1", "username": "client_1", "password": "password", "email": "client_1@gmail.com",
+                      example: {"id": "1", "username": "client_1", "email": "client_1@gmail.com",
                                 "links": {"get": {"rel": "/clients/1"}}}
                 '404': 
                   description: Client not found
