@@ -22,7 +22,6 @@ class ClientOneOutputConstruction
         $outputClient
                 ->setId($data->getId())        
                 ->setUsername($data->getName())
-                ->setPassword($data->getPassword())
                 ->setEmail($data->getEmail());
 
         $this->linksConstructor->linksConstruction($outputClient, $request, $id);
