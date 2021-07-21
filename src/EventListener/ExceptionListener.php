@@ -12,9 +12,9 @@ use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 class ExceptionListener
 {
-    const exceptionTypeNotFound = HttpFoundationResponse::HTTP_NOT_FOUND;
-    const exceptionTypeForbidden = HttpFoundationResponse::HTTP_FORBIDDEN;
-    const exceptionBadRequest = HttpFoundationResponse::HTTP_BAD_REQUEST;
+    const EXCEPTION_TYPE_NOT_FOUND = HttpFoundationResponse::HTTP_NOT_FOUND;
+    const EXCEPTION_TYPE_FORBIDDEN = HttpFoundationResponse::HTTP_FORBIDDEN;
+    const EXCEPTION_BAD_REQUEST = HttpFoundationResponse::HTTP_BAD_REQUEST;
 
     public function onKernelException(ExceptionEvent $event)
     {
@@ -22,22 +22,22 @@ class ExceptionListener
 
         switch (true) {
             case $exception instanceof NotFoundHttpException:
-                $status = self::exceptionTypeNotFound;
+                $status = self::EXCEPTION_TYPE_NOT_FOUND;
                 break;
             case $exception instanceof UserNotFoundException:
-                $status = self::exceptionTypeNotFound;
+                $status = self::EXCEPTION_TYPE_NOT_FOUND;
                 break;
             case $exception instanceof ClientNotFoundException:
-                $status = self::exceptionTypeNotFound;
+                $status = self::EXCEPTION_TYPE_NOT_FOUND;
                 break;
             case $exception instanceof ProductNotFoundException:
-                $status = self::exceptionTypeNotFound;
+                $status = self::EXCEPTION_TYPE_NOT_FOUND;
                 break;
             case $exception instanceof ClientUnauthorizedException:
-                $status = self::exceptionTypeForbidden;
+                $status = self::EXCEPTION_TYPE_FORBIDDEN;
                 break;
             default:    
-                $status = self::exceptionBadRequest;
+                $status = self::EXCEPTION_BAD_REQUEST;
         }
 
         $customResponse = new JsonResponse(['message' => $exception->getMessage()], $status);

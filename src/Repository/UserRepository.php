@@ -16,7 +16,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class UserRepository extends ServiceEntityRepository
 {
-	const numberOfElementsByPage = 6;
+	const NUMBER_OF_ELEMENTS_BY_PAGE = 6;
 
     public function __construct(ManagerRegistry $registry, Security $security)
     {
@@ -40,12 +40,12 @@ class UserRepository extends ServiceEntityRepository
     public function getUsers($page){
         $id = $this->security->getUser();
 
-		$firstResult = ($page - 1) * self::numberOfElementsByPage;
+		$firstResult = ($page - 1) * self::NUMBER_OF_ELEMENTS_BY_PAGE;
 
 		$queryBuilder = $this->getAllUsersQueryBuilder($id);
 		
 		$queryBuilder->setFirstResult($firstResult);
-		$queryBuilder->setMaxResults(self::numberOfElementsByPage);
+		$queryBuilder->setMaxResults(self::NUMBER_OF_ELEMENTS_BY_PAGE);
 		
 		$query = $queryBuilder->getQuery()->getResult();
 

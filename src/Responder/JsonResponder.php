@@ -10,9 +10,9 @@ use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 class JsonResponder
 {
-    const codeHttpOk = HttpFoundationResponse::HTTP_OK;
-    const cacheTiming = 3600;
-    const apiVersion = "1.0.0";
+    const CODE_HTTP_OK = HttpFoundationResponse::HTTP_OK;
+    const CACHE_TIMING = 3600;
+    const API_VERSION = "1.0.0";
 
     private SerializerInterface $serializer;
 
@@ -21,7 +21,7 @@ class JsonResponder
         $this->serializer = $serializer;
     }
 
-    public function respond($response, $request, $codeHttp=self::codeHttpOk)
+    public function respond($response, $request, $codeHttp=self::CODE_HTTP_OK)
     {         
         $option['json_encode_options'] = JSON_UNESCAPED_SLASHES;
 
@@ -32,11 +32,11 @@ class JsonResponder
                 true
             );
 
-        $jsonResponse->headers->set('Content-Type', 'application/json;version= '.self::apiVersion);
+        $jsonResponse->headers->set('Content-Type', 'application/json;version= '.self::API_VERSION);
 
         if($request->isMethodCacheable() == true)
         {
-            $jsonResponse->setMaxAge(self::cacheTiming);
+            $jsonResponse->setMaxAge(self::CACHE_TIMING);
         }
         
         return $jsonResponse;

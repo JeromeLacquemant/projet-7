@@ -14,7 +14,6 @@ use App\Output\OutputConstructors\UserValidationOutputConstruction;
 
 class UserAdd implements UserAddInterface
 {
-    private $serializer;
     private $entityManager;
     private $security;
     private $validator;
