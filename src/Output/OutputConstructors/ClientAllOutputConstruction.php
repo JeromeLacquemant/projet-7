@@ -27,7 +27,6 @@ class ClientAllOutputConstruction
             $outputClient
                 ->setId($value->getId())        
                 ->setUsername($value->getName())
-                ->setPassword($value->getPassword())
                 ->setEmail($value->getEmail());
             
             $this->linksConstructor->linksConstruction($outputClient, $request);

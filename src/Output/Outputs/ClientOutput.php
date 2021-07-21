@@ -24,11 +24,6 @@ class ClientOutput
         private $username;
 
         /**
-         * @Assert\Length(min=8, minMessage="Votre mot de passe doit contenir au moins 8 caractères.")
-         */
-        private $password;
-
-        /**
          * @Assert\Email()
          */
         private $email;
@@ -65,18 +60,6 @@ class ClientOutput
         public function setUsername(string $username): self
         {
             $this->username = $username;
-    
-            return $this;
-        }
-    
-        public function getPassword(): ?string
-        {
-            return $this->password;
-        }
-    
-        public function setPassword(string $password): self
-        {
-            $this->password = $password;
     
             return $this;
         }
